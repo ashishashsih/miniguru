@@ -30,23 +30,40 @@ class ShopItemView extends GetView<ShopItemController> {
           const Text('John Smith 🖐️', style: titleStyle),
           SizedBox(width: size.width * 0.05),
           InkWell(
-            onTap: () => Get.to(CartView(), transition: Transition.upToDown),
+            onTap: () {
+              Get.toNamed("/cart");
+            },
             child: Badge(
               badgeContent: Obx(() {
-                return Text(
-                  cartController.productList.length != null ? cartController
-                      .productList.length.toString() : "0",
-                  style: blueButtonSubTitle,);
+                return Text(cartController.productList.length.toString(),
+                  style: TextStyle(fontSize: 10, color: Colors.white),);
               }),
-              //badgeColor: Colors.black.withOpacity(0.6),
               child: Image.asset(
                 'images/cart.png',
-                height: size.width * 0.075,
-                width: size.width * 0.075,
+                height: size.width * 0.06,
+                width: size.width * 0.06,
                 fit: BoxFit.cover,
               ),
             ),
           ),
+          // InkWell(
+          //   onTap: () => Get.to(CartView(), transition: Transition.upToDown),
+          //   child: Badge(
+          //     badgeContent: Obx(() {
+          //       return Text(
+          //         cartController.productList.length != null ? cartController
+          //             .productList.length.toString() : "0",
+          //         style: blueButtonSubTitle,);
+          //     }),
+          //     //badgeColor: Colors.black.withOpacity(0.6),
+          //     child: Image.asset(
+          //       'images/cart.png',
+          //       height: size.width * 0.075,
+          //       width: size.width * 0.075,
+          //       fit: BoxFit.cover,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

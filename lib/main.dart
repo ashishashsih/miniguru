@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: ThemeData(fontFamily: 'Poppins'),
           title: "MiniGuru",
-          home: isLogin == true ? ShopView() : const OnBoardingView(),
+          home: isLogin == true ? BottomBarView() : const OnBoardingView(),
           getPages: AppPages.routes,
 
         );

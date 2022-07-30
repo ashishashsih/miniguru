@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_3d_choice_chip/flutter_3d_choice_chip.dart';
 import 'package:get/get.dart';
+import 'package:mini_guru/app/modules/cart/controllers/cart_controller.dart';
 import 'package:mini_guru/app/modules/model/shopItems.dart';
 import 'package:mini_guru/app/modules/profilePage/controllers/profile_page_controller.dart';
 import 'package:mini_guru/app/modules/shopItem/views/shop_item_view.dart';
@@ -20,6 +21,7 @@ class ShopView extends GetView<ShopController> {
 
     ShopController controller = Get.put(ShopController());
     ProfilePageController profilePageController=Get.put(ProfilePageController());
+    CartController cartController=Get.put(CartController());
     final size = MediaQuery
         .of(context)
         .size;
@@ -72,7 +74,7 @@ class ShopView extends GetView<ShopController> {
                 },
                 child: Badge(
                   badgeContent: Obx(() {
-                    return Text(controller.productList.length.toString(),
+                    return Text(cartController.productList.length.toString(),
                       style: TextStyle(fontSize: 10, color: Colors.white),);
                   }),
                   child: Image.asset(

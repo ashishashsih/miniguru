@@ -14,7 +14,7 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeController homeController = Get.put(HomeController());
-  ShopItemController shopController = Get.put(ShopItemController());
+  //ShopItemController shopController = Get.put(ShopItemController());
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery

@@ -8,16 +8,19 @@ import 'package:mini_guru/constants.dart';
 
 import '../controllers/cart_controller.dart';
 
-class CartView extends GetView<CartController> {
+class CartView extends GetView<CartController>
+{
   CartController cartController = Get.put(CartController());
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
+    cartController.setCartValue();
     final size = MediaQuery
         .of(context)
         .size;
     final appBar = SizedBox(
-      height: size.width / 6,
+      height: size.width / 7,
       child: Stack(
         children: [
           const Center(
@@ -47,7 +50,7 @@ class CartView extends GetView<CartController> {
     );
     final wallet = Container(
       width: size.width,
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
           color: secondaryColor,
           // border: Border.all(color: Colors.black),
@@ -83,7 +86,7 @@ class CartView extends GetView<CartController> {
               children: [
                 Lottie.network(
                     'https://assets9.lottiefiles.com/packages/lf20_xUyFWi.json',
-                    height: size.width * 0.15,
+                    height: size.width * 0.10,
                     fit: BoxFit.cover),
                 SizedBox(
                   height: size.width * 0.01,
@@ -108,12 +111,18 @@ class CartView extends GetView<CartController> {
           ),
         ),
         child: Stack(
-          children: const [
-            Center(
-                child: Text(
-                  'Checkout',
-                  style: buttonTitleStyle,
-                )),
+          children: [
+            Obx(() {
+              return Center(
+                  child: Text.rich(
+                      TextSpan(
+                          text: 'Checkout with ', style: TextStyle(fontSize: 16), children: [
+                        TextSpan(
+                          text: '${cartController.cartValue.value.toString()}',
+                          style: TextStyle(color: Colors.red,fontSize: 22,),
+                        )
+                      ])));
+            }),
             Align(
               alignment: Alignment.centerRight,
               child: Icon(
@@ -165,19 +174,22 @@ class CartView extends GetView<CartController> {
                                 actionExtentRatio: 0.3,
                                 actions: [
                                   IconSlideAction(
-                                    caption: 'Delete',
-                                    color: Colors.red,
-                                    icon: Icons.delete,
-                                    onTap: () =>
-                                    {
-                                    cartController.productList.removeAt(index),
-                                    cartController.productList.refresh(),
-                                      if(cartController.productList.isEmpty)
-                                        {
-                                          Get.back()
-                                        }
-                                    }
-                                        //print('Delete'),
+                                      caption: 'Delete',
+                                      color: Colors.red,
+                                      icon: Icons.delete,
+                                      onTap: () =>
+                                      {
+                                        cartController.productList.removeAt(
+                                            index),
+                                        cartController.productList.refresh(),
+                                        cartController.setCartValue(),
+                                        if(cartController.productList.isEmpty)
+                                          {
+                                            Get.back()
+                                          }
+
+                                      }
+                                    //print('Delete'),
                                   ),
                                 ],
                                 child: Card(
@@ -227,19 +239,21 @@ class CartView extends GetView<CartController> {
                                           children: [
                                             InkWell(
                                                 onTap: () {
-                                                  if(cartController
+                                                  if (cartController
                                                       .productList[index]
-                                                      .quantity==1)
-                                                    {
+                                                      .quantity == 1) {
 
-                                                    }else
-                                                      {
-                                                  cartController
-                                                      .productList[index]
-                                                      .quantity--;
+                                                  } else {
+                                                    cartController
+                                                        .productList[index]
+                                                        .quantity--;
 
-                                                  cartController.productList.refresh();
-                                                }},
+                                                    cartController.productList
+                                                        .refresh();
+                                                    cartController
+                                                        .setCartValue();
+                                                  }
+                                                },
                                                 child: const Icon(
                                                   CupertinoIcons.minus_circle,
                                                   color: Colors.black,
@@ -256,7 +270,9 @@ class CartView extends GetView<CartController> {
                                                   cartController
                                                       .productList[index]
                                                       .quantity++;
-                                                  cartController.productList.refresh();
+                                                  cartController.productList
+                                                      .refresh();
+                                                  cartController.setCartValue();
                                                 },
                                                 child: const Icon(
                                                   CupertinoIcons.plus_circle,
