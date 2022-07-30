@@ -18,7 +18,7 @@ class CartView extends GetView<CartController>
         .of(context)
         .size;
     final appBar = SizedBox(
-      height: size.width / 7,
+      height: size.width * 0.15,
       child: Stack(
         children: [
           const Center(
@@ -97,7 +97,7 @@ class CartView extends GetView<CartController>
       ),
     );
     final addToCart = InkWell(
-      onTap: () {},
+      onTap: (){},
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         height: size.width / 7,
@@ -114,10 +114,10 @@ class CartView extends GetView<CartController>
               return Center(
                   child: Text.rich(
                       TextSpan(
-                          text: 'Checkout with : ',style: TextStyle(fontSize: 16), children: [
+                          text: 'Item Total : ',style: buttonTitleStyle, children: [
                         TextSpan(
-                          text: '${cartController.cartValue.value.toString()}',
-                          style: TextStyle(color: Colors.red,fontSize: 22,),
+                          text: '₹${cartController.cartValue.value.toString()}/-',
+                          style: headline,
                         )
                       ])));
             }),

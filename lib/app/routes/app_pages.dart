@@ -13,8 +13,6 @@ import '../modules/courseLessons/views/course_lessons_view.dart';
 import '../modules/filters/bindings/filters_binding.dart';
 import '../modules/filters/views/filters_view.dart';
 import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/views/home_view.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/indroduction/bindings/indroduction_binding.dart';
 import '../modules/indroduction/views/indroduction_view.dart';
