@@ -613,6 +613,24 @@ class ApiService
     }
   }
 
+  Future getProjectProcessData() async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var userId=prefs.getInt("userid");
+    // final response = await http.post(Uri.parse(GET_HOME_OFFER_LIST),
+    //     headers: {HttpHeaders.acceptHeader: "application/json"},
+    //     body: json.encode({"userId": '$userId'}));
+    // print(response.body);
+    var convertDataToJson = '{"status":true,"progressList":[{"domain":"Paint","measure":23},{"domain":"Board","measure":10},{"domain":"Pin","measure":35},{"domain":"Glue","measure":2},{"domain":"Pencil","measure":7}],"total_project":3,"complete_project":1}';//response.body;
+    var status = json.decode(convertDataToJson)['status'];
+    if (status)
+    {
+      var tag = json.decode(convertDataToJson); //['data'];
+      print(tag);
+      return tag;
+    }
+  }
+
   Future getProjectData() async
   {
     final prefs = await SharedPreferences.getInstance();
