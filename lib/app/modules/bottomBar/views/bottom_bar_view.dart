@@ -8,6 +8,7 @@ import 'package:mini_guru/app/modules/myProjects/views/my_projects_view.dart';
 import 'package:mini_guru/app/modules/projectList/views/project_list_view.dart';
 import 'package:mini_guru/app/modules/shop/views/shop_view.dart';
 import '../../myCourses/views/my_courses_view.dart';
+import '../../orderList/views/order_list_view.dart';
 import '../../progressReport/views/progress_report_view.dart';
 import '../controllers/bottom_bar_controller.dart';
 
@@ -28,6 +29,7 @@ class BottomBarView extends GetView<BottomBarController> {
           const ProgressReportView(),
           ProjectListView(),
           const ShopView(),
+          OrderListView(),
         ],
       ),
       bottomNavigationBar: Obx(() {
@@ -47,15 +49,14 @@ class BottomBarView extends GetView<BottomBarController> {
             CupertinoIcons.graph_circle,
             CupertinoIcons.tv_circle,
             CupertinoIcons.shopping_cart,
+            CupertinoIcons.bag,
           ],
           shadow: const Shadow(
             color: Colors.grey,
             blurRadius: 7.0,
           ),
-          gapLocation: GapLocation.center,
+          gapLocation: GapLocation.end,
           notchSmoothness: NotchSmoothness.sharpEdge,
-          leftCornerRadius: 30,
-          rightCornerRadius: 30,
           onTap: (index) {
             barController.currentIndex.value = index;
             barController.pageController.jumpToPage(index);
@@ -77,7 +78,7 @@ class BottomBarView extends GetView<BottomBarController> {
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
     );
   }
 }

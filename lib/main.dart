@@ -6,6 +6,7 @@ import 'package:mini_guru/app/modules/onBoarding/views/on_boarding_view.dart';
 import 'package:mini_guru/app/modules/profilePage/views/profile_page_view.dart';
 import 'package:mini_guru/app/modules/shop/views/shop_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'app/modules/orderList/views/order_list_view.dart';
 import 'app/routes/app_pages.dart';
 import 'package:firebase_core/firebase_core.dart';
 

@@ -149,24 +149,14 @@ class ShopItemView extends GetView<ShopItemController> {
                 {
                 cartController.searthProd.value=cartController.productList.where((element) => element.productId.isEqual(controller.productId.value)).toList(),
                   print("${cartController.productList.length}Size is here${cartController.searthProd.length}"),
-                  cartController.productList.add(CartModel(id: 0,
+                  cartController.productList.add(CartModel(
+                      id: 0,
                       productId: controller.productId.value,
                       name: controller.productName.value,
                       quantity: controller.quant.value,
                       price: controller.price.value,
-                      image: controller.image.value))
-                // if(cartController.searthProd.isEmpty)
-                //   {
-                //     cartController.productList.add(CartModel(id: 0,
-                //         productId: controller.productId.value,
-                //         name: controller.productName.value,
-                //         quantity: controller.quant.value,
-                //         price: controller.price.value,
-                //         image: controller.image.value))
-                //   }else
-                //     {
-                //     Fluttertoast.showToast(msg: "Product already  in cart")
-                //     }
+                      image: controller.image.value,
+                  )),
                 },
                 child: Container(
                   // height: size.width * 0.12,

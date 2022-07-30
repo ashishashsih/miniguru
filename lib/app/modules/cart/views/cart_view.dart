@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mini_guru/constants.dart';
-
 import '../controllers/cart_controller.dart';
 
 class CartView extends GetView<CartController>
@@ -116,14 +114,14 @@ class CartView extends GetView<CartController>
               return Center(
                   child: Text.rich(
                       TextSpan(
-                          text: 'Checkout with ', style: TextStyle(fontSize: 16), children: [
+                          text: 'Checkout with : ',style: TextStyle(fontSize: 16), children: [
                         TextSpan(
                           text: '${cartController.cartValue.value.toString()}',
                           style: TextStyle(color: Colors.red,fontSize: 22,),
                         )
                       ])));
             }),
-            Align(
+            const Align(
               alignment: Alignment.centerRight,
               child: Icon(
                 CupertinoIcons.arrow_right_circle,
