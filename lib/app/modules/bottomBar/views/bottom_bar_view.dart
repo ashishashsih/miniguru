@@ -96,54 +96,6 @@ class BottomBarView extends GetView<BottomBarController> {
         ),
           );
       }),
-      // bottomNavigationBar: Obx((){
-      //   return Container(
-      //     decoration: BoxDecoration(
-      //         border: Border.all(color: Colors.black),
-      //         borderRadius: BorderRadius.circular(100)
-      //     ),
-      //     child: SalomonBottomBar(
-      //         onTap: (index) {
-      //           barController.currentIndex.value = index;
-      //           barController.pageController.jumpToPage(index);
-      //         },
-      //         currentIndex: barController.currentIndex.value,
-      //         items:[
-      //           SalomonBottomBarItem(
-      //             icon: Icon(CupertinoIcons.house_alt),
-      //             title: Text('Home'),
-      //             selectedColor: primaryColor,
-      //           ),
-      //
-      //           /// Home
-      //           SalomonBottomBarItem(
-      //             icon: Icon(CupertinoIcons.graph_circle),
-      //             title: Text('Report'),
-      //             selectedColor: secondaryColor,
-      //           ),
-      //
-      //           /// Search
-      //           SalomonBottomBarItem(
-      //             icon: Icon(CupertinoIcons.tv_circle),
-      //             title: Text("Project\'s"),
-      //             selectedColor: redColor,
-      //           ),
-      //
-      //           /// Profile
-      //           SalomonBottomBarItem(
-      //             icon: Icon(CupertinoIcons.shopping_cart),
-      //             title: Text("Shop"),
-      //             selectedColor: greenColor,
-      //           ),
-      //           /// Profile
-      //           SalomonBottomBarItem(
-      //             icon: Icon(CupertinoIcons.bag),
-      //             title: Text("Orders"),
-      //             selectedColor: primaryColor,
-      //           ),
-      //         ]),
-      //   );
-      // }),
     );
   }
 }

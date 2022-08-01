@@ -4,13 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_3d_choice_chip/flutter_3d_choice_chip.dart';
 import 'package:get/get.dart';
 import 'package:mini_guru/app/modules/cart/controllers/cart_controller.dart';
-import 'package:mini_guru/app/modules/model/shopItems.dart';
 import 'package:mini_guru/app/modules/profilePage/controllers/profile_page_controller.dart';
 import 'package:mini_guru/app/modules/shopItem/views/shop_item_view.dart';
 import 'package:mini_guru/others/NameIdModel.dart';
-import 'package:toggle_switch/toggle_switch.dart';
 import '../../../../constants.dart';
-import '../../appProfile/views/app_profile_view.dart';
 import '../controllers/shop_controller.dart';
 
 class ShopView extends GetView<ShopController> {
@@ -57,15 +54,14 @@ class ShopView extends GetView<ShopController> {
     //AppBar
     final appBar = Row(
       children: [
-        //const Text('John Smith 🖐️', style: titleStyle),
         Expanded(
-          flex: 3,
+          flex: 1,
             child: FittedBox(child: Text('John Smith 🖐️', style: titleStyle),
             //Text('${profilePageController.studentName.value} 🖐️', style: titleStyle)
             )),
         Spacer(),
         Expanded(
-          flex: 1,
+          flex: 0,
           child: Row(
             children: [
               InkWell(
@@ -131,70 +127,8 @@ class ShopView extends GetView<ShopController> {
                 child: Column(children: [
                   appBar,
                   SizedBox(height: size.height * 0.02),
-                  // TextField(
-                  //   style: TextStyle(fontSize: 18),
-                  //   controller: controller.searchController,
-                  //   onChanged: (value)
-                  //   {
-                  //     // setState(() {
-                  //     //   searchCategory=categoryList.where((element) =>element.name.toLowerCase().contains(value.toLowerCase())).toList();
-                  //     // });
-                  //   },
-                  //   //decoration: InputDecoration(hintText: "Search Category",border: OutlineInputBorder(),contentPadding: EdgeInsets.only(left: 10,top: 5,bottom: 5)),
-                  //   decoration: InputDecoration(
-                  //     hintText: 'Search Category',
-                  //     filled: true,
-                  //     fillColor: Colors.white,
-                  //     enabledBorder: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                  //       borderSide: BorderSide(color: primaryColor, width: 2),
-                  //     ),
-                  //     focusedBorder: OutlineInputBorder(
-                  //       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                  //       borderSide: BorderSide(color: primaryColor),
-                  //     ),
-                  //   ),),
                   searchField,
                   SizedBox(height: size.height * 0.02),
-                  // const Align(
-                  //   alignment: Alignment.centerLeft,
-                  //   child: Text('Shopping', style: headline,),
-                  // ),
-                  // SizedBox(height: size.height * 0.02),
-                  // //Toggle Button's
-                  // SingleChildScrollView(
-                  //   scrollDirection: Axis.horizontal,
-                  //   child:
-                  //   Obx(() {
-                  //     return Container(
-                  //       width: size.width,
-                  //       height: 40,
-                  //       child: Row(mainAxisAlignment: MainAxisAlignment.start,
-                  //         children: List.generate(
-                  //           controller.categoryList.length, (index) =>
-                  //             getChip(controller.categoryList[index], index),
-                  //         ),
-                  //       ),
-                  //     );
-                  //   }),),
-                  // ToggleSwitch(
-                  //   minWidth: size.width,
-                  //   dividerColor: Colors.black54,
-                  //   inactiveBgColor: Colors.grey.shade200,
-                  //   activeBgColor: const [secondaryColor],
-                  //   activeFgColor: Colors.black,//Active Text Color
-                  //   inactiveFgColor: Colors.black38,//Inactive Text Color
-                  //   animate: true,
-                  //   animationDuration: 300,
-                  //   initialLabelIndex: 0,
-                  //   totalSwitches: 3,
-                  //   labels: ['Trending', 'All', 'New'],
-                  //   fontSize: size.width * 0.03,
-                  //   onToggle: (value)
-                  //   {
-                  //       print(value);
-                  //   },
-                  // ),
                 ],)),
             SizedBox(height: size.width * 0.03,),
             Obx(() {
