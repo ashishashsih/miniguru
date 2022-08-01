@@ -46,11 +46,7 @@ class MyProjectsView extends GetView<MyProjectsController> {
         ],
       ),
     );
-    final List<NameIdModel> ageList = [
-      NameIdModel(id: 1, name: '5-7'),
-      NameIdModel(id: 1, name: '7-10'),
-      NameIdModel(id: 1, name: '10-13'),
-    ];
+
     final GlobalKey formKey = GlobalKey();
     return Scaffold(
         backgroundColor: Colors.grey.shade300,
@@ -97,7 +93,15 @@ class MyProjectsView extends GetView<MyProjectsController> {
                             width: size.width,
                             height: size.width * 0.12,
                             child: TextFormField(
-                              keyboardType: TextInputType.phone,
+                              controller: controller.editingControllerTitle,
+                              onSaved: (value)
+                              {
+                                controller.projectTitle.value = value!;
+                              },
+                              validator: (value) {
+                                return controller.validateText(
+                                    value!, "Project Title".tr);
+                              },
                               decoration: InputDecoration(
                                 alignLabelWithHint: true,
                                 labelText: 'Enter Title',
@@ -124,6 +128,15 @@ class MyProjectsView extends GetView<MyProjectsController> {
                           //Project Title Field
                           TextFormField(
                             maxLines: 3,
+                            controller: controller.editingControllerDescription,
+                            onSaved: (value)
+                            {
+                              controller.projectDescription.value = value!;
+                            },
+                            validator: (value) {
+                              return controller.validateText(
+                                  value!, "Project Description".tr);
+                            },
                             decoration: InputDecoration(
                               alignLabelWithHint: true,
                               labelText: 'Write a detailed description...',
@@ -254,8 +267,11 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                       Icons.arrow_drop_down,
                                       color: Colors.white,
                                     ),
-                                    onChanged: (_) {},
-                                    items: ageList.map<DropdownMenuItem<String>>((NameIdModel value) {
+                                    onChanged: (_)
+                                    {
+
+                                    },
+                                    items: controller.ageList.map<DropdownMenuItem<String>>((NameIdModel value) {
                                       return DropdownMenuItem<String>(
                                         value: value.id.toString(),
                                         child: Text(value.name,style: headline1,),

@@ -751,6 +751,39 @@ class ApiService
     return convertDataToJson;
   }
 
+  Future createProject(String projectTitle,String projectDescription,String startDate,String endDate,String sketch,String ageGroup) async
+  {
+
+  final prefs = await SharedPreferences.getInstance();
+    var userId=prefs.getString("userId");
+    // final response = await http.post(Uri.parse(GET_PROFILE),
+    //     //headers: {HttpHeaders.acceptHeader: "application/json"},
+    //     headers: <String, String>
+    //     {
+    //       'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: json.encode({"projectTitle":projectTitle,
+  // "projectDescription":projectDescription,
+  // "startDate":startDate,
+  // "endDate":endDate,
+  // "sketch":sketch,
+  // "ageGroup":ageGroup,}));
+    // print(json.encode({"userId": '$userId'}));
+    //var response = json.decode('{"data":[{"id":2,"name":"ter","address":"dfgvsdf sdf","image":"1630421034.png","facility_id":"1,2,3,4,5","rating":3.5}],"status":true,"msg":"success"}');//['data'];
+    //var ConvertDataToJson = jsonDecode(response.body['data']);
+
+    var convertDataToJson = '{"status":true,"msg":"Project Created Successfully"}';//response.body;
+    var status = json.decode(convertDataToJson)['status'];
+    if (status)
+    {
+      var tag = json.decode(convertDataToJson); //['data'];
+      //print(tag);
+      return tag;
+    }
+
+    return convertDataToJson;
+  }
+
   Future updateProfile() async
   {
     final prefs = await SharedPreferences.getInstance();

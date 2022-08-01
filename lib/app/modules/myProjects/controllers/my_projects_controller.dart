@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_guru/constants.dart';
+import 'package:mini_guru/others/NameIdModel.dart';
 import 'package:mini_guru/others/api_service.dart';
 import 'package:intl/intl.dart';
 
@@ -12,9 +13,24 @@ class MyProjectsController extends GetxController {
 
   var startDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
   var endDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
+  var ageGroup=0.obs;
+  var sketch="none.jpg".obs;
   late TextEditingController editingControllerTitle;
   late TextEditingController editingControllerDescription;
+  var projectTitle="".obs;
+  var projectDescription="".obs;
 
+  var ageList = <NameIdModel>[NameIdModel(id: 1, name: '5-7'),NameIdModel(id: 1, name: '7-10'),NameIdModel(id: 1, name: '10-13')];
+
+  String? validateText(String value,String msg)
+  {
+    print(value+msg);
+    if(value.length<1)
+    {
+      return "$msg required";
+    }
+    return null;
+  }
 
   selectStartDate() async {
     print("Date Picker Called");
@@ -80,9 +96,13 @@ class MyProjectsController extends GetxController {
     editingControllerDescription=TextEditingController();
   }
 
-  setProjectData()
+  void createProject()async
   {
-
+    print("valide");
+    isLoading.value = true;
+    var response = await ApiService().createProject(projectTitle.value,projectDescription.value,startDate.value,endDate.value,sketch.value,ageGroup.value.toString());
+    isLoading.value = false;
+    print("Responseis there:${response['status']}");
   }
 
   // void getProjectData()async
