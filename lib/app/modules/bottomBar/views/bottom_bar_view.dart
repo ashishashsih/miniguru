@@ -1,12 +1,14 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_guru/app/modules/home/views/home_view.dart';
+import 'package:mini_guru/app/modules/myProjects/views/my_projects_view.dart';
 import 'package:mini_guru/app/modules/projectList/views/project_list_view.dart';
 import 'package:mini_guru/app/modules/shop/views/shop_view.dart';
 import 'package:mini_guru/constants.dart';
-import '../../myProjects/views/my_projects_view.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../orderList/views/order_list_view.dart';
 import '../../progressReport/views/progress_report_view.dart';
 import '../controllers/bottom_bar_controller.dart';
@@ -42,10 +44,10 @@ class BottomBarView extends GetView<BottomBarController> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: Obx(() {
-          return SizedBox(
-            height: size.width * 0.15,
-            width: size.width,
-            child: BubbleBottomBar(
+        return SizedBox(
+          height: size.width * 0.15,
+          width: size.width,
+          child: BubbleBottomBar(
             opacity: 0.2,
             currentIndex: barController.currentIndex.value,
             onTap: (index) {
@@ -93,8 +95,8 @@ class BottomBarView extends GetView<BottomBarController> {
                   activeIcon: Icon(CupertinoIcons.bag, color: primaryColor,),
                   title: Text("Order\'s")),
             ],
-        ),
-          );
+          ),
+        );
       }),
       // bottomNavigationBar: Obx((){
       //   return Container(
