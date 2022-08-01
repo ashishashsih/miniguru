@@ -6,13 +6,15 @@ import 'package:intl/intl.dart';
 
 class MyProjectsController extends GetxController {
   //TODO: Implement MyProjectsController
-
+  final GlobalKey<FormState>profileFormKey=GlobalKey<FormState>();
   final count = 0.obs;
   var isLoading=false.obs;
 
   var startDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
   var endDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
-  
+  late TextEditingController editingControllerTitle;
+  late TextEditingController editingControllerDescription;
+
 
   selectStartDate() async {
     print("Date Picker Called");
@@ -72,28 +74,35 @@ class MyProjectsController extends GetxController {
 
   @override
   void onInit() {
-    getProjectData();
+//    getProjectData();
     super.onInit();
+    editingControllerTitle=TextEditingController();
+    editingControllerDescription=TextEditingController();
   }
 
-  void getProjectData()async
+  setProjectData()
   {
-    print("valide");
-    isLoading.value = true;
-    var response = await ApiService().getProjectData();
-    isLoading.value = false;
-    print("Responseis there:${response['data'][0]['title']}");
-    // String message = response['msg'];
-    // // if (response.containsKey('status'))
-    // // {
-    // if (response['status'] == true)
-    // {
-    //   var dta=response['data'];
-    //   return dta;
-    // } else {
-    //   print("some Thing Weng wrong");
-    // }
+
   }
+
+  // void getProjectData()async
+  // {
+  //   print("valide");
+  //   isLoading.value = true;
+  //   var response = await ApiService().getProjectData();
+  //   isLoading.value = false;
+  //   print("Responseis there:${response['data'][0]['title']}");
+  //   // String message = response['msg'];
+  //   // // if (response.containsKey('status'))
+  //   // // {
+  //   // if (response['status'] == true)
+  //   // {
+  //   //   var dta=response['data'];
+  //   //   return dta;
+  //   // } else {
+  //   //   print("some Thing Weng wrong");
+  //   // }
+  // }
 
   @override
   void onReady() {
