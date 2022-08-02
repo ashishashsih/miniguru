@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:mini_guru/app/modules/add_address/controllers/address_controller.dart';
 import 'package:mini_guru/app/modules/cart/controllers/cart_controller.dart';
 import 'package:mini_guru/constants.dart';
-
+import '../../add_address/views/add_address_view.dart';
 import '../controllers/display_address_controller.dart';
 
 class DisplayAddressView extends GetView<DisplayAddressController> {
@@ -31,35 +30,32 @@ class DisplayAddressView extends GetView<DisplayAddressController> {
               child: Icon(Icons.arrow_back_ios_new),
             ),
           ),
-          //Back Button
+          //Add Address Button
           Align(
             alignment: Alignment.centerRight,
             child: InkWell(
-              onTap: () => Get.back(),
+              onTap: () => Get.to(AddAddressView()),
               child: Icon(Icons.add,color: Colors.black,size: 40,),
             ),
           ),
         ],
       ),
     );
-    final button = InkWell(
-      onTap: (){},
-      child: Container(
-        height: size.width * 0.15,
-        width: double.infinity,
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-          color: secondaryColor,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Center(
-            child: InkWell(
-              onTap: ((){
-                controller.payNow('${cartController.cartValue}00');
-              }),
-              child: const Text('Checkout',style: buttonTitleStyle,),
-            )),
+    final button = Container(
+      height: size.width * 0.15,
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: secondaryColor,
+        borderRadius: BorderRadius.circular(15),
       ),
+      child: Center(
+          child: InkWell(
+            onTap: ((){
+              controller.payNow('${cartController.cartValue}00');
+            }),
+            child: const Text('Checkout',style: buttonTitleStyle,),
+          )),
     );
     return Scaffold(
         floatingActionButton: button,
