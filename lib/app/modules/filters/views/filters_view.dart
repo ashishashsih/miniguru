@@ -34,17 +34,17 @@ class FiltersView extends GetView<FiltersController> {
         width: size.width / 5,
       ),
     );
-    final topicUnselected = InkWell(
-      overlayColor: MaterialStateProperty.all(Colors.transparent),
-      onTap: () {
-        filtersController.isTopicSwitcher.value = true;
-      },
-      child: Image.asset(
-        'images/topicUnselected.png',
-        height: size.width / 3,
-        width: size.width / 5,
-      ),
-    );
+    // final topicUnselected = InkWell(
+    //   overlayColor: MaterialStateProperty.all(Colors.transparent),
+    //   onTap: () {
+    //     filtersController.isTopicSwitcher.value = true;
+    //   },
+    //   child: Image.asset(
+    //     'images/topicUnselected.png',
+    //     height: size.width / 3,
+    //     width: size.width / 5,
+    //   ),
+    // );
     final topicSelected = InkWell(
       overlayColor: MaterialStateProperty.all(Colors.transparent),
       onTap: () {
@@ -197,7 +197,7 @@ class FiltersView extends GetView<FiltersController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     filtersController.isAgeSwitcher.value == true ? ageSelected : ageUnselected,
-                    filtersController.isTopicSwitcher.value == true ? topicSelected : topicUnselected,
+                    //filtersController.isTopicSwitcher.value == true ? topicSelected : topicUnselected,
                     filtersController.isCitySwitcher.value == true ? citySelected : cityUnselected,
                     filtersController.isCommentsSwitcher.value == true ? commentsSelected : commentsUnselected,
                   ],
@@ -218,7 +218,7 @@ class FiltersView extends GetView<FiltersController> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     filtersController.is1stClass.value == true ? unselectedClass('1st Class') : selectedClass('1st Class'),
-                    filtersController.is1stClass.value == true ? unselectedClass('1st Class') : selectedClass('1st Class'),
+
                     filtersController.is1stClass.value == true ? unselectedClass('1st Class') : selectedClass('1st Class'),
                     filtersController.is1stClass.value == true ? unselectedClass('1st Class') : selectedClass('1st Class'),
                   ],

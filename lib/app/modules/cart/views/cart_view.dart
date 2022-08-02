@@ -112,14 +112,20 @@ class CartView extends GetView<CartController>
           children: [
             Obx(() {
               return Center(
-                  child: Text.rich(
-                      TextSpan(
-                          text: 'Item Total : ',style: buttonTitleStyle, children: [
+                  child: InkWell(
+                    onTap: (()=>
+                    {
+                      Get.toNamed('/display-address',arguments: [cartController.cartValue.value])
+                    }),
+                    child: Text.rich(
                         TextSpan(
-                          text: '₹${cartController.cartValue.value.toString()}/-',
-                          style: headline,
-                        )
-                      ])));
+                            text: 'Item Total : ',style: buttonTitleStyle, children: [
+                          TextSpan(
+                            text: '₹${cartController.cartValue.value.toString()}/-',
+                            style: headline,
+                          )
+                        ])),
+                  ));
             }),
             const Align(
               alignment: Alignment.centerRight,

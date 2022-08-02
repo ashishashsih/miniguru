@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/achievements/bindings/achievements_binding.dart';
 import '../modules/achievements/views/achievements_view.dart';
+import '../modules/add_address/bindings/add_address_binding.dart';
+import '../modules/add_address/views/add_address_view.dart';
 import '../modules/appProfile/bindings/app_profile_binding.dart';
 import '../modules/appProfile/views/app_profile_view.dart';
 import '../modules/bottomBar/bindings/bottom_bar_binding.dart';
@@ -10,6 +12,8 @@ import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
 import '../modules/courseLessons/bindings/course_lessons_binding.dart';
 import '../modules/courseLessons/views/course_lessons_view.dart';
+import '../modules/display_address/bindings/display_address_binding.dart';
+import '../modules/display_address/views/display_address_view.dart';
 import '../modules/filters/bindings/filters_binding.dart';
 import '../modules/filters/views/filters_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -169,6 +173,16 @@ class AppPages {
       name: _Paths.ORDER_LIST,
       page: () => OrderListView(),
       binding: OrderListBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_ADDRESS,
+      page: () => AddAddressView(),
+      binding: AddAddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.DISPLAY_ADDRESS,
+      page: () => const DisplayAddressView(),
+      binding: DisplayAddressBinding(),
     ),
   ];
 }

@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:raddiwala/app/modules/add_address/model/address.dart';
-import 'package:raddiwala/app/other/NameIdModel.dart';
-import 'package:raddiwala/app/other/api_service.dart';
 import 'package:flutter/material.dart';
+import 'package:mini_guru/others/NameIdModel.dart';
+import 'package:mini_guru/others/api_service.dart';
 
-import '../../../../constant.dart';
+import '../model/address.dart';
+
 class AddressController extends GetxController
 {
   //TODO: Implement AddAddressController
@@ -51,7 +51,7 @@ class AddressController extends GetxController
     } else
     {
       //print("some Thing Weng wrong");
-      Fluttertoast.showToast(msg: response['msg'],backgroundColor: errorColor);
+      Fluttertoast.showToast(msg: response['msg'],backgroundColor: Colors.red);
     }
     isLoading.value=false;
   }

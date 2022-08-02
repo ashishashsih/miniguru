@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:mini_guru/app/modules/add_address/model/address.dart';
 import 'package:mini_guru/app/modules/model/HomeModel.dart';
 import 'package:mini_guru/others/NameIdModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,6 +19,7 @@ class ApiService
   static final String allProducts=BASE_URL+"products";
   static final String productDetail="BASE_URL+productById";
   static final String UPLOAD_IMAGE=BASE_URL+"profileImage";
+  static final String GET_ADDRESS_LIST=BASE_URL+"displayAddress";
 
   static final String UPDATE_PROFILE = BASE_URL+"updateProfile";
   static final String GET_PROFILE = BASE_URL+"getProfile";
@@ -31,7 +33,7 @@ class ApiService
   static final String WALLET_TRANSACTION=BASE_URL+"getWalletTransaction";
 
   static final String GET_PRODUCT_CATEGORY=BASE_URL+"getProductCategory";
-
+  static final String ADD_ADDRESS=BASE_URL+"addAddress";
   // static final String GET_PRICE_LIST=BASE_URL+"displaySubCategory";
   // static final String ADD_ADDRESS=BASE_URL+"addAddress";
   // static final String GET_ORDER_LIST=BASE_URL+"displayOrders";
@@ -57,6 +59,30 @@ class ApiService
     return ConvertDataToJson;
   }
 
+  Future getAddressList() async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var userId=prefs.getString("userId");
+    print(GET_ADDRESS_LIST);
+    // final response = await http.post(Uri.parse(GET_ADDRESS_LIST),
+    //     // headers: {HttpHeaders.acceptHeader: "application/json"},
+    //     headers: <String, String>{
+    //       'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: json.encode({"userId": userId}));
+    // print(json.encode({"userId": userId}));
+    // print(response.body);
+    //var convertDataToJson =response.body;
+    var convertDataToJson = '{"data":[{"id":38,"type":"Office","address":"ashok vihar","cityid":"Ujjain"},{"id":40,"type":"Office","address":"vadant nagar","cityid":"Ujjain"},{"id":41,"type":"Home","address":"mohan nagar","cityid":"Ujjain"},{"id":67,"type":"Home","address":"rajeshnagar freeganj","cityid":"Ujjain"},{"id":91,"type":"Home","address":"45, Dessie nagar","cityid":"Ujjain"}],"status":true,"msg":"success"}';//response.body;
+    var status = json.decode(convertDataToJson)['status'];
+    if (status)
+    {
+      var tag = json.decode(convertDataToJson)['data']; //['data'];
+      //print(tag);
+      return addressFromJson(json.encode(tag));
+    }
+  }
+
   Future emailRegistration(String email) async
   {
     print(SIGNUP_EMAIL);
@@ -71,6 +97,36 @@ class ApiService
     var ConvertDataToJson = jsonDecode(response.body);
     return ConvertDataToJson;
   } // SendOtp
+
+  Future addAddress(String address_type, String address,String city) async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var userId=prefs.getString("userId");
+    final response = await http.post(Uri.parse(ADD_ADDRESS),
+        //headers: {HttpHeaders.acceptHeader: "application/json"},
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: json.encode({
+          // "mobile": '$mobile',
+          // "token": '$token'
+          "userId":'$userId',
+          "type":'$address_type',
+          "address":'$address',
+          "cityId":'$city',
+        }));
+    print(json.encode({
+      // "mobile": '$mobile',
+      // "token": '$token'
+      "userId":'$userId',
+      "type":'$address_type',
+      "address":'$address',
+      "cityId":'$city',
+    }));
+
+    var ConvertDataToJson = jsonDecode(response.body);
+    return ConvertDataToJson;
+  }
 
   // Future addAddress(String address_type, String address,String city) async
   // {

@@ -17,6 +17,16 @@ class DisplayAddressView extends GetView<DisplayAddressController>
         title: const Text('DisplayAddressView'),
         centerTitle: true,
       ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: ()=> {
+            Get.toNamed('/add-address')
+          },
+          backgroundColor: secondaryColor,
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image.asset('images/plus.png'),
+          ),
+        ),
       body: Center(
         child: Obx(() {
     return Column(
@@ -102,6 +112,6 @@ class DisplayAddressView extends GetView<DisplayAddressController>
     );
     },
       ),
-    );
+      ));
   }
 }
