@@ -1,4 +1,3 @@
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +34,7 @@ class BottomBarView extends GetView<BottomBarController> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: ()=> Get.to(MyProjectsView(),transition: Transition.downToUp),
-        backgroundColor: secondaryColor,
+        backgroundColor: primaryColor,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Image.asset('images/plus.png'),

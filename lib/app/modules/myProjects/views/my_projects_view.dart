@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../constants.dart';
 import '../../../../others/NameIdModel.dart';
 import '../controllers/my_projects_controller.dart';
@@ -46,7 +50,6 @@ class MyProjectsView extends GetView<MyProjectsController> {
         ],
       ),
     );
-
     final GlobalKey formKey = GlobalKey();
     return Scaffold(
         backgroundColor: Colors.grey.shade300,
@@ -94,8 +97,7 @@ class MyProjectsView extends GetView<MyProjectsController> {
                             height: size.width * 0.12,
                             child: TextFormField(
                               controller: controller.editingControllerTitle,
-                              onSaved: (value)
-                              {
+                              onSaved: (value) {
                                 controller.projectTitle.value = value!;
                               },
                               validator: (value) {
@@ -105,7 +107,8 @@ class MyProjectsView extends GetView<MyProjectsController> {
                               decoration: InputDecoration(
                                 alignLabelWithHint: true,
                                 labelText: 'Enter Title',
-                                contentPadding: const EdgeInsets.only(bottom: 5,left: 10),
+                                contentPadding: const EdgeInsets.only(
+                                    bottom: 5, left: 10),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(15),
                                   borderSide: const BorderSide(
@@ -129,8 +132,7 @@ class MyProjectsView extends GetView<MyProjectsController> {
                           TextFormField(
                             maxLines: 3,
                             controller: controller.editingControllerDescription,
-                            onSaved: (value)
-                            {
+                            onSaved: (value) {
                               controller.projectDescription.value = value!;
                             },
                             validator: (value) {
@@ -157,95 +159,198 @@ class MyProjectsView extends GetView<MyProjectsController> {
                             ),
                           ),
                           SizedBox(height: size.width * 0.05,),
-                          //Start & End Date
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              //Start Date Button
-                              Container(
-                                height: size.width * 0.1,
-                                width: size.width * 0.35,
-                                decoration: BoxDecoration(
+                              //Sketch Attachment
+                              Obx(() {
+                                return Expanded(
+                                  flex: 1,
+                                  child: DottedBorder(
+                                    strokeWidth: 1,
+                                    borderType: BorderType.RRect,
                                     color: primaryColor,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        offset: const Offset(0, 5),
-                                        color: Colors.grey.withOpacity(0.4),
-                                        blurRadius: 4,
+                                    radius: const Radius.circular(15),
+                                    padding: const EdgeInsets.all(5),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Get.defaultDialog(
+                                          middleText: 'Select Image',
+                                            title: 'My Project Sketch',
+                                            barrierDismissible: true,
+                                            radius: 5.0,
+                                            confirm: InkWell(
+                                              onTap: (){
+                                                Get.back();
+                                                controller.getImage(ImageSource.gallery);
+                                              },
+                                              child: Card(
+                                                elevation: 5,
+                                                child: Container(
+                                                    height: size.width * 0.25,
+                                                    width: size.width * 0.25,
+                                                    decoration: BoxDecoration(
+                                                      color: primaryColor,
+                                                      borderRadius:
+                                                      BorderRadius.circular(5),
+                                                    ),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      children: const [
+                                                        Icon(
+                                                          CupertinoIcons
+                                                              .photo_on_rectangle,
+                                                          size: 50,
+                                                          color: Colors.white,
+                                                        ),
+                                                        Text(
+                                                          "Gallery",
+                                                          style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 15),
+                                                        )
+                                                      ],
+                                                    )),
+                                              ),
+                                            ),
+                                            cancel: InkWell(
+                                              onTap: (){
+                                                Get.back();
+                                                controller.getImage(ImageSource.camera);
+                                              },
+                                              child: Card(
+                                                elevation: 5,
+                                                child: Container(
+                                                    height: size.width * 0.25,
+                                                    width: size.width * 0.25,
+                                                    decoration: BoxDecoration(
+                                                      color: primaryColor,
+                                                      borderRadius:
+                                                      BorderRadius.circular(5),
+                                                    ),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                      children: const [
+                                                        Icon(
+                                                          CupertinoIcons
+                                                              .camera_on_rectangle,
+                                                          size: 50,
+                                                          color: Colors.white,
+                                                        ),
+                                                        Text(
+                                                          "Camera",
+                                                          style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 15),
+                                                        )
+                                                      ],
+                                                    )),
+                                              ),
+                                            ));
+                                      },
+                                      child: Container(
+                                          height: size.width * 0.3,
+                                          width: size.width,
+                                          decoration: BoxDecoration(
+                                              color: primaryColor.withOpacity(0.1),
+                                              borderRadius: BorderRadius.circular(10)
+                                          ),
+                                          child: controller.sketch.value != ''
+                                              ? ClipRRect(borderRadius: BorderRadius.circular(10),child: Image.file(File(controller.sketch.value),fit: BoxFit.cover))
+                                              : const Center(child: Text('Tap To Select\nImage',textAlign: TextAlign.center, style: subTitle,))
                                       ),
-                                    ]
-                                ),
-                                child: Center(child: InkWell(onTap: () =>
-                                {
-                                  controller.selectStartDate()
-                                }, child: Obx(() {
-                                  return Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [Icon(Icons.calendar_month_outlined,color: Colors.white,),
-                                      Text('${controller.startDate.value}',
-                                        style: blueButtonSubTitle,),
-                                    ],
-                                  );
-                                })),),
-                              ),
-                              //Start Date Button
-                              Container(
-                                height: size.width * 0.1,
-                                width: size.width * 0.35,
-                                decoration: BoxDecoration(
-                                    color: primaryColor,
-                                    borderRadius: BorderRadius.circular(10),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        offset: const Offset(0, 5),
-                                        color: Colors.grey.withOpacity(0.4),
-                                        blurRadius: 4,
+                                    ),
+                                  ),
+                                );
+                              }),
+                              //Start & End Date
+                              Expanded(
+                                flex: 1,
+                                child: Column(
+                                  children: [
+                                    //Start Date Button
+                                    Container(
+                                      height: size.width * 0.1,
+                                      width: size.width * 0.35,
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                          color: primaryColor,
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              offset: const Offset(0, 5),
+                                              color: Colors.grey.withOpacity(0.4),
+                                              blurRadius: 4,
+                                            ),
+                                          ]
                                       ),
-                                    ]
-                                ),
-                                child: Center(child: InkWell(onTap: () =>
-                                {
-                                  controller.selectEndDate()
-                                }, child: Obx(() {
-                                  return Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [Icon(Icons.calendar_month_outlined,color: Colors.white,),
-                                      //SizedBox(width: 5,),
-                                      Text('${controller.endDate.value}',
-                                        style: blueButtonSubTitle,),
-                                    ],
-                                  );
-                                })),),
+                                      child: Center(child: InkWell(onTap: () =>
+                                      {
+                                        controller.selectStartDate()
+                                      }, child: Obx(() {
+                                        return Row(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .spaceAround,
+                                          children: [
+                                            const Icon(Icons.calendar_month_outlined,
+                                              color: Colors.white,),
+                                            Text(controller.startDate.value,
+                                              style: blueButtonSubTitle,),
+                                          ],
+                                        );
+                                      })),),
+                                    ),
+                                    SizedBox(height: size.width * 0.05,),
+                                    //Start Date Button
+                                    Container(
+                                      height: size.width * 0.1,
+                                      width: size.width * 0.35,
+                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                          color: primaryColor,
+                                          borderRadius: BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              offset: const Offset(0, 5),
+                                              color: Colors.grey.withOpacity(0.4),
+                                              blurRadius: 4,
+                                            ),
+                                          ]
+                                      ),
+                                      child: Center(child: InkWell(onTap: () =>
+                                      {
+                                        controller.selectEndDate()
+                                      }, child: Obx(() {
+                                        return Row(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .spaceAround,
+                                          children: [
+                                            const Icon(Icons.calendar_month_outlined,
+                                              color: Colors.white,),
+                                            //SizedBox(width: 5,),
+                                            Text(controller.endDate.value,
+                                              style: blueButtonSubTitle,),
+                                          ],
+                                        );
+                                      })),),
+                                    ),
+                                  ],),
                               ),
-                            ],),
-                          SizedBox(height: size.width * 0.05,),
-                          const Text('Sketch', style: headline1),
-                          //Sketch Attachment
-                          DottedBorder(
-                            strokeWidth: 1,
-                            borderType: BorderType.RRect,
-                            color: primaryColor,
-                            radius: const Radius.circular(15),
-                            padding: const EdgeInsets.all(5),
-                            child: Container(
-                              height: size.width * 0.2,
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                  color: primaryColor.withOpacity(0.1),
-                                  borderRadius: BorderRadius.circular(15)
-                              ),
-                              child: const Center(
-                                child: Text('Tap To Select', style: subTitle,),),
-                            ),
+                            ],
                           ),
+
                           SizedBox(height: size.width * 0.05,),
                           //Drop Down Widget
                           Container(
                             height: size.width * 0.1,
                             decoration: BoxDecoration(
                               color: primaryColor,
-                              borderRadius:BorderRadius.circular(7),
+                              borderRadius: BorderRadius.circular(7),
                             ),
                             child: Center(
                               child: DropdownButtonHideUnderline(
@@ -255,26 +360,29 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                   child: DropdownButton2(
                                     dropdownDecoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(color: Colors.grey.shade400),
+                                      border: Border.all(
+                                          color: Colors.grey.shade400),
                                     ),
                                     isExpanded: true,
                                     isDense: true,
                                     hint: const Text(
-                                      'Select Age Group',
-                                      style: blueButtonSubTitle
+                                        'Select Age Group',
+                                        style: blueButtonSubTitle
                                     ),
                                     icon: const Icon(
                                       Icons.arrow_drop_down,
                                       color: Colors.white,
                                     ),
-                                    onChanged: (_)
-                                    {
+                                    onChanged: (_) {
 
                                     },
-                                    items: controller.ageList.map<DropdownMenuItem<String>>((NameIdModel value) {
+                                    items: controller.ageList.map<
+                                        DropdownMenuItem<String>>((
+                                        NameIdModel value) {
                                       return DropdownMenuItem<String>(
                                         value: value.id.toString(),
-                                        child: Text(value.name,style: headline1,),
+                                        child: Text(
+                                          value.name, style: headline1,),
                                       );
                                     }).toList(),
                                   ),

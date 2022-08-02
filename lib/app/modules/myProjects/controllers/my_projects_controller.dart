@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mini_guru/constants.dart';
 import 'package:mini_guru/others/NameIdModel.dart';
 import 'package:mini_guru/others/api_service.dart';
@@ -14,7 +17,7 @@ class MyProjectsController extends GetxController {
   var startDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
   var endDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
   var ageGroup=0.obs;
-  var sketch="none.jpg".obs;
+  var sketch=''.obs;
   late TextEditingController editingControllerTitle;
   late TextEditingController editingControllerDescription;
   var projectTitle="".obs;
@@ -44,11 +47,11 @@ class MyProjectsController extends GetxController {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              primary: secondaryColor, // <-- SEE HERE
+              primary: primaryColor, // <-- SEE HERE
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                primary: secondaryColor, // button text color
+                primary: primaryColor, // button text color
               ),
             ),
           ),
@@ -71,11 +74,11 @@ class MyProjectsController extends GetxController {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.light(
-              primary: secondaryColor, // <-- SEE HERE
+              primary: primaryColor, // <-- SEE HERE
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                primary: secondaryColor, // button text color
+                primary: primaryColor, // button text color
               ),
             ),
           ),
@@ -135,4 +138,20 @@ class MyProjectsController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  void getImage(ImageSource imageSource) async{
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if(pickedFile != null){
+      sketch.value = pickedFile.path;
+    } else {
+      Get.snackbar(
+        'Error',
+        'No Image Selected',
+        margin: const EdgeInsets.all(20),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: redColor,
+        colorText: Colors.white,
+      );
+    }
+  }
 }

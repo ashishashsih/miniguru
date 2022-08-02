@@ -14,7 +14,6 @@ import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeController homeController = Get.put(HomeController());
-  //ShopItemController shopController = Get.put(ShopItemController());
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery
@@ -84,7 +83,7 @@ class HomeView extends GetView<HomeController> {
             ],
           ),
         ),
-        //Wallet Button
+        //Notifications
         Align(
           alignment: Alignment.centerRight,
           child: InkWell(
@@ -162,15 +161,22 @@ class HomeView extends GetView<HomeController> {
                         Expanded(
                           flex: 1,
                           child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
-                                color: primaryColor,
-                                border: Border.all(color: Colors.black),
-                                borderRadius: BorderRadius.circular(10),
+                                  color:Colors.white,
+                                  border: Border.all(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.shade300,
+                                      blurRadius: 5,
+                                      spreadRadius: 2,
+                                      offset: const Offset(-2, 3),
+                                    ),
+                                  ]
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 20, left: 15),
+                                    right: 30, left: 15),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment
                                       .spaceBetween,
@@ -182,13 +188,13 @@ class HomeView extends GetView<HomeController> {
                                         fit: BoxFit.cover),
                                     Column(children: [
                                       Text('Score',
-                                          style: TextStyle(fontSize: 25,
-                                              color: Colors.white,
+                                          style: TextStyle(fontSize: 20,
+                                              color: Colors.black,
                                               fontWeight: FontWeight.bold,
                                               letterSpacing: 1)),
                                       Text(
-                                          controller.score.value, style: TextStyle(fontSize: 20,
-                                          color: Colors.white,
+                                          controller.score.value, style: TextStyle(fontSize: 15,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 0.5)),
                                     ],)
@@ -200,15 +206,22 @@ class HomeView extends GetView<HomeController> {
                         Expanded(
                           flex: 1,
                           child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
-                                color: secondaryColor,
+                                color:Colors.white,
                                 border: Border.all(color: Colors.black),
                                 borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.shade300,
+                                      blurRadius: 5,
+                                      spreadRadius: 2,
+                                      offset: const Offset(-2, 3),
+                                    ),
+                                  ]
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.only(
-                                    right: 20, left: 15),
+                                    right: 30, left: 15),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment
                                       .spaceBetween,
@@ -220,13 +233,13 @@ class HomeView extends GetView<HomeController> {
                                         fit: BoxFit.cover),
                                     Column(children: [
                                       Text('Wallet', style: TextStyle(
-                                          fontSize: 25,
-                                          color: Colors.white,
+                                          fontSize: 20,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1)),
                                       Text(
-                                          controller.wallet_balance.value, style: TextStyle(fontSize: 20,
-                                          color: Colors.white,
+                                          controller.wallet_balance.value, style: TextStyle(fontSize: 15,
+                                          color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 0.5)),
                                     ],)
@@ -237,7 +250,13 @@ class HomeView extends GetView<HomeController> {
                       ],);
                     }),
                     SizedBox(
-                      height: size.width * 0.02,
+                      height: size.width * 0.04,
+                    ),
+                    Container(
+
+                    ),
+                    SizedBox(
+                      height: size.width * 0.04,
                     ),
                   ],),
                 ),
@@ -245,12 +264,13 @@ class HomeView extends GetView<HomeController> {
                   flex: 1,
                   child: Obx(() {
                     return GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
                           crossAxisCount: 2,
                           //childAspectRatio: size.width * 70 / size.width * 0.01,
-                          childAspectRatio: .9,
+                          //Main Height
+                          // childAspectRatio: 0.9,
                         ),
                         itemCount: controller.fdrList.length,
                         itemBuilder: (BuildContext ctx, int index) {
@@ -258,48 +278,53 @@ class HomeView extends GetView<HomeController> {
                             padding: const EdgeInsets.all(5),
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.grey),
-                                borderRadius: BorderRadius.circular(15)
+                                borderRadius: BorderRadius.circular(10)
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 //Video Widget
-                                InkWell(
-                                  onTap: () =>
-                                      Get.to(CourseLessonsView(),
-                                          transition: Transition.downToUp),
-                                  child: Container(
-                                    height: size.width * 0.3,
-                                    width: size.width,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(10),
-                                      image: const DecorationImage(
-                                          image: NetworkImage(
-                                              'https://bsmedia.business-standard.com/_media/bs/img/article/2021-01/21/full/1611251685-5188.jpg'),
-                                          fit: BoxFit.cover
+                                Expanded(
+                                  child: InkWell(
+                                    onTap: () =>
+                                        Get.to(CourseLessonsView(),
+                                            transition: Transition.downToUp),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.grey),
+                                        borderRadius: BorderRadius.circular(10),
+                                        image: const DecorationImage(
+                                            image: NetworkImage(
+                                                'https://bsmedia.business-standard.com/_media/bs/img/article/2021-01/21/full/1611251685-5188.jpg'),
+                                            fit: BoxFit.cover
+                                        ),
                                       ),
+                                      child: Center(child: Icon(
+                                        Icons.play_circle_filled_rounded,
+                                        color: Colors.white.withOpacity(0.7),
+                                        size: 45,),),
                                     ),
-                                    child: Center(child: Icon(
-                                      Icons.play_circle_filled_rounded,
-                                      color: Colors.white.withOpacity(0.7),
-                                      size: 45,),),
                                   ),
                                 ),
-                                Text(
-                                    controller.fdrList[index].title,
-                                    style: headline1),
-                                SizedBox(height: size.width * 0.02),
-                                Text('${controller.fdrList[index].author} ✔',
-                                    style: buttonSubTitleStyle),
-                                SizedBox(height: size.width * 0.001),
-                                Text.rich(TextSpan(
-                                  text: '🌟 ${controller.fdrList[index].rating
-                                      .toString()} ',
-                                  style: buttonSubTitleStyle,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                  Text(
+                                      controller.fdrList[index].title,
+                                      style: headline1),
+                                  SizedBox(height: size.width * 0.01),
+                                  Text('${controller.fdrList[index].author} ✔',
+                                      style: buttonSubTitleStyle),
+                                  SizedBox(height: size.width * 0.002),
+                                  Text.rich(TextSpan(
+                                    text: '🌟 ${controller.fdrList[index].rating
+                                        .toString()} ',
+                                    style: buttonSubTitleStyle,
 
-                                )),
+                                  )),
+                                ],),
                               ],),
                           );
                         }
