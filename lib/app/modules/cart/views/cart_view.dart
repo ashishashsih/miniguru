@@ -127,11 +127,13 @@ class CartView extends GetView<CartController>
                         ])),
                   ));
             }),
-            const Align(
+            Align(
               alignment: Alignment.centerRight,
-              child: Icon(
-                CupertinoIcons.arrow_right_circle,
-                size: 20,
+              child: Container(
+                child: Icon(
+                  CupertinoIcons.arrow_right_circle,
+                  size: 20,
+                ),
               ),
             )
           ],
