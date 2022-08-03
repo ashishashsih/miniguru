@@ -90,7 +90,7 @@ class AddAddressView extends GetView<AddressController>
                                     decoration: InputDecoration(
                                       alignLabelWithHint: true,
                                       labelText: 'Address'.tr,
-                                      labelStyle: TextStyle(
+                                      labelStyle: const TextStyle(
                                           color: Colors.grey,
                                           fontSize: 18),
                                       enabledBorder: UnderlineInputBorder(

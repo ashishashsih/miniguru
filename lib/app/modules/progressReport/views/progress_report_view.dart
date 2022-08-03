@@ -2,6 +2,7 @@ import 'package:d_chart/d_chart.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../../../constants.dart';
 import '../controllers/progress_report_controller.dart';
@@ -15,28 +16,26 @@ class ProgressReportView extends GetView<ProgressReportController> {
     final size = MediaQuery
         .of(context)
         .size;
-    final appBar = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        const Text(
-          'Progress Report',
-          style: titleStyle,
-        ),
-        //Wallet Button
-        InkWell(
-          onTap: () {},
-          child: Container(
-            height: size.width * 0.15,
-            width: size.width * 0.15,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(150),
-                border: Border.all(color: Colors.grey)),
-            child: const Center(
-              child: Icon(Icons.account_balance_wallet_outlined),
+    final appBar = SizedBox(
+      height: size.width * 0.1,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10, right: 5),
+        child: Stack(
+          children: [
+            const Align(
+                alignment: Alignment.bottomLeft,
+                child: Text('Progress report', style: titleStyle)),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Lottie.network(
+                  'https://assets5.lottiefiles.com/packages/lf20_65fiagjg.json',
+                  width: size.width * 0.15,
+                  fit: BoxFit.cover
+              ),
             ),
-          ),
-        )
-      ],
+          ],
+        ),
+      ),
     );
     return Scaffold(
         body: SafeArea(
