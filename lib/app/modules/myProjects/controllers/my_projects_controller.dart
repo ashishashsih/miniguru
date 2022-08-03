@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mini_guru/constants.dart';
@@ -24,7 +25,8 @@ class MyProjectsController extends GetxController {
   var projectDescription="".obs;
   var selectedAgeGroup=1.obs;
 
-  var ageList = <NameIdModel>[NameIdModel(id: 1, name: '5-7'),NameIdModel(id: 2, name: '7-10'),NameIdModel(id: 3, name: '10-13')];
+  //var ageList = <NameIdModel>[].obs;
+  var ageList = <NameIdModel>[NameIdModel(id: 1, name: '5-7'),NameIdModel(id: 2, name: '7-10'),NameIdModel(id: 3, name: '10-13')].obs;
 
   String? validateText(String value,String msg)
   {
@@ -102,11 +104,19 @@ class MyProjectsController extends GetxController {
 
   void createProject()async
   {
-    print("valide");
-    isLoading.value = true;
-    var response = await ApiService().createProject(projectTitle.value,projectDescription.value,startDate.value,endDate.value,sketch.value,ageGroup.value.toString());
-    isLoading.value = false;
-    print("Responseis there:${response['status']}");
+    final isValid=profileFormKey.currentState!.validate();
+    print(isValid);
+    if(!isValid)
+    {
+      return;
+    }else
+    {
+      isLoading.value = true;
+      var response = await ApiService().createProject(projectTitle.value,projectDescription.value,startDate.value,endDate.value,sketch.value,selectedAgeGroup.value.toString());
+      isLoading.value = false;
+      Fluttertoast.showToast(msg: response['msg']);
+    }
+    //print("Responseis there:${response['status']}");
   }
 
   // void getProjectData()async

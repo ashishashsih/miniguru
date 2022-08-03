@@ -83,6 +83,31 @@ class ApiService
     }
   }
 
+    Future getProjectList() async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var userId=prefs.getString("userId");
+    //print(GET_ADDRESS_LIST);
+    // final response = await http.post(Uri.parse(GET_ADDRESS_LIST),
+    //     // headers: {HttpHeaders.acceptHeader: "application/json"},
+    //     headers: <String, String>{
+    //       'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: json.encode({"userId": userId}));
+    // print(json.encode({"userId": userId}));
+    // print(response.body);
+    //var convertDataToJson =response.body;
+    var convertDataToJson = '{"status":true,"orderList":[{"id":7,"title":"project title","sub_title":"sub title","description":"it is description","start_date":"12/12/2021","end_date":"12/02/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":75},{"id":9,"title":"Elect Van","sub_title":"electric motorl used","description":"it is description","start_date":"01/07/2022","end_date":"05/93/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":2,"progress":49},{"id":6,"title":"Motor Pump","sub_title":"sub title","description":"it is description","start_date":"22/05/2022","end_date":"19/07/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":35}]}';//response.body;
+    var status = json.decode(convertDataToJson)['status'];
+    if (status)
+    {
+      var tag = json.decode(convertDataToJson)['orderList']; //['data'];
+      return tag;
+      //print(tag);
+      //return addressFromJson(json.encode(tag));
+    }
+  }
+
   Future emailRegistration(String email) async
   {
     print(SIGNUP_EMAIL);
@@ -818,10 +843,9 @@ class ApiService
     //     {
     //       'Content-Type': 'application/json; charset=UTF-8',
     //     },
-    //     body: json.encode({"projectTitle":projectTitle,
+         //body: json.encode({"projectTitle":projectTitle,"projectDescription":projectDescription,"startDate":startDate,"endDate":endDate,"sketch":sketch,"ageGrou":ageGrou, "endDate":endDate})
   // "projectDescription":projectDescription,
-  // "startDate":startDate,
-  // "endDate":endDate,
+
   // "sketch":sketch,
   // "ageGroup":ageGroup,}));
     // print(json.encode({"userId": '$userId'}));
