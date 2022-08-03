@@ -324,6 +324,11 @@ class HomeView extends GetView<HomeController> {
                                   color:Colors.white,
                                   border: Border.all(color: primaryColor),
                                   borderRadius: BorderRadius.circular(10),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      primaryColor,
+                                    ],
+                                  ),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey.shade300,

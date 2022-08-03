@@ -46,21 +46,21 @@ class OrderListView extends GetView<OrderListController> {
                   appBar,
                   SizedBox(height: size.width * 0.05,),
                   //TabBar Tab's
-                  Expanded(
-                    flex: 0,
-                    child: Container(
+                  Expanded(flex: 0,child: Container(
                       margin: const EdgeInsets.all(5),
                       width: size.width,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: secondaryColor, width: 2.5),
+                        border: Border.all(color: primaryColor, width: 2.5),
                       ),
                       child: const Align(
                         alignment: Alignment.center,
                         child: TabBar(
-                          labelStyle: headline1,
-                          labelColor: Colors.black,
-                          indicatorColor: Colors.black,
+                          labelStyle: headline,
+                          labelColor: primaryColor,
+                          indicatorColor: primaryColor,
+                          unselectedLabelColor: Colors.grey,
+                          unselectedLabelStyle: headline1,
                           indicatorWeight: 5,
                           indicatorSize: TabBarIndicatorSize.tab,
                           isScrollable: true,
@@ -78,186 +78,177 @@ class OrderListView extends GetView<OrderListController> {
                   ),
                   SizedBox(height: size.width * 0.05,),
                   //TabBar View's
-                  Obx(() {
-                    return Expanded(
-                      flex: 1,
-                      child: TabBarView(
+                  Obx(() {return Expanded( flex: 1,child: TabBarView(
+                        physics: const ScrollPhysics(),
                         children: [
                           ///Pending Orders
-                          SingleChildScrollView(
-                            child: Column(children: List.generate(controller.pendingOrderList.length, (index) => Container(
-                              width: size.width,
-                              margin: const EdgeInsets.only(
-                                  left: 10, right: 10, bottom: 15),
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.black),
-                              ),
-                              child: Column(children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
-                                  children: [
-                                    Text('Item Total:', style: headline1),
-                                    Text('₹ ${controller.pendingOrderList[index].totalAmount}/-',
-                                        style: buttonSubTitleStyle),
-                                  ],),
-                                const Divider(),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
-                                  children: [
-                                    Text('Order Date:', style: headline1),
-                                    Text(controller.pendingOrderList[index].date,
-                                        style: buttonSubTitleStyle),
-                                  ],),
-                                // const Divider(),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment
-                                //       .spaceBetween,
-                                //   children: const [
-                                //     Text('Order Status:', style: headline1),
-                                //     Text('Pending', style: TextStyle(
-                                //         color: redColor,
-                                //         fontWeight: FontWeight.bold,
-                                //         fontSize: 15),),
-                                //   ],),
-                                const Divider(),
-                                ExpandableNotifier(
-                                    child: ScrollOnExpand(
-                                      scrollOnExpand: true,
-                                      scrollOnCollapse: false,
-                                      child: ExpandablePanel(
-                                        header: const Text(
-                                          'Order Detail\'s',
-                                          style: headline1,
-                                        ),
-                                        collapsed: Container(),
-                                        expanded: Container(
-                                          padding: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius
-                                                .circular(10),
-                                            border: Border.all(
-                                                color: Colors.black),
-                                          ),
-                                          child: Column(children:
-                                          List.generate(controller.pendingOrderList[index].itemList.length, (redux) => Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment
-                                                    .spaceBetween,
-                                                children: [
-                                                  Text('${controller.pendingOrderList[index].itemList[redux].productName}(${controller.pendingOrderList[index].itemList[redux].quantity})',style: TextStyle(fontSize: 14)),
-                                                  Text('${controller.pendingOrderList[index].itemList[redux].amount}/-',style: TextStyle(fontSize: 14)),
-                                                ],),
-                                              Divider()
-                                            ],
-                                          ),)
-                                              ),
-                                        ),
-                                        builder: (_, collapsed, expanded) {
-                                          return Expandable(
-                                            collapsed: collapsed,
-                                            expanded: expanded,
-                                          );
-                                        },
+                          Column(children: List.generate(controller.pendingOrderList.length, (index) => Container(
+                            width: size.width,
+                            margin: const EdgeInsets.only(
+                                left: 10, right: 10, bottom: 15),
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.grey),
+                            ),
+                            child: Column(children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  Text('Item Total:', style: headline1),
+                                  Text('₹ ${controller.pendingOrderList[index].totalAmount}/-',
+                                      style: buttonSubTitleStyle),
+                                ],),
+                              const Divider(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  Text('Order Date:', style: headline1),
+                                  Text(controller.pendingOrderList[index].date,
+                                      style: buttonSubTitleStyle),
+                                ],),
+                              // const Divider(),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment
+                              //       .spaceBetween,
+                              //   children: const [
+                              //     Text('Order Status:', style: headline1),
+                              //     Text('Pending', style: TextStyle(
+                              //         color: redColor,
+                              //         fontWeight: FontWeight.bold,
+                              //         fontSize: 15),),
+                              //   ],),
+                              const Divider(),
+                              ExpandableNotifier(
+                                  child: ScrollOnExpand(
+                                    scrollOnExpand: true,
+                                    scrollOnCollapse: false,
+                                    child: ExpandablePanel(
+                                      header: const Text(
+                                        'Order Detail\'s',
+                                        style: headline1,
                                       ),
-                                    )),
-                              ],),
-                            )),),
-                          ),
-                          SingleChildScrollView(
-                            child: Column(children: List.generate(controller.completeOrderList.length, (index) => Container(
-                              width: size.width,
-                              margin: const EdgeInsets.only(
-                                  left: 10, right: 10, bottom: 15),
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Colors.black),
-                              ),
-                              child: Column(children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
-                                  children: [
-                                    Text('Item Total:', style: headline1),
-                                    Text('₹ ${controller.completeOrderList[index].totalAmount}/-',
-                                        style: buttonSubTitleStyle),
-                                  ],),
-                                const Divider(),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
-                                  children: [
-                                    Text('Order Date:', style: headline1),
-                                    Text(controller.completeOrderList[index].date,
-                                        style: buttonSubTitleStyle),
-                                  ],),
-                                // const Divider(),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment
-                                //       .spaceBetween,
-                                //   children: const [
-                                //     Text('Order Status:', style: headline1),
-                                //     Text('Pending', style: TextStyle(
-                                //         color: redColor,
-                                //         fontWeight: FontWeight.bold,
-                                //         fontSize: 15),),
-                                //   ],),
-                                const Divider(),
-                                ExpandableNotifier(
-                                    child: ScrollOnExpand(
-                                      scrollOnExpand: true,
-                                      scrollOnCollapse: false,
-                                      child: ExpandablePanel(
-                                        header: const Text(
-                                          'Order Detail\'s',
-                                          style: headline1,
+                                      collapsed: Container(),
+                                      expanded: Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius
+                                              .circular(10),
+                                          border: Border.all(
+                                              color: Colors.black),
                                         ),
-                                        collapsed: Container(),
-                                        expanded: Container(
-                                          padding: EdgeInsets.all(10),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius
-                                                .circular(10),
-                                            border: Border.all(
-                                                color: Colors.black),
-                                          ),
-                                          child: Column(children:
-                                          List.generate(controller.completeOrderList[index].itemList.length, (redux) => Column(
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment
-                                                    .spaceBetween,
-                                                children: [
-                                                  Text('${controller.completeOrderList[index].itemList[redux].productName}(${controller.completeOrderList[index].itemList[redux].quantity})',style: TextStyle(fontSize: 14)),
-                                                  Text('${controller.completeOrderList[index].itemList[redux].amount}/-',style: TextStyle(fontSize: 14)),
-                                                ],),
-                                              Divider()
-                                            ],
-                                          ),)
-                                          ),
-                                        ),
-                                        builder: (_, collapsed, expanded) {
-                                          return Expandable(
-                                            collapsed: collapsed,
-                                            expanded: expanded,
-                                          );
-                                        },
+                                        child: Column(children:
+                                        List.generate(controller.pendingOrderList[index].itemList.length, (redux) => Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment
+                                                  .spaceBetween,
+                                              children: [
+                                                Text('${controller.pendingOrderList[index].itemList[redux].productName}(${controller.pendingOrderList[index].itemList[redux].quantity})',style: TextStyle(fontSize: 14)),
+                                                Text('${controller.pendingOrderList[index].itemList[redux].amount}/-',style: TextStyle(fontSize: 14)),
+                                              ],),
+                                            Divider()
+                                          ],
+                                        ),)
+                                            ),
                                       ),
-                                    )),
-                              ],),
-                            )),),
-                          ),
+                                      builder: (_, collapsed, expanded) {
+                                        return Expandable(
+                                          collapsed: collapsed,
+                                          expanded: expanded,
+                                        );
+                                      },
+                                    ),
+                                  )),
+                            ],),
+                          )),),
                           ///Complete Orders
-
+                          Column(children: List.generate(controller.completeOrderList.length, (index) => Container(
+                            width: size.width,
+                            margin: const EdgeInsets.only(
+                                left: 10, right: 10, bottom: 15),
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: Column(children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  Text('Item Total:', style: headline1),
+                                  Text('₹ ${controller.completeOrderList[index].totalAmount}/-',
+                                      style: buttonSubTitleStyle),
+                                ],),
+                              const Divider(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  Text('Order Date:', style: headline1),
+                                  Text(controller.completeOrderList[index].date,
+                                      style: buttonSubTitleStyle),
+                                ],),
+                              // const Divider(),
+                              // Row(
+                              //   mainAxisAlignment: MainAxisAlignment
+                              //       .spaceBetween,
+                              //   children: const [
+                              //     Text('Order Status:', style: headline1),
+                              //     Text('Pending', style: TextStyle(
+                              //         color: redColor,
+                              //         fontWeight: FontWeight.bold,
+                              //         fontSize: 15),),
+                              //   ],),
+                              const Divider(),
+                              ExpandableNotifier(
+                                  child: ScrollOnExpand(
+                                    scrollOnExpand: true,
+                                    scrollOnCollapse: false,
+                                    child: ExpandablePanel(
+                                      header: const Text(
+                                        'Order Detail\'s',
+                                        style: headline1,
+                                      ),
+                                      collapsed: Container(),
+                                      expanded: Container(
+                                        padding: EdgeInsets.all(10),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius
+                                              .circular(10),
+                                          border: Border.all(
+                                              color: Colors.black),
+                                        ),
+                                        child: Column(children:
+                                        List.generate(controller.completeOrderList[index].itemList.length, (redux) => Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment
+                                                  .spaceBetween,
+                                              children: [
+                                                Text('${controller.completeOrderList[index].itemList[redux].productName}(${controller.completeOrderList[index].itemList[redux].quantity})',style: TextStyle(fontSize: 14)),
+                                                Text('${controller.completeOrderList[index].itemList[redux].amount}/-',style: TextStyle(fontSize: 14)),
+                                              ],),
+                                            Divider()
+                                          ],
+                                        ),)
+                                        ),
+                                      ),
+                                      builder: (_, collapsed, expanded) {
+                                        return Expandable(
+                                          collapsed: collapsed,
+                                          expanded: expanded,
+                                        );
+                                      },
+                                    ),
+                                  )),
+                            ],),
+                          )),),
                         ],
-                      ),
-                    );
-                  }),
+                      ),);}),
                 ],
               ),
               ),

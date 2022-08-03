@@ -13,9 +13,7 @@ class ProgressReportView extends GetView<ProgressReportController> {
   @override
   Widget build(BuildContext context) {
     ProgressReportController controller = Get.put(ProgressReportController());
-    final size = MediaQuery
-        .of(context)
-        .size;
+    final size = MediaQuery.of(context).size;
     final appBar = SizedBox(
       height: size.width * 0.1,
       child: Padding(
@@ -110,31 +108,6 @@ class ProgressReportView extends GetView<ProgressReportController> {
                             ],),
                         ),
                         SizedBox(height: size.width * 0.01),
-                        // const Divider(thickness: 1,),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(left: 10, right: 10),
-                        //   child: Row(
-                        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //     children: [
-                        //       const Text(
-                        //         'In Process Project', style: headline1,),
-                        //       Container(
-                        //         height: size.width * 0.08,
-                        //         width: size.width * 0.15,
-                        //         decoration: BoxDecoration(
-                        //           borderRadius: BorderRadius.circular(20),
-                        //           border: Border.all(color: Colors.grey),
-                        //         ),
-                        //         child: Center(child: Obx(() {
-                        //           return Text(
-                        //             controller.complete_project.value
-                        //                 .toString(),
-                        //             style: buttonTitleStyle,);
-                        //         })),
-                        //       ),
-                        //     ],),
-                        // ),
-                        // SizedBox(height: size.width * 0.01),
                         const Divider(thickness: 1),
                         Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10),
@@ -149,7 +122,7 @@ class ProgressReportView extends GetView<ProgressReportController> {
                                 lineHeight: size.width * 0.02,
                                 percent: 0.7,
                                 backgroundColor: Colors.grey.shade300,
-                                progressColor: primaryColor,
+                                progressColor: secondaryColor,
                                 trailing: const Text('70%', style: subTitle,),
                               ),
                             ],),
@@ -168,7 +141,7 @@ class ProgressReportView extends GetView<ProgressReportController> {
                                 lineHeight: size.width * 0.02,
                                 percent: 0.5,
                                 backgroundColor: Colors.grey.shade300,
-                                progressColor: primaryColor,
+                                progressColor: secondaryColor,
                                 trailing: const Text('50%', style: subTitle,),
                               ),
                             ],),
@@ -191,11 +164,6 @@ class ProgressReportView extends GetView<ProgressReportController> {
                                         'measure': element['measure']
                                       };
                                     }).toList()
-                                    // {'domain': 'Projects', 'measure': 3},
-                                    // {'domain': 'Completed', 'measure': 4},
-                                    // {'domain': 'Material', 'measure': 6},
-                                    // {'domain': 'Comment\'s', 'measure': 2},
-
                                   },
                                 ],
                                 domainLabelPaddingToAxisLine: 16,
@@ -204,7 +172,7 @@ class ProgressReportView extends GetView<ProgressReportController> {
                                 axisLinePointWidth: 10,
                                 axisLineColor: Colors.black,
                                 measureLabelPaddingToAxisLine: 20,
-                                barColor: (barData, index, id) => primaryColor,
+                                barColor: (barData, index, id) => secondaryColor,
                                 showBarValue: true,
                               ),
                             ),

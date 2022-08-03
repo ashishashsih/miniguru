@@ -144,9 +144,9 @@ class ShopView extends GetView<ShopController> {
                     itemCount: controller.filteredProductList.length,
                     itemBuilder: (BuildContext ctx, int index) {
                       return Container(
-                        padding: const EdgeInsets.all(5),
+                        padding: const EdgeInsets.all(3),
                         decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey),
+                            border: Border.all(color:Colors.grey.shade400),
                             borderRadius: BorderRadius.circular(15)
                         ),
                         child: Column(
@@ -166,7 +166,7 @@ class ShopView extends GetView<ShopController> {
                                 //Get.toNamed('/shop-item',arguments:[controller.filteredProductList[index].id]),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.grey),
+                                    border: Border.all(color:Colors.grey.shade400),
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                         image: NetworkImage(

@@ -15,7 +15,7 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
         .of(context)
         .size;
     final appBar = SizedBox(
-      height: size.width / 6,
+      height: size.width * 0.13,
       child: Stack(
         children: [
           const Center(
@@ -29,8 +29,8 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
             child: InkWell(
               onTap: () => Get.back(),
               child: Container(
-                height: size.width * 0.15,
-                width: size.width * 0.15,
+                height: size.width * 0.12,
+                width: size.width * 0.12,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(150),
                     border: Border.all(color: Colors.grey)),
@@ -40,23 +40,6 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
               ),
             ),
           ),
-          //Wallet Button
-          Align(
-            alignment: Alignment.centerRight,
-            child: InkWell(
-              onTap: () {},
-              child: Container(
-                height: size.width * 0.15,
-                width: size.width * 0.15,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(150),
-                    border: Border.all(color: Colors.grey)),
-                child: const Center(
-                  child: Icon(Icons.account_balance_wallet_outlined),
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );

@@ -51,9 +51,9 @@ class ProjectListView extends GetView<ProjectListController> {
                 itemCount: 2,
                   itemBuilder: (BuildContext ctx, int index){
                 return Container(
-                  padding: const EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(7),
                   margin: const EdgeInsets.only(bottom: 20),
-                  height: size.width * 0.45,
+                  height: size.width * 0.5,
                   width: size.width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -64,29 +64,54 @@ class ProjectListView extends GetView<ProjectListController> {
                       //Image & Title,Subtitle
                       Expanded(
                         flex: 1,
-                        child: Row(
-                          children: [
-                            //Project Image
-                            Expanded(flex:1,child: Container(
-                              margin: EdgeInsets.only(right: 10,bottom: 10),
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(15),
-                                  image: const DecorationImage(
-                                    image: NetworkImage(demoImage),
-                                    fit: BoxFit.cover
-                                  )
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            children: [
+                              //Project Image
+                              Expanded(flex:1,child: Container(
+                                margin: EdgeInsets.only(right: 10),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.grey.shade300),
+                                    borderRadius: BorderRadius.circular(15),
+                                    image: const DecorationImage(
+                                      image: NetworkImage(demoImage),
+                                      fit: BoxFit.cover
+                                    )
+                                  ),
                                 ),
                               ),
-                            ),
-                            //Title Subtitle
-                            Expanded(flex: 2,child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                               Text('Title of the Project',style: titleStyle,),
-                               Text('Advance web Applications.',style: subTitle,),
-                            ],)),
-                          ],),
+                              //Title Subtitle
+                              Expanded(flex: 2,child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: const [
+                                    Text('Title of the Project',overflow: TextOverflow.ellipsis,style: titleStyle,maxLines: 2,),
+                                    Text('Advance web Applications',style: subTitle,maxLines: 3,overflow: TextOverflow.ellipsis,),
+                                  ],),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: const [
+                                        Text('Start Date',style: buttonSubTitleStyle,),
+                                        Text('10-05-22',style: subTitle,),
+                                      ],),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: const [
+                                          Text('End Date',style: buttonSubTitleStyle,),
+                                          Text('10-05-22',style: subTitle,),
+                                        ],),
+                                    ],
+                                  ),
+                              ],)),
+                            ],),
+                        ),
                       ),
                       //Progress Indicator
                       Expanded(
@@ -96,7 +121,7 @@ class ProjectListView extends GetView<ProjectListController> {
                           lineHeight: size.width * 0.02,
                           percent: 0.7,
                           backgroundColor: Colors.grey.shade300,
-                          progressColor: primaryColor,
+                          progressColor: redColor,
                           trailing: const Text('70%',style: subTitle,),
                         ),
                       ),
