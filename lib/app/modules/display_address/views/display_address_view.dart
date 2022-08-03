@@ -94,7 +94,11 @@ class DisplayAddressView extends GetView<DisplayAddressController> {
                                   (index) => Card(
                                 elevation: 5,
                                 child: ListTile(
-                                    onTap: () => {},
+                                    onTap: () =>
+                                    {
+                                      addressController.setAddress(addressController.addresses[index].id)
+                                    },
+                                    //selectedColor: Colors.green,
                                     title: Text(
                                       addressController
                                           .addresses[index].address,

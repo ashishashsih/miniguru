@@ -17,6 +17,7 @@ class AddressController extends GetxController
   var address_type="Home".obs;
 
   var selectedCityId="2465".obs;
+  var selectedAddressId="".obs;
   var cityList = <NameIdModel>[].obs;
   final GlobalKey<FormState>addressFormKey=GlobalKey<FormState>();
   late TextEditingController addressingController,cityController;
@@ -28,6 +29,11 @@ class AddressController extends GetxController
     addressingController=TextEditingController();
     getAddressList();
     getCityList();
+  }
+
+  setAddress(int val)
+  {
+    selectedAddress.value=val;
   }
 
   getCityList()async
