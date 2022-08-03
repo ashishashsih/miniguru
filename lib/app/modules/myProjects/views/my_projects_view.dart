@@ -493,8 +493,12 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                   color: primaryColor,
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: const Center(child: Text(
-                                  'Upload', style: blueButtonSubTitle,),),
+                                child: Center(child: InkWell(
+                                  onTap: (){controller.createProject();}
+                                  ,
+                                  child: Text(
+                                    'Create Project', style: blueButtonSubTitle,),
+                                ),),
                               ),
                             ),
                           ],),

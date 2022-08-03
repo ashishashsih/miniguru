@@ -67,31 +67,31 @@ class BottomBarView extends GetView<BottomBarController> {
                   backgroundColor: primaryColor,
                   icon: Icon(CupertinoIcons.house_alt, color: Colors.black54,),
                   activeIcon: Icon(CupertinoIcons.house_alt, color: primaryColor,),
-                  title: Text("Home")),
+                  title: Text("Home",style: TextStyle(fontSize: 12),)),
 
               BubbleBottomBarItem(
                   backgroundColor: secondaryColor,
                   icon: Icon(CupertinoIcons.graph_circle, color: Colors.black54,),
                   activeIcon: Icon(CupertinoIcons.graph_circle, color: secondaryColor,),
-                  title: Text("Report")),
+                  title: Text("Report",style: TextStyle(fontSize: 12))),
 
               BubbleBottomBarItem(
                   backgroundColor: redColor,
                   icon: Icon(Icons.folder_open, color: Colors.black54,),
                   activeIcon: Icon(Icons.folder_open, color: redColor,),
-                  title: Text("Project\'s")),
+                  title: Text("Project\'s",style: TextStyle(fontSize: 12))),
 
               BubbleBottomBarItem(
                   backgroundColor: greenColor,
                   icon: Icon(CupertinoIcons.shopping_cart, color: Colors.black54,),
                   activeIcon: Icon(CupertinoIcons.shopping_cart, color: greenColor,),
-                  title: Text("Shop")),
+                  title: Text("Shop",style: TextStyle(fontSize: 12))),
 
               BubbleBottomBarItem(
                   backgroundColor: primaryColor,
                   icon: Icon(CupertinoIcons.bag, color: Colors.black54,),
                   activeIcon: Icon(CupertinoIcons.bag, color: primaryColor,),
-                  title: Text("Order\'s")),
+                  title: Text("Order\'s",style: TextStyle(fontSize: 12))),
             ],
           ),
         );
