@@ -22,8 +22,9 @@ class MyProjectsController extends GetxController {
   late TextEditingController editingControllerDescription;
   var projectTitle="".obs;
   var projectDescription="".obs;
+  var selectedAgeGroup=1.obs;
 
-  var ageList = <NameIdModel>[NameIdModel(id: 1, name: '5-7'),NameIdModel(id: 1, name: '7-10'),NameIdModel(id: 1, name: '10-13')];
+  var ageList = <NameIdModel>[NameIdModel(id: 1, name: '5-7'),NameIdModel(id: 2, name: '7-10'),NameIdModel(id: 3, name: '10-13')];
 
   String? validateText(String value,String msg)
   {

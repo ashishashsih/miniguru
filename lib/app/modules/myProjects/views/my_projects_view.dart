@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -49,7 +50,6 @@ class MyProjectsView extends GetView<MyProjectsController> {
         ],
       ),
     );
-    final GlobalKey formKey = GlobalKey();
     return Scaffold(
         backgroundColor: Colors.grey.shade300,
         body: SafeArea(
@@ -83,7 +83,7 @@ class MyProjectsView extends GetView<MyProjectsController> {
                         ]
                     ),
                     child: Form(
-                      key: formKey,
+                      key: controller.profileFormKey,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,14 +173,15 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                     child: InkWell(
                                       onTap: () {
                                         Get.defaultDialog(
-                                          middleText: 'Select Image',
+                                            middleText: 'Select Image',
                                             title: 'My Project Sketch',
                                             barrierDismissible: true,
                                             radius: 5.0,
                                             confirm: InkWell(
-                                              onTap: (){
+                                              onTap: () {
                                                 Get.back();
-                                                controller.getImage(ImageSource.gallery);
+                                                controller.getImage(
+                                                    ImageSource.gallery);
                                               },
                                               child: Card(
                                                 elevation: 5,
@@ -207,7 +208,8 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                                         Text(
                                                           "Gallery",
                                                           style: TextStyle(
-                                                              color: Colors.white,
+                                                              color: Colors
+                                                                  .white,
                                                               fontSize: 15),
                                                         )
                                                       ],
@@ -215,9 +217,10 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                               ),
                                             ),
                                             cancel: InkWell(
-                                              onTap: (){
+                                              onTap: () {
                                                 Get.back();
-                                                controller.getImage(ImageSource.camera);
+                                                controller.getImage(
+                                                    ImageSource.camera);
                                               },
                                               child: Card(
                                                 elevation: 5,
@@ -244,7 +247,8 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                                         Text(
                                                           "Camera",
                                                           style: TextStyle(
-                                                              color: Colors.white,
+                                                              color: Colors
+                                                                  .white,
                                                               fontSize: 15),
                                                         )
                                                       ],
@@ -256,12 +260,22 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                           height: size.width * 0.3,
                                           width: size.width,
                                           decoration: BoxDecoration(
-                                              color: primaryColor.withOpacity(0.1),
-                                              borderRadius: BorderRadius.circular(10)
+                                              color: primaryColor.withOpacity(
+                                                  0.1),
+                                              borderRadius: BorderRadius
+                                                  .circular(10)
                                           ),
                                           child: controller.sketch.value != ''
-                                              ? ClipRRect(borderRadius: BorderRadius.circular(10),child: Image.file(File(controller.sketch.value),fit: BoxFit.cover))
-                                              : const Center(child: Text('Tap To Select\nImage',textAlign: TextAlign.center, style: subTitle,))
+                                              ? ClipRRect(
+                                              borderRadius: BorderRadius
+                                                  .circular(10),
+                                              child: Image.file(
+                                                  File(controller.sketch.value),
+                                                  fit: BoxFit.cover))
+                                              : const Center(child: Text(
+                                            'Tap To Select\nImage',
+                                            textAlign: TextAlign.center,
+                                            style: subTitle,))
                                       ),
                                     ),
                                   ),
@@ -276,14 +290,17 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                     Container(
                                       height: size.width * 0.1,
                                       width: size.width * 0.35,
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
                                       decoration: BoxDecoration(
                                           color: primaryColor,
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(
+                                              10),
                                           boxShadow: [
                                             BoxShadow(
                                               offset: const Offset(0, 5),
-                                              color: Colors.grey.withOpacity(0.4),
+                                              color: Colors.grey.withOpacity(
+                                                  0.4),
                                               blurRadius: 4,
                                             ),
                                           ]
@@ -296,7 +313,8 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                           mainAxisAlignment: MainAxisAlignment
                                               .spaceAround,
                                           children: [
-                                            const Icon(Icons.calendar_month_outlined,
+                                            const Icon(
+                                              Icons.calendar_month_outlined,
                                               color: Colors.white,),
                                             Text(controller.startDate.value,
                                               style: blueButtonSubTitle,),
@@ -309,14 +327,17 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                     Container(
                                       height: size.width * 0.1,
                                       width: size.width * 0.35,
-                                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
                                       decoration: BoxDecoration(
                                           color: primaryColor,
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius: BorderRadius.circular(
+                                              10),
                                           boxShadow: [
                                             BoxShadow(
                                               offset: const Offset(0, 5),
-                                              color: Colors.grey.withOpacity(0.4),
+                                              color: Colors.grey.withOpacity(
+                                                  0.4),
                                               blurRadius: 4,
                                             ),
                                           ]
@@ -329,7 +350,8 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                           mainAxisAlignment: MainAxisAlignment
                                               .spaceAround,
                                           children: [
-                                            const Icon(Icons.calendar_month_outlined,
+                                            const Icon(
+                                              Icons.calendar_month_outlined,
                                               color: Colors.white,),
                                             //SizedBox(width: 5,),
                                             Text(controller.endDate.value,
@@ -352,41 +374,99 @@ class MyProjectsView extends GetView<MyProjectsController> {
                               borderRadius: BorderRadius.circular(7),
                             ),
                             child: Center(
-                              child: DropdownButtonHideUnderline(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: DropdownButton2(
-                                    dropdownDecoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      border: Border.all(
-                                          color: Colors.grey.shade400),
+                              // child: Obx(() {
+                              //   return DropdownButtonHideUnderline(
+                              //     child: DropdownButton2(
+                              //       dropdownDecoration: BoxDecoration(
+                              //         color: Colors.white,
+                              //         border: Border.all(color: Theme
+                              //             .of(context)
+                              //             .primaryColor, width: 2),
+                              //         borderRadius: BorderRadius.circular(10),
+                              //       ),
+                              //       offset: const Offset(0, -15),
+                              //       isExpanded: true,
+                              //       isDense: true,
+                              //       hint: const Text(
+                              //         'Select a',
+                              //         style: TextStyle(
+                              //           fontFamily: 'Poppins',
+                              //           fontSize: 17,
+                              //           color: Colors.white,
+                              //         ),
+                              //       ),
+                              //       icon: const Icon(
+                              //         Icons.keyboard_arrow_down,
+                              //         color: Colors.black,
+                              //       ),
+                              //       onChanged: (data) {
+                              //         controller.selectedAgeGroup.value =
+                              //             int.parse(data.toString());
+                              //         print("dropDown Value is:" +
+                              //             controller.selectedAgeGroup.value
+                              //                 .toString());
+                              //         //controller.setCurrentState(data.toString());
+                              //         // setState(() {
+                              //         //   dropdownValue = data;
+                              //         //   print("dropDown Value is:"+dropdownValue);
+                              //         // });
+                              //       },
+                              //       value: controller.selectedAgeGroup.value,
+                              //       items: controller.ageList.map<
+                              //           DropdownMenuItem<String>>((
+                              //           NameIdModel value) {
+                              //         return DropdownMenuItem<String>(
+                              //           value: value.id.toString(),
+                              //           child: Text(
+                              //             value.name,
+                              //             style: const TextStyle(
+                              //               color: Colors.black, fontSize: 17,),
+                              //           ),
+                              //         );
+                              //       }).toList(),
+                              //     ),
+                              //   );
+                              // }),
+                              child: Obx(() {
+                                return DropdownButtonHideUnderline(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: DropdownButton2(
+                                      dropdownDecoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        border: Border.all(
+                                            color: Colors.grey.shade400),
+                                      ),
+                                      isExpanded: true,
+                                      isDense: true,
+                                      hint: const Text(
+                                          'Select Age Group',
+                                          style: blueButtonSubTitle
+                                      ),
+                                      icon: const Icon(
+                                        Icons.arrow_drop_down,
+                                        color: Colors.white,
+                                      ),
+                                      onChanged: (data) {
+                                        controller.selectedAgeGroup.value =
+                                            int.parse(data.toString());
+                                        print(
+                                            controller.selectedAgeGroup.value);
+                                      },
+                                      items: controller.ageList.map<
+                                          DropdownMenuItem<String>>((
+                                          NameIdModel value) {
+                                        return DropdownMenuItem<String>(
+                                          value: value.id.toString(),
+                                          child: Text(
+                                            value.name, style: headline1,),
+                                        );
+                                      }).toList(),
                                     ),
-                                    isExpanded: true,
-                                    isDense: true,
-                                    hint: const Text(
-                                        'Select Age Group',
-                                        style: blueButtonSubTitle
-                                    ),
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down,
-                                      color: Colors.white,
-                                    ),
-                                    onChanged: (_) {
-
-                                    },
-                                    items: controller.ageList.map<
-                                        DropdownMenuItem<String>>((
-                                        NameIdModel value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value.id.toString(),
-                                        child: Text(
-                                          value.name, style: headline1,),
-                                      );
-                                    }).toList(),
                                   ),
-                                ),
-                              ),
+                                );
+                              }),
                             ),
                           ),
                           SizedBox(height: size.width * 0.05,),
