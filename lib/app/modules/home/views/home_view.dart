@@ -5,10 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mini_guru/app/modules/courseLessons/views/course_lessons_view.dart';
-import 'package:mini_guru/app/modules/filters/views/filters_view.dart';
-import 'package:mini_guru/app/modules/indroduction/views/indroduction_view.dart';
 import 'package:mini_guru/app/modules/notification/views/notification_view.dart';
-import 'package:mini_guru/app/modules/shopItem/controllers/shop_item_controller.dart';
 import 'package:mini_guru/constants.dart';
 import 'package:mini_guru/others/NameIdModel.dart';
 import '../../appProfile/views/app_profile_view.dart';
@@ -24,55 +21,6 @@ class HomeView extends GetView<HomeController> {
     const String demoImage = 'https://bsmedia.business-standard.com/_media/bs/img/article/2021-01/21/full/1611251685-5188.jpg';
 
     var ageList = <NameIdModel>[NameIdModel(id: 1, name: '5-7'),NameIdModel(id: 1, name: '7-10'),NameIdModel(id: 1, name: '10-13')];
-
-    // final courseDescriptionWidget = Container(
-    //   padding: const EdgeInsets.all(5),
-    //   decoration: BoxDecoration(
-    //       border: Border.all(color: Colors.grey),
-    //       borderRadius: BorderRadius.circular(15)
-    //   ),
-    //   child: Column(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     mainAxisAlignment: MainAxisAlignment.center,
-    //     children: [
-    //       //Video Widget
-    //       InkWell(
-    //         onTap: () =>
-    //             Get.to(CourseLessonsView(), transition: Transition.downToUp),
-    //         child: Container(
-    //           height: size.width * 0.3,
-    //           width: size.width,
-    //           decoration: BoxDecoration(
-    //             border: Border.all(color: Colors.grey),
-    //             borderRadius: BorderRadius.circular(10),
-    //             image: const DecorationImage(
-    //                 image: NetworkImage(
-    //                     'https://bsmedia.business-standard.com/_media/bs/img/article/2021-01/21/full/1611251685-5188.jpg'),
-    //                 fit: BoxFit.cover
-    //             ),
-    //           ),
-    //           child: Center(child: Icon(Icons.play_circle_filled_rounded,
-    //             color: Colors.white.withOpacity(0.7), size: 45,),),
-    //         ),
-    //       ),
-    //       const Text(
-    //           'Java Script: Complete Beginner\'s guide', style: headline1),
-    //       SizedBox(height: size.width * 0.02),
-    //       const Text('John Smith ✔', style: buttonSubTitleStyle),
-    //       SizedBox(height: size.width * 0.001),
-    //       const Text.rich(TextSpan(
-    //           text: '🌟 Rating: ',
-    //           style: buttonSubTitleStyle,
-    //           children: [
-    //             TextSpan(
-    //                 text: '4.5',
-    //                 style: headline1
-    //             )
-    //           ]
-    //       )),
-    //     ],),
-    // );
-    //AppBar
     final appBar = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -326,7 +274,8 @@ class HomeView extends GetView<HomeController> {
                                   borderRadius: BorderRadius.circular(10),
                                   gradient: LinearGradient(
                                     colors: [
-                                      primaryColor,
+                                      Colors.cyan,
+                                      Colors.indigo,
                                     ],
                                   ),
                                   boxShadow: [
@@ -353,12 +302,12 @@ class HomeView extends GetView<HomeController> {
                                     Column(children: [
                                       Text('Score',
                                           style: TextStyle(fontSize: 20,
-                                              color: Colors.black,
+                                              color: Colors.white,
                                               fontWeight: FontWeight.bold,
                                               letterSpacing: 1)),
                                       Text(
                                           controller.score.value, style: TextStyle(fontSize: 15,
-                                          color: Colors.black,
+                                          color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 0.5)),
                                     ],)
@@ -374,6 +323,12 @@ class HomeView extends GetView<HomeController> {
                                 color:Colors.white,
                                   border: Border.all(color: primaryColor),
                                 borderRadius: BorderRadius.circular(10),
+                                  gradient: const LinearGradient(
+                                    colors: [
+                                      Colors.indigo,
+                                      Colors.cyan,
+                                    ],
+                                  ),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.grey.shade300,
@@ -398,12 +353,12 @@ class HomeView extends GetView<HomeController> {
                                     Column(children: [
                                       Text('Wallet', style: TextStyle(
                                           fontSize: 20,
-                                          color: Colors.black,
+                                          color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1)),
                                       Text(
                                           controller.wallet_balance.value, style: TextStyle(fontSize: 15,
-                                          color: Colors.black,
+                                          color: Colors.white,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 0.5)),
                                     ],)
@@ -431,7 +386,7 @@ class HomeView extends GetView<HomeController> {
                           return Container(
                             padding: const EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                                border: Border.all(color: primaryColor),
+                                border: Border.all(color: Colors.grey.shade400),
                                 borderRadius: BorderRadius.circular(10)
                             ),
                             child: Column(
@@ -474,7 +429,6 @@ class HomeView extends GetView<HomeController> {
                                     text: '🌟 ${controller.fdrList[index].rating
                                         .toString()} ',
                                     style: buttonSubTitleStyle,
-
                                   )),
                                 ],),
                               ],),
