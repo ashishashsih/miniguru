@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_guru/app/modules/model/CommentModel.dart';
 import 'package:mini_guru/constants.dart';
 import 'package:mini_guru/others/api_service.dart';
+import 'package:video_viewer/domain/bloc/controller.dart';
 
 class CourseLessonsController extends GetxController {
 
-  final count = 0.obs;
+  late VideoViewerController videoController;
   var isLoading=false.obs;
   var commentList = <CommentModel>[].obs;
   var title="".obs;
@@ -23,8 +23,7 @@ class CourseLessonsController extends GetxController {
   var gaming=0.obs;
   var showComment=false.obs;
 
-  getProjectList()async
-  {
+  getProjectList()async{
     print("address list");
     isLoading.value = true;
     try {
@@ -64,6 +63,7 @@ class CourseLessonsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    videoController = VideoViewerController();
     getProjectList();
   }
 
@@ -78,5 +78,4 @@ class CourseLessonsController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
 }

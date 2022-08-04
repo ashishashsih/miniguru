@@ -1,9 +1,8 @@
-import 'dart:math';
-
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:video_viewer/video_viewer.dart';
 import '../../../../constants.dart';
 import '../controllers/course_lessons_controller.dart';
 
@@ -128,31 +127,27 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
             padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
             child: EnterAnimation(Column(
                 children: [
-                  Expanded( flex: 0,child: Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                     appBar,
                     SizedBox(height: size.width * 0.05),
                     //Video Widget
-                    Container(
-                        padding: const EdgeInsets.all(15),
-                        height: size.width * 0.6,
+                    SizedBox(
                         width: size.width,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(color: Colors.grey),
-                            image: const DecorationImage(
-                              image: NetworkImage(
-                                  'https://cdn.pixabay.com/photo/2015/01/08/18/25/desk-593327__340.jpg'),
-                              fit: BoxFit.cover,
-                            )),
-                        child: Center(
-                          child: Icon(
-                            Icons.play_circle_filled_rounded,
-                            size: 100,
-                            color: Colors.white.withOpacity(0.8),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: VideoViewer(
+                            looping: true,
+                            controller: courseController.videoController,
+                            source: {
+                              'Video': VideoSource(
+                                video: VideoPlayerController.network('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4')
+                              )
+                            },
                           ),
-                        )),
+                        ),
+                    ),
                     SizedBox(height: size.width * 0.05),
                     //Like Buttons
                     Wrap(
@@ -195,8 +190,8 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
                       style: subTitle,
                     ),
                     Divider(),
-                  ],)),
-                  Expanded(flex: 1,child: SingleChildScrollView(
+                  ],),
+                  SingleChildScrollView(
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -267,7 +262,6 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
                                     )),)
                         ],
                       ),
-                  ),
                   ),
                 ],
               ),
