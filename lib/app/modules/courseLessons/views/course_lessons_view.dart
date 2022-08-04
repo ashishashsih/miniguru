@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,30 +60,10 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
         ),
       );
     }
-    Widget commentsWidget(
-        {required String imageUrl, required String userName, required String comment}) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Expanded(
-            flex: 1,
-            child: CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(imageUrl),
-            ),
-          ),
-          SizedBox(width: size.width * 0.02,),
-          Expanded(
-            flex: 6,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(userName, style: headline,),
-                Text(comment, style: subTitle,),
-              ],),
-          )
-        ],);
-    }
+    // Widget commentsWidget(
+    //     {required String userName, required String comment}) {
+    //   return ;
+    // }
     final addComment = SizedBox(
       height: size.width * 0.15,
       width: double.infinity,
@@ -103,7 +85,7 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
                     placeholder: 'Enter Comment',
                   )),
             ),
-            SizedBox(width: size.width * 0.01),
+            SizedBox(width:size.width * 0.01),
             InkWell(
               onTap: () {
                 courseController.showComment.value = false;
@@ -144,7 +126,6 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     appBar,
                     SizedBox(
@@ -177,30 +158,32 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
                     SizedBox(
                       height: size.height,
                       child: SingleChildScrollView(
-                        child: Column(children: [
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                           Wrap(
                             spacing: 20,
                             children: [
-                              likeButtons(label: 'Aesthetic', likes: '10'),
-                              likeButtons(label: 'Unique', likes: '40'),
-                              likeButtons(label: 'Creative', likes: '30'),
-                              likeButtons(label: 'Useful', likes: '6'),
-                              likeButtons(label: 'Interactive', likes: '7'),
-                              likeButtons(label: 'Gaming', likes: '17'),
+                              likeButtons(label: 'Aesthetic', likes: controller.aesthetic.value.toString()),
+                              likeButtons(label: 'Unique', likes: controller.unique.value.toString()),
+                              likeButtons(label: 'Creative', likes: controller.creative.value.toString()),
+                              likeButtons(label: 'Useful', likes: controller.useful.value.toString()),
+                              likeButtons(label: 'Interactive', likes: controller.interactive.value.toString()),
+                              likeButtons(label: 'Gaming', likes: controller.gaming.value.toString()),
                             ],
                           ),
                           SizedBox(
                             height: size.width * 0.05,
                           ),
-                          const Text(
-                            'Complete Introduction to the Basics of JavaScript',
+                          Text(
+                            controller.title.value,
                             style: headline,
                           ),
                           SizedBox(
                             height: size.width * 0.01,
                           ),
-                          const Text(
-                            'Here are all the basics you need to know in order to get started',
+                          Text(
+                            controller.description.value,
                             style: subTitle,
                           ),
                           SizedBox(
@@ -216,66 +199,35 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
                           SizedBox(
                             height: size.width * 0.05,
                           ),
-                          commentsWidget(imageUrl: demoImage,
-                              userName: 'John Smith',
-                              comment: 'It\'s a great video to watch I have learned many things from it,'),
-                          SizedBox(
-                            height: size.width * 0.02,
-                          ),
-                          commentsWidget(imageUrl: demoImage,
-                              userName: 'John Smith',
-                              comment: 'It\'s a great video to watch I have learned many things from it,'),
-                          SizedBox(
-                            height: size.width * 0.02,
-                          ),
-                          commentsWidget(imageUrl: demoImage,
-                              userName: 'John Smith',
-                              comment: 'It\'s a great video to watch I have learned many things from it,'),
-                          SizedBox(
-                            height: size.width * 0.02,
-                          ),
-                          commentsWidget(imageUrl: demoImage,
-                              userName: 'John Smith',
-                              comment: 'It\'s a great video to watch I have learned many things from it,'),
-                          SizedBox(
-                            height: size.width * 0.02,
-                          ),
-                          commentsWidget(imageUrl: demoImage,
-                              userName: 'John Smith',
-                              comment: 'It\'s a great video to watch I have learned many things from it,'),
-                          SizedBox(
-                            height: size.width * 0.02,
-                          ),
-                          commentsWidget(imageUrl: demoImage,
-                              userName: 'John Smith',
-                              comment: 'It\'s a great video to watch I have learned many things from it,'),
-                          SizedBox(
-                            height: size.width * 0.02,
-                          ),
-                          commentsWidget(imageUrl: demoImage,
-                              userName: 'John Smith',
-                              comment: 'It\'s a great video to watch I have learned many things from it,'),
-                          SizedBox(
-                            height: size.width * 0.02,
-                          ),
-                          commentsWidget(imageUrl: demoImage,
-                              userName: 'John Smith',
-                              comment: 'It\'s a great video to watch I have learned many things from it,'),
-                          SizedBox(
-                            height: size.width * 0.02,
-                          ),
-                          commentsWidget(imageUrl: demoImage,
-                              userName: 'John Smith',
-                              comment: 'It\'s a great video to watch I have learned many things from it,'),
-                          SizedBox(
-                            height: size.width * 0.02,
-                          ),
-                          commentsWidget(imageUrl: demoImage,
-                              userName: 'John Smith',
-                              comment: 'It\'s a great video to watch I have learned many things from it,'),
-                          SizedBox(
-                            height: size.width * 0.1,
-                          ),
+Column(children:
+List.generate(controller.commentList.length, (index) =>
+    Container(
+      margin: EdgeInsets.only(bottom: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 1,
+            child: CircleAvatar(
+              // backgroundColor:  Colors.primaries[Random().nextInt(Colors.primaries.length)],
+              backgroundColor: courseController.generateRandomColor1(),
+              radius: 20,
+              child: Text(controller.commentList[index].name[0].toUpperCase(),style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),),
+            ),
+          ),
+          SizedBox(width: size.width * 0.02,),
+          Expanded(
+            flex: 6,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(controller.commentList[index].name, style: headline1,),
+                Text(controller.commentList[index].comment, style: subTitle,),
+                Divider(color: Colors.black,)
+              ],),
+          )
+        ],),
+    )),)
                         ],),
                       ),
                     ),
