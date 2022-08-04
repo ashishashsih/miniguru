@@ -123,7 +123,7 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
           child: Padding(
             padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
             child: EnterAnimation(ListView(
-              physics: const NeverScrollableScrollPhysics(),
+              physics: const ScrollPhysics(),
               children: [
                 Column(
                   children: [
@@ -200,7 +200,8 @@ class CourseLessonsView extends GetView<CourseLessonsController> {
                             height: size.width * 0.05,
                           ),
 Column(children:
-List.generate(controller.commentList.length, (index) =>
+List.generate(
+    controller.commentList.length, (index) =>
     Container(
       margin: EdgeInsets.only(bottom: 10),
       child: Row(
