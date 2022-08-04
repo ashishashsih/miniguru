@@ -1,4 +1,3 @@
-import 'package:delayed_display/delayed_display.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +65,7 @@ class AddAddressView extends GetView<AddressController> {
               children: [
                 appBar,
                 SizedBox(height: size.width * 0.1,),
-                Container(
+                Container (
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     color: Colors.white,

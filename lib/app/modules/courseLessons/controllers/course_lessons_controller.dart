@@ -49,7 +49,7 @@ class CourseLessonsController extends GetxController {
     }
   }
 
-  Color generateRandomColor1() {
+  Color generateRandomColor() {
     // Define all colors you want here
     const predefinedColors = [
       primaryColor,
