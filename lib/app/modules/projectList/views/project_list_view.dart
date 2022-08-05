@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -60,81 +61,101 @@ class ProjectListView extends GetView<ProjectListController> {
                     itemBuilder: (BuildContext ctx, int index) {
                       return InkWell(
                         onTap:(){
-                          Get.bottomSheet(Container(
-                            padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 10),
-                            height: size.height/6,
-                            width: size.width,
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20),
-                                topLeft:  Radius.circular(20),
-                              ),
-                            ),
-                            child: SingleChildScrollView(
-                              child: Column(children: [
-                                Text(projectListController.myProjectList[index].title,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: titleStyle,
-                                  maxLines: 2,),
-                                SizedBox(height: size.width * 0.05,),
-                                Row(
-                                  children: [
-                                    //Project Progress TextField
-                                    Expanded(
-                                      flex: 1,
-                                      child: SizedBox(
-                                        height: size.width * 0.1,
-                                        width: size.width,
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                            alignLabelWithHint: true,
-                                            contentPadding: const EdgeInsets.only(bottom: 5,left: 10),
-                                            labelText: 'Update Progress',
-                                            labelStyle: subTitle,
-                                            suffixIcon: const Icon(CupertinoIcons.percent),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(10),
-                                              borderSide: const BorderSide(
-                                                color: primaryColor,
-                                                width: 2.0,
-                                              ),
-                                            ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius: BorderRadius.circular(10),
-                                              borderSide: const BorderSide(
-                                                color: primaryColor,
-                                                width: 2.0,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                          if(projectListController.myProjectList[index].progress==100)
+                            {
+                               Fluttertoast.showToast(msg: "Project Already Complted");
+                            }else
+                              {
+                                Get.bottomSheet(Container(
+                                  padding: const EdgeInsets.symmetric(vertical: 15,horizontal: 10),
+                                  height: size.height/6,
+                                  width: size.width,
+                                  decoration: const BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(20),
+                                      topLeft:  Radius.circular(20),
                                     ),
-                                    SizedBox(width: size.width * 0.01,),
-                                    //Submit Button
-                                    Expanded(
-                                      flex: 1,
-                                        child: InkWell(
-                                          onTap: (){
-                                            projectListController.getVideo();
-                                            print(projectListController.video.value);
-                                          },
-                                          child: Container(
-                                            height: size.width * 0.1,
-                                            width: size.width,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
-                                              color: primaryColor,
+                                  ),
+                                  child: SingleChildScrollView(
+                                    child: Column(children: [
+                                      Text(projectListController.myProjectList[index].title,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: titleStyle,
+                                        maxLines: 2,),
+                                      SizedBox(height: size.width * 0.05,),
+                                      Row(
+                                        children: [
+                                          //Project Progress TextField
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              height: size.width * 0.1,
+                                              width: size.width,
+                                              child: TextFormField(
+                                                controller: projectListController.textEditingControllerProgress,
+                                                keyboardType: TextInputType.number,
+                                                decoration: InputDecoration(
+                                                  alignLabelWithHint: true,
+                                                  contentPadding: const EdgeInsets.only(bottom: 5,left: 10),
+                                                  labelText: 'Update Progress',
+                                                  labelStyle: subTitle,
+                                                  suffixIcon: const Icon(CupertinoIcons.percent),
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    borderSide: const BorderSide(
+                                                      color: primaryColor,
+                                                      width: 2.0,
+                                                    ),
+                                                  ),
+                                                  enabledBorder: OutlineInputBorder(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    borderSide: const BorderSide(
+                                                      color: primaryColor,
+                                                      width: 2.0,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
                                             ),
-                                            child: const Center(child: Text('Submit',style: blueButtonSubTitle,),),
                                           ),
-                                        )),
-                                  ],
-                                ),
-                              ],),
-                            ),
-                          ));
+                                          SizedBox(width: size.width * 0.01,),
+                                          //Submit Button
+                                          // Expanded(
+                                          //   flex: 1,
+                                          //     child: Container(
+                                          //       height: size.width * 0.1,
+                                          //       width: size.width,
+                                          //       decoration: BoxDecoration(
+                                          //         borderRadius: BorderRadius.circular(10),
+                                          //         color: secondaryColor,
+                                          //       ),
+                                          //       child: const Center(child: Text('Upload Video',style: blueButtonSubTitle,),),
+                                          //     )),
+                                          // SizedBox(width: size.width * 0.01,),
+                                          Expanded(
+                                              flex: 1,
+                                              child: InkWell(
+                                                onTap: ()=>
+                                                {
+                                                  projectListController.setProgress()
+                                                },
+                                                child: Container(
+                                                  height: size.width * 0.1,
+                                                  width: size.width,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(10),
+                                                    color: primaryColor,
+                                                  ),
+                                                  child: const Center(child: Text('Submit',style: blueButtonSubTitle,),),
+                                                ),
+                                              )),
+                                        ],
+                                      ),
+                                    ],),
+                                  ),
+                                ));
+                              }
                         },
                         child: Container(
                           padding: const EdgeInsets.all(7),

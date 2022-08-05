@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:mini_guru/app/modules/model/CommentModel.dart';
 import 'package:mini_guru/constants.dart';
@@ -22,6 +23,7 @@ class CourseLessonsController extends GetxController {
   var interactive=0.obs;
   var gaming=0.obs;
   var showComment=false.obs;
+  late TextEditingController commentTextEditingController;
 
   getProjectList()async{
     print("address list");
@@ -63,17 +65,30 @@ class CourseLessonsController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    commentTextEditingController=TextEditingController();
+
     videoController = VideoViewerController();
     videoController.play();
     getProjectList();
   }
 
-
-
   @override
   void onReady() {
     super.onReady();
     videoController = VideoViewerController();
+  }
+
+  void addComment() async
+  {
+    if(commentTextEditingController.text.isEmpty)
+      {
+        Fluttertoast.showToast(msg: "Plese Comment!",backgroundColor: Colors.red);
+      }else{
+      showComment.value = false;
+      var response = await ApiService().addComment("id", "it is comment");
+      Fluttertoast.showToast(msg: response['msg']);
+      print(response);
+    }
   }
 
   @override

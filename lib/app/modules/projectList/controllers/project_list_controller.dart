@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mini_guru/app/modules/add_address/model/MyProductListModel.dart';
@@ -16,6 +17,7 @@ class ProjectListController extends GetxController
   var isLoading=false.obs;
   var video=''.obs;
   var myProjectList = <MyProductListModel>[].obs;
+  late TextEditingController textEditingControllerProgress;
 
   getProjectList()async
   {
@@ -35,10 +37,30 @@ class ProjectListController extends GetxController
   void onInit()
   {
     print("Project List cotroller chala");
+    textEditingControllerProgress=TextEditingController();
+    
     getProjectList();
     super.onInit();
   }
 
+  void setProgress()
+  { 
+    if(textEditingControllerProgress.text.isEmpty||int.parse(textEditingControllerProgress.text)>100)
+      {
+        Fluttertoast.showToast(msg: "Please Enter a Valid progress value");
+        textEditingControllerProgress.text="";
+      }
+      else if(textEditingControllerProgress.text=="100")
+      {
+        getVideo();
+      }else
+      {
+        Fluttertoast.showToast(msg: "Progress Submitted Successfully");
+        textEditingControllerProgress.text="";
+        Get.back();
+      }
+  }
+  
   @override
   void onReady() {
     super.onReady();
@@ -56,7 +78,7 @@ class ProjectListController extends GetxController
     } else {
       Get.snackbar(
         'Error',
-        'No Image Selected',
+        'No Video Selected',
         margin: const EdgeInsets.all(20),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: redColor,

@@ -15,7 +15,6 @@ class ShopController extends GetxController {
   var categoryList =<NameIdModel>[].obs;
   var isLoading=false.obs;
   var selectedCategory=1.obs;
-
   late TextEditingController searchController;
   @override
   void onInit() {

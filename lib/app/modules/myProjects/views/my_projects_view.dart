@@ -384,7 +384,8 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                               horizontal: 10),
                                           child: DropdownButton2(
                                             dropdownDecoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(10),
+                                              borderRadius: BorderRadius
+                                                  .circular(10),
                                               border: Border.all(
                                                   color: Colors.grey.shade400),
                                             ),
@@ -399,9 +400,11 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                               color: Colors.white,
                                             ),
                                             onChanged: (data) {
-                                              controller.selectedAgeGroup.value =
+                                              controller.selectedAgeGroup
+                                                  .value =
                                                   int.parse(data.toString());
-                                              print(controller.selectedAgeGroup.value);
+                                              print(controller.selectedAgeGroup
+                                                  .value);
                                             },
                                             items: controller.ageList.map<
                                                 DropdownMenuItem<String>>((
@@ -409,7 +412,8 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                               return DropdownMenuItem<String>(
                                                 value: value.id.toString(),
                                                 child: Text(
-                                                  value.name, style: headline1,),
+                                                  value.name,
+                                                  style: headline1,),
                                               );
                                             }).toList(),
                                           ),
@@ -429,88 +433,133 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Center(child: InkWell(
-                                    onTap: (){
+                                    onTap: ()
+                                    {
                                       Get.bottomSheet(Container(
-                                            height: size.height/1,
-                                            width: size.width,
-                                            decoration: const BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(20),
-                                                  topRight: Radius.circular(20),
-                                                )
-                                            ),
-                                            child: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
-                                              child: Column(children: [
-                                                const Text('Search Material\'s',style: titleStyle,),
-                                                SizedBox(height: size.width * 0.03),
-                                                //Search TxtField
-                                                Container(
-                                                  padding: const EdgeInsets.only(left: 10, right: 20),
-                                                  width: size.width,
-                                                  height: size.width * 0.13,
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.grey.shade200,
-                                                      borderRadius: BorderRadius.circular(150)),
-                                                  child: CupertinoTextField(
-                                                    placeholder: 'Search',
-                                                    placeholderStyle: subTitle,
-                                                    suffix: const Icon(Icons.search),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius.circular(15),
-                                                    ),
-                                                  ),
+                                        height: size.height / 1,
+                                        width: size.width,
+                                        decoration: const BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20),
+                                            )
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 15, vertical: 10),
+                                          child: Column(children: [
+                                            const Text('Search Material\'s',
+                                              style: titleStyle,),
+                                            SizedBox(height: size.width * 0.03),
+                                            //Search TxtField
+                                            Container(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10, right: 20),
+                                              width: size.width,
+                                              height: size.width * 0.13,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.grey.shade200,
+                                                  borderRadius: BorderRadius
+                                                      .circular(150)),
+                                              child: CupertinoTextField(
+                                                controller: controller
+                                                    .searchController,
+                                                onChanged: (value) {
+                                                  controller.filterNow(value);
+                                                },
+                                                placeholder: 'Search',
+                                                placeholderStyle: subTitle,
+                                                suffix: const Icon(Icons
+                                                    .search),
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .circular(15),
                                                 ),
-                                                SizedBox(height: size.width * 0.03),
-                                                //Material List
-                                                Expanded(child: ListView.builder(
-                                                  itemCount: 5,
-                                                  itemBuilder: (_,int index){
+                                              ),
+                                            ),
+                                            SizedBox(height: size.width * 0.03),
+                                            //Material List
+                                            Obx(() {
+                                              return Expanded(
+                                                child: ListView.builder(
+                                                  itemCount: controller
+                                                      .filteredProductList
+                                                      .length,
+                                                  itemBuilder: (_, int index) {
                                                     return Column(
                                                       children: [
                                                         ListTile(
                                                           leading: Container(
-                                                            height: size.width * 0.15,
-                                                            width: size.width * 0.15,
+                                                            height: size.width *
+                                                                0.15,
+                                                            width: size.width *
+                                                                0.15,
                                                             decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(5),
+                                                              borderRadius: BorderRadius
+                                                                  .circular(5),
                                                               image: const DecorationImage(
-                                                                  image: NetworkImage(demoImage),
-                                                                  fit: BoxFit.cover
+                                                                  image: NetworkImage(
+                                                                      demoImage),
+                                                                  fit: BoxFit
+                                                                      .cover
                                                               ),
                                                             ),
                                                           ),
                                                           //Item Name
-                                                          title: const Text(
-                                                            'Material Name',
+                                                          title: Text(
+                                                            controller
+                                                                .filteredProductList[index]
+                                                                .productName,
                                                             style: headline1,
-                                                            overflow: TextOverflow.ellipsis,
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
                                                           ),
                                                           //Item Price
-                                                          subtitle: const Text(
-                                                              '₹ 1900/-',
+                                                          subtitle: Text(
+                                                              '${controller
+                                                                  .filteredProductList[index]
+                                                                  .point
+                                                                  .toString()}',
                                                               style: buttonTitleStyle),
                                                           //Counter Button
-                                                          trailing: Checkbox(onChanged: (bool? value) {value = value!;}, value: false,)
+                                                          trailing: Checkbox(
+                                                            onChanged: (
+                                                                bool? value) {
+                                                              controller
+                                                                  .filteredProductList[index]
+                                                                  .selected =
+                                                              value!;
+                                                              controller
+                                                                  .filteredProductList
+                                                                  .refresh();
+                                                            },
+                                                            value: controller
+                                                                .filteredProductList[index]
+                                                                .selected,)
                                                           ,
                                                         ),
                                                         const Padding(
-                                                          padding: EdgeInsets.symmetric(horizontal: 20),
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                              horizontal: 20),
                                                           child: Divider(),
                                                         ),
                                                       ],
+
                                                     );
                                                   },
-                                                ),),
-                                              ],),
-                                            ),
-                                          )
+                                                ),);
+                                            }),
+                                          ],),
+                                        ),
+                                      )
                                       );
                                     }
                                     ,
                                     child: const Text(
-                                      'Select Material', style: blueButtonSubTitle,),
+                                      'Select Material',
+                                      style: blueButtonSubTitle,),
                                   ),),
                                 ),
                               ),
@@ -541,10 +590,13 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: Center(child: InkWell(
-                                  onTap: (){controller.createProject();}
+                                  onTap: () {
+                                    controller.createProject();
+                                  }
                                   ,
                                   child: const Text(
-                                    'Create Project', style: blueButtonSubTitle,),
+                                    'Create Project',
+                                    style: blueButtonSubTitle,),
                                 ),),
                               ),
                             ),

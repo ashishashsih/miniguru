@@ -77,6 +77,7 @@ class CourseLessonsView extends GetView<CourseLessonsController>
               child: SizedBox(
                   height: size.width * 0.13,
                   child: CupertinoTextField(
+                    controller: courseController.commentTextEditingController,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(color: Colors.grey),
@@ -88,7 +89,8 @@ class CourseLessonsView extends GetView<CourseLessonsController>
             SizedBox(width: size.width * 0.01),
             InkWell(
               onTap: () {
-                courseController.showComment.value = false;
+
+                courseController.addComment();
               },
               child: const Expanded(
                 flex: 1,
@@ -144,8 +146,7 @@ class CourseLessonsView extends GetView<CourseLessonsController>
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: VideoViewer(
-                            style: VideoViewerStyle(loading: LoadingAnimationWidget.inkDrop(
-                                color: primaryColor, size: 30)),
+                            style: VideoViewerStyle(loading: LoadingAnimationWidget.inkDrop(color: primaryColor, size: 30)),
                             autoPlay: true,
                             looping: true,
                             controller: courseController.videoController,

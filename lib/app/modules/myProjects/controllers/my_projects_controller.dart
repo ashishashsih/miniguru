@@ -1,15 +1,18 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mini_guru/app/modules/model/MaterialList.dart';
 import 'package:mini_guru/constants.dart';
 import 'package:mini_guru/others/NameIdModel.dart';
 import 'package:mini_guru/others/api_service.dart';
 import 'package:intl/intl.dart';
 
-class MyProjectsController extends GetxController {
+class MyProjectsController extends GetxController
+{
   //TODO: Implement MyProjectsController
   final GlobalKey<FormState>profileFormKey=GlobalKey<FormState>();
   final count = 0.obs;
@@ -23,6 +26,9 @@ class MyProjectsController extends GetxController {
   var projectTitle="".obs;
   var projectDescription="".obs;
   var selectedAgeGroup=1.obs;
+  var materialList=<MaterialModel>[].obs;
+  var filteredProductList=<MaterialModel>[].obs;
+  late TextEditingController searchController;
 
   //var ageList = <NameIdModel>[].obs;
   var ageList = <NameIdModel>[NameIdModel(id: 1, name: '5-7'),NameIdModel(id: 2, name: '7-10'),NameIdModel(id: 3, name: '10-13')].obs;
@@ -36,6 +42,33 @@ class MyProjectsController extends GetxController {
     }
     return null;
   }
+
+  filterNow(String value)
+  {
+    print("SearchinString is here:${value}");
+    if(searchController.text.isEmpty)
+    {
+      filteredProductList.value=materialList;
+    }else
+    {
+      var cnvVal=value.toLowerCase();
+      filteredProductList.value=materialList;
+      filteredProductList.value=materialList.where((element) => element.productName.toLowerCase().contains(cnvVal)).toList();
+    }
+    print("SearchinString is here:${filteredProductList.length}");
+  }
+
+  void getProductData()async
+  {
+    print("valide");
+    isLoading.value = true;
+    var response = await ApiService().getMaterialList();
+    print("material response is here:-${response}");
+    isLoading.value = false;
+    materialList.value=materialModelFromJson(jsonEncode(response['product_list']));
+    filteredProductList.value=materialModelFromJson(jsonEncode(response['product_list']));
+  }
+
 
   selectStartDate() async {
     print("Date Picker Called");
@@ -94,9 +127,12 @@ class MyProjectsController extends GetxController {
 
 
   @override
-  void onInit() {
-//    getProjectData();
+  void onInit()
+  {
+  //    getProjectData();
     super.onInit();
+    getProductData();
+    searchController=TextEditingController();
     editingControllerTitle=TextEditingController();
     editingControllerDescription=TextEditingController();
   }

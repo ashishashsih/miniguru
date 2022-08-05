@@ -123,14 +123,12 @@ class ApiService
     // print(json.encode({"userId": userId}));
     // print(response.body);
     //var convertDataToJson =response.body;
-    var convertDataToJson = '{"status":true,"orderList":[{"id":7,"title":"project title","sub_title":"sub title","description":"it is description","start_date":"12/12/2021","end_date":"12/02/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":75},{"id":9,"title":"Elect Van","sub_title":"electric motorl used","description":"it is description","start_date":"01/07/2022","end_date":"05/93/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":2,"progress":49},{"id":6,"title":"Motor Pump","sub_title":"sub title","description":"it is description","start_date":"22/05/2022","end_date":"19/07/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":35}]}';//response.body;
+    var convertDataToJson = '{"status":true,"orderList":[{"id":7,"title":"project title","sub_title":"sub title","description":"it is description","start_date":"12/12/2021","end_date":"12/02/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":100},{"id":9,"title":"Elect Van","sub_title":"electric motorl used","description":"it is description","start_date":"01/07/2022","end_date":"05/93/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":2,"progress":49},{"id":6,"title":"Motor Pump","sub_title":"sub title","description":"it is description","start_date":"22/05/2022","end_date":"19/07/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":35}]}';//response.body;
     var status = json.decode(convertDataToJson)['status'];
     if (status)
     {
       var tag = json.decode(convertDataToJson)['orderList']; //['data'];
       return tag;
-      //print(tag);
-      //return addressFromJson(json.encode(tag));
     }
   }
 
@@ -177,6 +175,35 @@ class ApiService
 
     var ConvertDataToJson = jsonDecode(response.body);
     return ConvertDataToJson;
+  }
+
+  Future addComment(String projectId, String comment) async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var userId=prefs.getString("userId");
+    // final response = await http.post(Uri.parse(ADD_ADDRESS),
+    //     //headers: {HttpHeaders.acceptHeader: "application/json"},
+    //     headers: <String, String>{
+    //       'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: json.encode({
+    //       "userId":'$userId',
+    //       "projectId":'$projectId',
+    //       "comment":'$comment',
+    //     }));
+    // print(json.encode({"userId":'$userId',"projectId":'$projectId',"comment":'$comment',
+    // }));
+
+    var convertDataToJson = '{"status":true,"msg":"Comment Added Successfully"}';//response.body;
+    var status = json.decode(convertDataToJson)['status'];
+    if (status)
+    {
+      var tag = json.decode(convertDataToJson); //['data'];
+      //print(tag);
+      return tag;
+    }
+
+    return convertDataToJson;
   }
 
   // Future addAddress(String address_type, String address,String city) async
@@ -711,6 +738,24 @@ class ApiService
     //     body: json.encode({"userId": '$userId'}));
     // print(response.body);
     var convertDataToJson = '{"status":true, "categoryList":[{"id":1,"name":"Stationary"},{"id":2,"name":"Civil"},{"id":3,"name":"Electronic"}],"productList":[{"id":1,"categoryId":1,"name":"Glue Gun","price":205,"image":"https://popuplearning.pk/wp-content/uploads/2020/02/1-141-dc-gear-motor-for-robot-2-motors-with-wheels.jpg"},{"id":2,"categoryId":3,"name":"Sparkleing","price":520,"image":"https://popuplearning.pk/wp-content/uploads/2020/02/1-141-dc-gear-motor-for-robot-2-motors-with-wheels.jpg"},{"id":3,"categoryId":1,"name":"Glue Ring","price":720,"image":"https://popuplearning.pk/wp-content/uploads/2020/02/1-141-dc-gear-motor-for-robot-2-motors-with-wheels.jpg"}]}';//response.body;
+    var status = json.decode(convertDataToJson)['status'];
+    if (status)
+    {
+      var tag = json.decode(convertDataToJson); //['data'];
+      print(tag);
+      return tag;
+    }
+  }
+
+  Future getMaterialList() async
+  {
+    // final prefs = await SharedPreferences.getInstance();
+    // var userId=prefs.getInt("userid");
+    // final response = await http.post(Uri.parse(GET_HOME_OFFER_LIST),
+    //     headers: {HttpHeaders.acceptHeader: "application/json"},
+    //     body: json.encode({"userId": '$userId'}));
+    // print(response.body);
+    var convertDataToJson = '{"status":true,"product_list":[{"id":1,"product_name":"Glue un","image":"aaa.jpg","point":3,"image":"aaa.jpg","selected":false},{"id":2,"product_name":"Glue","image":"aaa.jpg","point":3,"image":"aaa.jpg","selected":false},{"id":3,"product_name":"Drawing pin","image":"aaa.jpg","point":3,"image":"aaa.jpg","selected":false},{"id":4,"product_name":"Drawing Board","image":"aaa.jpg","point":3,"image":"aaa.jpg","selected":false}]}';//response.body;
     var status = json.decode(convertDataToJson)['status'];
     if (status)
     {
