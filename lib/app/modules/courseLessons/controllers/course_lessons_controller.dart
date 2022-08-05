@@ -68,9 +68,11 @@ class CourseLessonsController extends GetxController {
   }
 
 
+
   @override
   void onReady() {
     super.onReady();
+    videoController = VideoViewerController();
   }
 
   @override
