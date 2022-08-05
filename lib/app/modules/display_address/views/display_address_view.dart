@@ -36,7 +36,7 @@ class DisplayAddressView extends GetView<DisplayAddressController> {
             alignment: Alignment.centerRight,
             child: InkWell(
               onTap: () => Get.to(AddAddressView()),
-              child: Icon(Icons.add_location_alt_outlined,color: Colors.black,size: 40,),
+              child: const Icon(Icons.add_location_alt_outlined,color: Colors.black,size: 40,),
             ),
           ),
         ],

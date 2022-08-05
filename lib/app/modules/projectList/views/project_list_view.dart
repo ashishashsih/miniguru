@@ -115,14 +115,20 @@ class ProjectListView extends GetView<ProjectListController> {
                                     //Submit Button
                                     Expanded(
                                       flex: 1,
-                                        child: Container(
-                                          height: size.width * 0.1,
-                                          width: size.width,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(10),
-                                            color: primaryColor,
+                                        child: InkWell(
+                                          onTap: (){
+                                            projectListController.getVideo();
+                                            print(projectListController.video.value);
+                                          },
+                                          child: Container(
+                                            height: size.width * 0.1,
+                                            width: size.width,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              color: primaryColor,
+                                            ),
+                                            child: const Center(child: Text('Submit',style: blueButtonSubTitle,),),
                                           ),
-                                          child: const Center(child: Text('Submit',style: blueButtonSubTitle,),),
                                         )),
                                   ],
                                 ),

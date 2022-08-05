@@ -14,7 +14,6 @@ class MyProjectsController extends GetxController {
   final GlobalKey<FormState>profileFormKey=GlobalKey<FormState>();
   final count = 0.obs;
   var isLoading=false.obs;
-
   var startDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
   var endDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
   var ageGroup=0.obs;

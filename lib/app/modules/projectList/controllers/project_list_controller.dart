@@ -1,8 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:mini_guru/app/modules/add_address/model/MyProductListModel.dart';
 import 'package:mini_guru/others/api_service.dart';
+
+import '../../../../constants.dart';
 
 class ProjectListController extends GetxController
 {
@@ -10,6 +14,7 @@ class ProjectListController extends GetxController
 
   final count = 0.obs;
   var isLoading=false.obs;
+  var video=''.obs;
   var myProjectList = <MyProductListModel>[].obs;
 
   getProjectList()async
@@ -42,6 +47,22 @@ class ProjectListController extends GetxController
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void getVideo() async{
+    final pickedVideo = await ImagePicker().pickVideo(source: ImageSource.gallery);
+    if(pickedVideo != null){
+      video.value = pickedVideo.path;
+    } else {
+      Get.snackbar(
+        'Error',
+        'No Image Selected',
+        margin: const EdgeInsets.all(20),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: redColor,
+        colorText: Colors.white,
+      );
+    }
   }
 
   void increment() => count.value++;
