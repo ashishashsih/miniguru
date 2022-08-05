@@ -1,4 +1,3 @@
-import 'dart:ffi';
 import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -6,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../constants.dart';
 import '../../../../others/NameIdModel.dart';
 import '../controllers/my_projects_controller.dart';
@@ -17,6 +15,7 @@ class MyProjectsView extends GetView<MyProjectsController> {
   @override
   Widget build(BuildContext context) {
     MyProjectsController controller = Get.put(MyProjectsController());
+    const String demoImage = 'https://bsmedia.business-standard.com/_media/bs/img/article/2021-01/21/full/1611251685-5188.jpg';
     final size = MediaQuery
         .of(context)
         .size;
@@ -64,21 +63,23 @@ class MyProjectsView extends GetView<MyProjectsController> {
                     padding: const EdgeInsets.all(10),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
+                        color: Colors.grey.shade300,
                         borderRadius: BorderRadius.circular(15),
                         border: Border.all(color: Colors.grey.shade300),
                         boxShadow: [
+                          // Shadow for top-left corner
                           BoxShadow(
-                            color: Colors.grey.shade400,
-                            blurRadius: 5,
-                            spreadRadius: 2,
-                            offset: const Offset(-3, 3),
+                            color: Colors.grey.shade500,
+                            offset: const Offset(10, 10),
+                            blurRadius: 6,
+                            spreadRadius: 1,
                           ),
+                          // Shadow for bottom-right corner
                           const BoxShadow(
                             color: Colors.white70,
-                            blurRadius: 5,
-                            spreadRadius: 2,
-                            offset: Offset(3, -3),
+                            offset: Offset(-10, -10),
+                            blurRadius: 6,
+                            spreadRadius: 1,
                           ),
                         ]
                     ),
@@ -158,9 +159,9 @@ class MyProjectsView extends GetView<MyProjectsController> {
                             ),
                           ),
                           SizedBox(height: size.width * 0.05,),
+                          //Sketch Attachment & Start, End Date
                           Row(
                             children: [
-                              //Sketch Attachment
                               Obx(() {
                                 return Expanded(
                                   flex: 1,
@@ -281,7 +282,6 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                   ),
                                 );
                               }),
-                              //Start & End Date
                               Expanded(
                                 flex: 1,
                                 child: Column(
@@ -364,110 +364,157 @@ class MyProjectsView extends GetView<MyProjectsController> {
                               ),
                             ],
                           ),
-
                           SizedBox(height: size.width * 0.05,),
-                          //Drop Down Widget
-                          Container(
-                            height: size.width * 0.1,
-                            decoration: BoxDecoration(
-                              color: primaryColor,
-                              borderRadius: BorderRadius.circular(7),
-                            ),
-                            child: Center(
-                              // child: Obx(() {
-                              //   return DropdownButtonHideUnderline(
-                              //     child: DropdownButton2(
-                              //       dropdownDecoration: BoxDecoration(
-                              //         color: Colors.white,
-                              //         border: Border.all(color: Theme
-                              //             .of(context)
-                              //             .primaryColor, width: 2),
-                              //         borderRadius: BorderRadius.circular(10),
-                              //       ),
-                              //       offset: const Offset(0, -15),
-                              //       isExpanded: true,
-                              //       isDense: true,
-                              //       hint: const Text(
-                              //         'Select a',
-                              //         style: TextStyle(
-                              //           fontFamily: 'Poppins',
-                              //           fontSize: 17,
-                              //           color: Colors.white,
-                              //         ),
-                              //       ),
-                              //       icon: const Icon(
-                              //         Icons.keyboard_arrow_down,
-                              //         color: Colors.black,
-                              //       ),
-                              //       onChanged: (data) {
-                              //         controller.selectedAgeGroup.value =
-                              //             int.parse(data.toString());
-                              //         print("dropDown Value is:" +
-                              //             controller.selectedAgeGroup.value
-                              //                 .toString());
-                              //         //controller.setCurrentState(data.toString());
-                              //         // setState(() {
-                              //         //   dropdownValue = data;
-                              //         //   print("dropDown Value is:"+dropdownValue);
-                              //         // });
-                              //       },
-                              //       value: controller.selectedAgeGroup.value,
-                              //       items: controller.ageList.map<
-                              //           DropdownMenuItem<String>>((
-                              //           NameIdModel value) {
-                              //         return DropdownMenuItem<String>(
-                              //           value: value.id.toString(),
-                              //           child: Text(
-                              //             value.name,
-                              //             style: const TextStyle(
-                              //               color: Colors.black, fontSize: 17,),
-                              //           ),
-                              //         );
-                              //       }).toList(),
-                              //     ),
-                              //   );
-                              // }),
-                              child: Obx(() {
-                                return DropdownButtonHideUnderline(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: DropdownButton2(
-                                      dropdownDecoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: Colors.grey.shade400),
-                                      ),
-                                      isExpanded: true,
-                                      isDense: true,
-                                      hint: const Text(
-                                          'Select Age Group',
-                                          style: blueButtonSubTitle
-                                      ),
-                                      icon: const Icon(
-                                        Icons.arrow_drop_down,
-                                        color: Colors.white,
-                                      ),
-                                      onChanged: (data) {
-                                        controller.selectedAgeGroup.value =
-                                            int.parse(data.toString());
-                                        print(
-                                            controller.selectedAgeGroup.value);
-                                      },
-                                      items: controller.ageList.map<
-                                          DropdownMenuItem<String>>((
-                                          NameIdModel value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value.id.toString(),
-                                          child: Text(
-                                            value.name, style: headline1,),
-                                        );
-                                      }).toList(),
-                                    ),
+                          //Drop Down Widget & Material Select
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  height: size.width * 0.1,
+                                  decoration: BoxDecoration(
+                                    color: primaryColor,
+                                    borderRadius: BorderRadius.circular(7),
                                   ),
-                                );
-                              }),
-                            ),
+                                  child: Center(
+                                    child: Obx(() {
+                                      return DropdownButtonHideUnderline(
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: DropdownButton2(
+                                            dropdownDecoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  color: Colors.grey.shade400),
+                                            ),
+                                            isExpanded: true,
+                                            isDense: true,
+                                            hint: const Text(
+                                                'Select Age Group',
+                                                style: blueButtonSubTitle
+                                            ),
+                                            icon: const Icon(
+                                              Icons.arrow_drop_down,
+                                              color: Colors.white,
+                                            ),
+                                            onChanged: (data) {
+                                              controller.selectedAgeGroup.value =
+                                                  int.parse(data.toString());
+                                              print(controller.selectedAgeGroup.value);
+                                            },
+                                            items: controller.ageList.map<
+                                                DropdownMenuItem<String>>((
+                                                NameIdModel value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value.id.toString(),
+                                                child: Text(
+                                                  value.name, style: headline1,),
+                                              );
+                                            }).toList(),
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: size.width * 0.03,),
+                              Expanded(
+                                flex: 1,
+                                child: Container(
+                                  height: size.width * 0.1,
+                                  decoration: BoxDecoration(
+                                    color: primaryColor,
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Center(child: InkWell(
+                                    onTap: (){
+                                      Get.bottomSheet(Container(
+                                            height: size.height/1,
+                                            width: size.width,
+                                            decoration: const BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(20),
+                                                  topRight: Radius.circular(20),
+                                                )
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 10),
+                                              child: Column(children: [
+                                                const Text('Search Material\'s',style: titleStyle,),
+                                                SizedBox(height: size.width * 0.03),
+                                                //Search TxtField
+                                                Container(
+                                                  padding: const EdgeInsets.only(left: 10, right: 20),
+                                                  width: size.width,
+                                                  height: size.width * 0.13,
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.grey.shade200,
+                                                      borderRadius: BorderRadius.circular(150)),
+                                                  child: CupertinoTextField(
+                                                    placeholder: 'Search',
+                                                    placeholderStyle: subTitle,
+                                                    suffix: const Icon(Icons.search),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(15),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(height: size.width * 0.03),
+                                                //Material List
+                                                Expanded(child: ListView.builder(
+                                                  itemCount: 5,
+                                                  itemBuilder: (_,int index){
+                                                    return Column(
+                                                      children: [
+                                                        ListTile(
+                                                          leading: Container(
+                                                            height: size.width * 0.15,
+                                                            width: size.width * 0.15,
+                                                            decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(5),
+                                                              image: const DecorationImage(
+                                                                  image: NetworkImage(demoImage),
+                                                                  fit: BoxFit.cover
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          //Item Name
+                                                          title: const Text(
+                                                            'Material Name',
+                                                            style: headline1,
+                                                            overflow: TextOverflow.ellipsis,
+                                                          ),
+                                                          //Item Price
+                                                          subtitle: const Text(
+                                                              '₹ 1900/-',
+                                                              style: buttonTitleStyle),
+                                                          //Counter Button
+                                                          trailing: Checkbox(onChanged: (bool? value) {value = value!;}, value: false,)
+                                                          ,
+                                                        ),
+                                                        const Padding(
+                                                          padding: EdgeInsets.symmetric(horizontal: 20),
+                                                          child: Divider(),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                ),),
+                                              ],),
+                                            ),
+                                          )
+                                      );
+                                    }
+                                    ,
+                                    child: const Text(
+                                      'Select Material', style: blueButtonSubTitle,),
+                                  ),),
+                                ),
+                              ),
+                            ],
                           ),
                           SizedBox(height: size.width * 0.05,),
                           //Cancel & Upload Button
@@ -496,7 +543,7 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                 child: Center(child: InkWell(
                                   onTap: (){controller.createProject();}
                                   ,
-                                  child: Text(
+                                  child: const Text(
                                     'Create Project', style: blueButtonSubTitle,),
                                 ),),
                               ),

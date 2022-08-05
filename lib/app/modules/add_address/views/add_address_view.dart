@@ -25,15 +25,7 @@ class AddAddressView extends GetView<AddressController> {
             alignment: Alignment.centerLeft,
             child: InkWell(
               onTap: () => Get.back(),
-              child: Icon(Icons.arrow_back_ios_new),
-            ),
-          ),
-          //Add Address Button
-          Align(
-            alignment: Alignment.centerRight,
-            child: InkWell(
-              onTap: () => Get.to(AddAddressView()),
-              child: Icon(Icons.add,color: Colors.black,size: 40,),
+              child: const Icon(Icons.arrow_back_ios_new),
             ),
           ),
         ],
@@ -54,6 +46,7 @@ class AddAddressView extends GetView<AddressController> {
           )),
     );
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: addAddress,
       body: Form(
@@ -64,7 +57,7 @@ class AddAddressView extends GetView<AddressController> {
           child: Column(
               children: [
                 appBar,
-                SizedBox(height: size.width * 0.1,),
+                SizedBox(height: size.width * 0.03,),
                 Container (
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -109,7 +102,6 @@ class AddAddressView extends GetView<AddressController> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: const BorderSide(
                                 color: primaryColor,
-                                width: 2.0,
                               ),
                             ),
                           ),
@@ -227,8 +219,7 @@ class AddAddressView extends GetView<AddressController> {
                                     primaryColor),
                               );
                             }),
-                            title: Text('Home'.tr,
-                            ),
+                            title: Text('Home'.tr,style: headline1),
                           ),
                         ),
                         Expanded(child: ListTile(
@@ -245,8 +236,7 @@ class AddAddressView extends GetView<AddressController> {
                                   primaryColor),
                             );
                           }),
-                          title: const Text('Office',
-                          ),
+                          title: const Text('Office',style: headline1,),
                         )),
                       ],),
                     ],

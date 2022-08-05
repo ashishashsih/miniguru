@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_guru/app/modules/add_address/controllers/address_controller.dart';
@@ -35,7 +36,7 @@ class DisplayAddressView extends GetView<DisplayAddressController> {
             alignment: Alignment.centerRight,
             child: InkWell(
               onTap: () => Get.to(AddAddressView()),
-              child: Icon(Icons.add,color: Colors.black,size: 40,),
+              child: Icon(Icons.add_location_alt_outlined,color: Colors.black,size: 40,),
             ),
           ),
         ],
