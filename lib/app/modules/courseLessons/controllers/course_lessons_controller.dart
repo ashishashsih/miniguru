@@ -64,6 +64,7 @@ class CourseLessonsController extends GetxController {
   void onInit() {
     super.onInit();
     videoController = VideoViewerController();
+    videoController.play();
     getProjectList();
   }
 
