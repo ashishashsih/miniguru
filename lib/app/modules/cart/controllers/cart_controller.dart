@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mini_guru/app/modules/model/CartModel.dart';
 
@@ -23,6 +24,53 @@ class CartController extends GetxController {
     // productList.value.add(CartModel(id: 1, productId: 3, name: "bbb", quantity: 5, price: 50, image:"https://popuplearning.pk/wp-content/uploads/2020/02/1-141-dc-gear-motor-for-robot-2-motors-with-wheels.jpg"));
     // productList.value.add(CartModel(id: 2, productId: 12, name: "ccc", quantity: 2, price: 170, image:"https://popuplearning.pk/wp-content/uploads/2020/02/1-141-dc-gear-motor-for-robot-2-motors-with-wheels.jpg"));
     // productList.value.add(CartModel(id: 3, productId: 71, name: "ddd", quantity: 10, price: 300, image:"https://popuplearning.pk/wp-content/uploads/2020/02/1-141-dc-gear-motor-for-robot-2-motors-with-wheels.jpg"));
+  }
+
+  showConfirmDialog(BuildContext contex,int index)
+  {
+    //Toast.show("List Data $id,$index", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM);
+    Widget cancelButton = new ElevatedButton(
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.green),),
+      child: Text("Cancel".tr,style: TextStyle(fontFamily: "Varela",color: Colors.white),),
+      onPressed:  () {
+        Navigator.pop(contex);
+      },
+    );
+    Widget continueButton = new ElevatedButton(
+      style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.red),),
+      child: Text("Delete".tr,style: TextStyle(fontFamily: "Varela",color: Colors.white)),
+      onPressed:() async
+      {
+          productList.removeAt(index);
+          productList.refresh();
+          setCartValue();
+        productList.refresh();
+          if(productList.isEmpty)
+            {
+              Get.back();
+            }
+          Navigator.pop(contex);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Delete Item".tr,style: TextStyle(fontFamily: "Varela")),
+      elevation: 5.0,
+      content: Text("Are you sure to delete this?".tr,style: TextStyle(fontFamily: "Varela")),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: contex,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   setCartValue()

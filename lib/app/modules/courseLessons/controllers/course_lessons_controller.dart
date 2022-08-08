@@ -50,6 +50,14 @@ class CourseLessonsController extends GetxController {
     }
   }
 
+  void setLike(String like) async
+  {
+      var response = await ApiService().addLikes(like);
+      //Fluttertoast.showToast(msg: like);
+      Fluttertoast.showToast(msg: response['msg']);
+      print(response);
+  }
+
   Color generateRandomColor() {
     // Define all colors you want here
     const predefinedColors = [

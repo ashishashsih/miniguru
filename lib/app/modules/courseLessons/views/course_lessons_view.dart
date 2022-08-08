@@ -48,19 +48,25 @@ class CourseLessonsView extends GetView<CourseLessonsController>
       ),
     );
     //A,U,M,S,T Buttons
-    Widget likeButtons({required String label, required String likes}) {
+    Widget likeButtons({required int id,required String label, required String likes})
+    {
       return Badge(
         badgeColor: Colors.white70,
         badgeContent: Text(likes),
-        child: Chip(
-          padding: const EdgeInsets.all(0),
-          backgroundColor: primaryColor,
-          label: Text(label,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  letterSpacing: 0.5,
-                  fontWeight: FontWeight.w500)),
+        child: InkWell(
+          onTap: ()=>{
+              controller.setLike(label)
+          },
+          child: Chip(
+            padding: const EdgeInsets.all(0),
+            backgroundColor: primaryColor,
+            label: Text(label,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 15,
+                    letterSpacing: 0.5,
+                    fontWeight: FontWeight.w500)),
+          ),
         ),
       );
     }
@@ -173,21 +179,27 @@ class CourseLessonsView extends GetView<CourseLessonsController>
                           spacing: 20,
                           children: [
                             likeButtons(
+                                id:1,
                                 label: 'Aesthetic',
                                 likes: controller.aesthetic.value.toString()),
                             likeButtons(
+                                id:2,
                                 label: 'Unique',
                                 likes: controller.unique.value.toString()),
                             likeButtons(
+                                id:3,
                                 label: 'Creative',
                                 likes: controller.creative.value.toString()),
                             likeButtons(
+                                id:4,
                                 label: 'Useful',
                                 likes: controller.useful.value.toString()),
                             likeButtons(
+                                id:5,
                                 label: 'Interactive',
                                 likes: controller.interactive.value.toString()),
                             likeButtons(
+                                id:6,
                                 label: 'Gaming',
                                 likes: controller.gaming.value.toString()),
                           ],

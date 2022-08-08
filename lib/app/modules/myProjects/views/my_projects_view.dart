@@ -433,8 +433,7 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Center(child: InkWell(
-                                    onTap: ()
-                                    {
+                                    onTap: () {
                                       Get.bottomSheet(Container(
                                         height: size.height / 1,
                                         width: size.width,
@@ -449,8 +448,32 @@ class MyProjectsView extends GetView<MyProjectsController> {
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 15, vertical: 10),
                                           child: Column(children: [
-                                            const Text('Search Material\'s',
-                                              style: titleStyle,),
+                                            Row(
+                                              children: [
+                                                const Text('Search Material\'s',
+                                                  style: titleStyle,),
+                                                Spacer(),
+                                                Container(
+                                                  height: size.width * 0.1,
+                                                  width: 100,
+                                                  decoration: BoxDecoration(
+                                                    color: primaryColor,
+                                                    borderRadius: BorderRadius
+                                                        .circular(10),
+                                                  ),
+                                                  child: Center(child: InkWell(
+                                                    onTap: () {
+                                                      controller
+                                                          .calculateItemDetail();
+                                                    }
+                                                    ,
+                                                    child: const Text(
+                                                      'Done',
+                                                      style: blueButtonSubTitle,),
+                                                  ),),
+                                                ),
+                                              ],
+                                            ),
                                             SizedBox(height: size.width * 0.03),
                                             //Search TxtField
                                             Container(
@@ -565,6 +588,12 @@ class MyProjectsView extends GetView<MyProjectsController> {
                               ),
                             ],
                           ),
+                          SizedBox(height: size.width * 0.05,),
+                          Obx(() {
+                            return Row(children: List.generate(
+                                controller.selectedItems.length, (index) =>
+                                Text("${controller.selectedItems[index]} | ",style: TextStyle(color: controller.generateRandomColor()),)),);
+                          }),
                           SizedBox(height: size.width * 0.05,),
                           //Cancel & Upload Button
                           Row(children: [

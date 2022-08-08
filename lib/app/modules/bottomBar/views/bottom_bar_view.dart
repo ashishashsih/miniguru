@@ -11,15 +11,58 @@ import 'package:mini_guru/constants.dart';
 import '../../orderList/views/order_list_view.dart';
 import '../../progressReport/views/progress_report_view.dart';
 
-class BottomBarView extends GetView<BottomBarController> {
+class BottomBarView extends GetView<BottomBarController>
+{
   BottomBarController barController = Get.put(BottomBarController());
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)
+  {
     final size = MediaQuery
         .of(context)
         .size;
-    return Scaffold(
+    Future<bool> showExitPopup() async {
+      return await
+      showDialog(
+        //show confirm dialogue
+        //the return value will be from "Yes" or "No" options
+        context: context,
+        builder: (context) => AlertDialog(
+
+          title: Row(
+            children: [
+              Icon(Icons.exit_to_app,color: secondaryColor,),
+              SizedBox(width: 10,),
+              Text("Exit App".tr,style: TextStyle(fontFamily: "Varela")),
+            ],
+          ),
+          elevation: 5.0,
+          content: Text("Do you want to exit from the app".tr,style: TextStyle(fontFamily: "Varela")),
+          actions:
+          [
+            ElevatedButton(
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.green),),
+              child: Text("Cancel".tr,style: TextStyle(fontFamily: "Varela",color: Colors.white),),
+              onPressed:  ()
+              {
+                Navigator.pop(context);
+              },
+            ),
+            ElevatedButton(
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Colors.red),),
+              child: Text("Exit".tr,style: TextStyle(fontFamily: "Varela",color: Colors.white)),
+              onPressed:() async
+              {
+                Navigator.of(context).pop(true);
+              },
+            ),
+          ],
+        ),
+      ) ??
+          false; //if showDialouge had returned null, then return false
+    }
+    return new WillPopScope(
+        onWillPop: showExitPopup,
+        child: Scaffold(
       resizeToAvoidBottomInset: false,
       body: PageView(
         controller: barController.pageController,
@@ -96,6 +139,7 @@ class BottomBarView extends GetView<BottomBarController> {
           ),
         );
       }),
+        )
     );
   }
 }

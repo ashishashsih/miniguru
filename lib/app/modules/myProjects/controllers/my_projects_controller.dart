@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -27,7 +28,13 @@ class MyProjectsController extends GetxController
   var projectDescription="".obs;
   var selectedAgeGroup=1.obs;
   var materialList=<MaterialModel>[].obs;
+
   var filteredProductList=<MaterialModel>[].obs;
+  var selectedProductList=<MaterialModel>[].obs;
+
+  var selectedIds=<int>[].obs;
+  var selectedItems=<String>[].obs;
+
   late TextEditingController searchController;
 
   //var ageList = <NameIdModel>[].obs;
@@ -41,6 +48,21 @@ class MyProjectsController extends GetxController
       return "$msg required";
     }
     return null;
+  }
+
+  void calculateItemDetail()
+  {
+    selectedIds.clear();
+    selectedItems.clear();
+    selectedProductList.clear();
+    selectedProductList.value=filteredProductList.where((element) => element.selected).toList();
+    for(var i=0;i<selectedProductList.length;i++)
+      {
+        selectedIds.add(selectedProductList[i].id);
+        selectedItems.add(selectedProductList[i].productName);
+      }
+    print("work now${selectedIds.length}");
+    Get.back();
   }
 
   filterNow(String value)
@@ -95,6 +117,18 @@ class MyProjectsController extends GetxController
       },
     );
     startDate.value = DateFormat('dd-MM-yyyy').format(pickedDate!);
+  }
+
+  Color generateRandomColor() {
+    // Define all colors you want here
+    const predefinedColors = [
+      primaryColor,
+      secondaryColor,
+      redColor,
+      greenColor,
+    ];
+    Random random = Random();
+    return predefinedColors[random.nextInt(predefinedColors.length)];
   }
 
   selectEndDate() async {

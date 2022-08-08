@@ -206,6 +206,35 @@ class ApiService
     return convertDataToJson;
   }
 
+  Future addLikes(String likeType) async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var userId=prefs.getString("userId");
+    // final response = await http.post(Uri.parse(ADD_ADDRESS),
+    //     //headers: {HttpHeaders.acceptHeader: "application/json"},
+    //     headers: <String, String>{
+    //       'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: json.encode({
+    //       "userId":'$userId',
+    //       "projectId":'$projectId',
+    //       "comment":'$comment',
+    //     }));
+    // print(json.encode({"userId":'$userId',"projectId":'$projectId',"comment":'$comment',
+    // }));
+
+    var convertDataToJson = '{"status":true,"msg":"Like Successfully"}';//response.body;
+    var status = json.decode(convertDataToJson)['status'];
+    if (status)
+    {
+      var tag = json.decode(convertDataToJson); //['data'];
+      //print(tag);
+      return tag;
+    }
+
+    return convertDataToJson;
+  }
+
   // Future addAddress(String address_type, String address,String city) async
   // {
   //   final prefs = await SharedPreferences.getInstance();
