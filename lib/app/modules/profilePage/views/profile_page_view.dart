@@ -2,7 +2,6 @@ import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:mini_guru/constants.dart';
 import '../controllers/profile_page_controller.dart';
 
@@ -41,73 +40,10 @@ class ProfilePageView extends GetView<ProfilePageController> {
         ),
       ),
     );
-    final continueButton = BottomAppBar(
-      elevation: 0.0,
-      color: Colors.transparent,
-      child: InkWell(
-        onTap: () {
-          Get.toNamed('/select-interest');
-        },
-        child: DelayedDisplay(
-          slidingBeginOffset: const Offset(0, -0.4),
-          delay: const Duration(milliseconds: 100),
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              height: size.width / 7,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: secondaryColor,
-                borderRadius: BorderRadius.circular(15,),
-              ),
-              child: Stack(
-                children: const [
-                  Center(child: Text('Continue', style: buttonTitleStyle,)),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Icon(Icons.arrow_forward_ios, size: 20,),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-    final getLocationButton = InkWell(
-      onTap: () {
-        profilePageController.getCurrentLocation();
-      },
-      child: DelayedDisplay(
-        slidingBeginOffset: const Offset(0, -0.4),
-        delay: const Duration(milliseconds: 100),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          height: size.width / 7,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: secondaryColor,
-            borderRadius: BorderRadius.circular(15,),
-          ),
-          child: Stack(
-            children: const [
-              Center(child: Text(
-                'Tap To Get Location', style: buttonTitleStyle,)),
-              Align(
-                alignment: Alignment.centerRight,
-                child: Icon(Icons.location_on_outlined, size: 20,),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
     return Scaffold(
-      // bottomNavigationBar: continueButton,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+          padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
           child: SingleChildScrollView(
             child: Column(
               children: [

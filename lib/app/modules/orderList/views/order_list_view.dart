@@ -44,7 +44,7 @@ class OrderListView extends GetView<OrderListController> {
               child: EnterAnimation(Column(
                 children: [
                   appBar,
-                  SizedBox(height: size.width * 0.05,),
+                  SizedBox(height: size.width * 0.05),
                   //TabBar Tab's
                   Expanded(flex: 0,child: Container(
                       margin: const EdgeInsets.all(5),

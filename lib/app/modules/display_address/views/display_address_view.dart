@@ -71,7 +71,7 @@ class DisplayAddressView extends GetView<DisplayAddressController> {
                     return Column(
                       children: [
                         addressController.isLoading.value
-                            ? CircularProgressIndicator()
+                            ? const CircularProgressIndicator()
                             : addressController.addresses.isEmpty
                             ? Align(
                           alignment: Alignment.center,

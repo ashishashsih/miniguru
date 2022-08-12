@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:confetti/confetti.dart';
 import 'package:get/get.dart';
 import 'package:mini_guru/app/modules/model/video_display_model.dart';
 import 'package:mini_guru/others/api_service.dart';
@@ -7,6 +8,8 @@ import 'package:mini_guru/others/api_service.dart';
 class HomeController extends GetxController {
   //TODO: Implement HomeController
 
+  late ConfettiController coinAnimationController;
+  var isAnimate = false;
   var isAgeSwitcher = false.obs;
   var isTopicSwitcher = false.obs;
   var isCitySwitcher = false.obs;
@@ -20,6 +23,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     getHomeData();
+    coinAnimationController = ConfettiController(duration: const Duration(seconds: 2));
     super.onInit();
   }
 
@@ -31,6 +35,7 @@ class HomeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    coinAnimationController.dispose();
   }
 
   void getHomeData()async

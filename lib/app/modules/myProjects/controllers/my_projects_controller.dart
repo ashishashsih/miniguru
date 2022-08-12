@@ -16,7 +16,7 @@ class MyProjectsController extends GetxController
 {
   //TODO: Implement MyProjectsController
   final GlobalKey<FormState>profileFormKey=GlobalKey<FormState>();
-  final count = 0.obs;
+  final price = 0.obs;
   var isLoading=false.obs;
   var startDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
   var endDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
@@ -216,8 +216,6 @@ class MyProjectsController extends GetxController
   void onClose() {
     super.onClose();
   }
-
-  void increment() => count.value++;
 
   void getImage(ImageSource imageSource) async{
     final pickedFile = await ImagePicker().pickImage(source: imageSource);

@@ -43,143 +43,197 @@ class ProgressReportView extends GetView<ProgressReportController> {
               child: EnterAnimation(Column(
                 children: [
                   appBar,
-                  SizedBox(height: size.width * 0.1),
-                  Container(
-                    padding: const EdgeInsets.only(top: 10, bottom: 10),
-                    //Height of the main Container
-                    height: size.width * 1.5,
-                    width: size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.grey),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Project Health card  📊', style: titleStyle,),
-                        SizedBox(height: size.width * 0.01),
-                        const Divider(thickness: 1,),
-                        SizedBox(height: size.width * 0.01),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'No. of projects per month', style: headline1,),
-                              Container(
-                                height: size.width * 0.08,
-                                width: size.width * 0.15,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: Colors.grey),
+                  SizedBox(height: size.width * 0.05),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  width: size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.grey)),
+                        child: Column(children: [
+                          const Text(
+                            'Project Health card  📊', style: titleStyle,),
+                          SizedBox(height: size.width * 0.01),
+                          const Divider(thickness: 1,),
+                          SizedBox(height: size.width * 0.01),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'No. of projects per month', style: headline1,),
+                                Container(
+                                  height: size.width * 0.08,
+                                  width: size.width * 0.15,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(color: Colors.grey),
+                                  ),
+                                  child: Center(child: Obx(() {
+                                    return Text(
+                                      controller.total_project.value.toString(),
+                                      style: buttonTitleStyle,);
+                                  })),
                                 ),
-                                child: Center(child: Obx(() {
-                                  return Text(
-                                    controller.total_project.value.toString(),
-                                    style: buttonTitleStyle,);
-                                })),
-                              ),
-                            ],),
-                        ),
-                        SizedBox(height: size.width * 0.01),
-                        const Divider(thickness: 1,),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Complete Project', style: headline1,),
-                              Container(
-                                height: size.width * 0.08,
-                                width: size.width * 0.15,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(color: Colors.grey),
+                              ],),
+                          ),
+                          SizedBox(height: size.width * 0.01),
+                          const Divider(thickness: 1,),
+                          //Completed Projcets Info.
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text('Complete Project', style: headline1,),
+                                Container(
+                                  height: size.width * 0.08,
+                                  width: size.width * 0.15,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(color: Colors.grey),
+                                  ),
+                                  child: Center(child: Obx(() {
+                                    return Text(
+                                      controller.complete_project.value
+                                          .toString(),
+                                      style: buttonTitleStyle,);
+                                  })),
                                 ),
-                                child: Center(child: Obx(() {
-                                  return Text(
-                                    controller.complete_project.value
-                                        .toString(),
-                                    style: buttonTitleStyle,);
-                                })),
+                              ],),
+                          ),
+                          SizedBox(height: size.width * 0.01),
+                        ],),
+                      ),
+                      SizedBox(height: size.width * 0.03),
+                      Container(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        width: size.width,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.grey)),
+                        child: Column(children: [
+                          //Material used Percentage
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Material Used', style: headline1,),
+                                LinearPercentIndicator(
+                                  barRadius: const Radius.circular(30),
+                                  width: size.width * 0.3,
+                                  lineHeight: size.width * 0.02,
+                                  percent: 0.7,
+                                  backgroundColor: Colors.grey.shade300,
+                                  progressColor: secondaryColor,
+                                  trailing: const Text('70%', style: subTitle,),
+                                ),
+                              ],),
+                          ),
+                          SizedBox(height: size.width * 0.01),
+                          const Divider(thickness: 1),
+                          //Material Used Graph
+                          Obx(() {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: SizedBox(
+                                height: size.width * 0.5,
+                                child: DChartBar(
+                                  data: [
+                                    {
+                                      'id': 'Bar',
+                                      'data':
+                                      controller.chartData.map((element) {
+                                        return {
+                                          'domain': element['domain'],
+                                          'measure': element['measure']
+                                        };
+                                      }).toList()
+                                    },
+                                  ],
+                                  domainLabelPaddingToAxisLine: 16,
+                                  axisLineTick: 2,
+                                  axisLinePointTick: 2,
+                                  axisLinePointWidth: 10,
+                                  axisLineColor: Colors.black,
+                                  measureLabelPaddingToAxisLine: 20,
+                                  barColor: (barData, index, id) => secondaryColor,
+                                  showBarValue: true,
+                                ),
                               ),
-                            ],),
-                        ),
-                        SizedBox(height: size.width * 0.01),
-                        const Divider(thickness: 1),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Material used Graph', style: headline1,),
-                              LinearPercentIndicator(
-                                barRadius: const Radius.circular(30),
-                                width: size.width * 0.3,
-                                lineHeight: size.width * 0.02,
-                                percent: 0.7,
-                                backgroundColor: Colors.grey.shade300,
-                                progressColor: secondaryColor,
-                                trailing: const Text('70%', style: subTitle,),
+                            );
+                          }),
+                        ],),
+                      ),
+                      SizedBox(height: size.width * 0.03),
+                      Container(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        width: size.width,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(color: Colors.grey)),
+                        child: Column(children: [
+                          //Comments Percentage
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text('Comment\'s', style: headline1,),
+                                LinearPercentIndicator(
+                                  barRadius: const Radius.circular(30),
+                                  width: size.width * 0.3,
+                                  lineHeight: size.width * 0.02,
+                                  percent: 0.5,
+                                  backgroundColor: Colors.grey.shade300,
+                                  progressColor: primaryColor,
+                                  trailing: const Text('50%', style: subTitle,),
+                                ),
+                              ],),
+                          ),
+                          SizedBox(height: size.width * 0.01),
+                          const Divider(thickness: 1),
+                          //Material Used Graph
+                          Obx(() {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: SizedBox(
+                                height: size.width * 0.5,
+                                child: DChartBar(
+                                  data: [
+                                    {
+                                      'id': 'Bar',
+                                      'data':
+                                      controller.chartData.map((element) {
+                                        return {
+                                          'domain': element['domain'],
+                                          'measure': element['measure']
+                                        };
+                                      }).toList()
+                                    },
+                                  ],
+                                  domainLabelPaddingToAxisLine: 16,
+                                  axisLineTick: 2,
+                                  axisLinePointTick: 2,
+                                  axisLinePointWidth: 10,
+                                  axisLineColor: Colors.black,
+                                  measureLabelPaddingToAxisLine: 20,
+                                  barColor: (barData, index, id) => primaryColor,
+                                  showBarValue: true,
+                                ),
                               ),
-                            ],),
-                        ),
-                        SizedBox(height: size.width * 0.01),
-                        const Divider(thickness: 1),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text('Comment Graph', style: headline1,),
-                              LinearPercentIndicator(
-                                barRadius: const Radius.circular(30),
-                                width: size.width * 0.3,
-                                lineHeight: size.width * 0.02,
-                                percent: 0.5,
-                                backgroundColor: Colors.grey.shade300,
-                                progressColor: secondaryColor,
-                                trailing: const Text('50%', style: subTitle,),
-                              ),
-                            ],),
-                        ),
-                        SizedBox(height: size.width * 0.01),
-                        const Divider(thickness: 1),
-                        Obx(() {
-                          return Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: SizedBox(
-                              height: size.width * 0.5,
-                              child: DChartBar(
-                                data: [
-                                  {
-                                    'id': 'Bar',
-                                    'data':
-                                    controller.chartData.map((element) {
-                                      return {
-                                        'domain': element['domain'],
-                                        'measure': element['measure']
-                                      };
-                                    }).toList()
-                                  },
-                                ],
-                                domainLabelPaddingToAxisLine: 16,
-                                axisLineTick: 2,
-                                axisLinePointTick: 2,
-                                axisLinePointWidth: 10,
-                                axisLineColor: Colors.black,
-                                measureLabelPaddingToAxisLine: 20,
-                                barColor: (barData, index, id) => secondaryColor,
-                                showBarValue: true,
-                              ),
-                            ),
-                          );
-                        }),
-                      ],),
-                  ),
+                            );
+                          }),
+                        ],),
+                      ),
+                      SizedBox(height: size.width * 0.03),
+                    ],),
                 ],
               )),
             ),

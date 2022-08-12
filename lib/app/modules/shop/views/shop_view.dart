@@ -109,7 +109,8 @@ class ShopView extends GetView<ShopController> {
         {
           controller.filterNow(value);
         },
-        placeholder: 'Search',
+        padding: EdgeInsets.only(top: 5,left: 5),
+        placeholder: 'Search Product\'s',
         placeholderStyle: subTitle,
         suffix: const Icon(Icons.search),
         decoration: BoxDecoration(
@@ -130,7 +131,7 @@ class ShopView extends GetView<ShopController> {
                   searchField,
                   SizedBox(height: size.height * 0.02),
                 ],)),
-            SizedBox(height: size.width * 0.03,),
+            SizedBox(height: size.width * 0.01,),
             Obx(() {
               return Flexible(
                 flex: 1,
@@ -157,11 +158,10 @@ class ShopView extends GetView<ShopController> {
                               flex: 3,
                               child: InkWell(
                                 onTap: () =>
-                                    Get.to(ShopItemView(),
+                                    Get.to(const ShopItemView(),
                                         transition: Transition.downToUp,
                                         arguments: [
-                                          controller.filteredProductList[index]
-                                              .id
+                                          controller.filteredProductList[index].id
                                         ]),
                                 //Get.toNamed('/shop-item',arguments:[controller.filteredProductList[index].id]),
                                 child: Container(
@@ -170,8 +170,7 @@ class ShopView extends GetView<ShopController> {
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
                                         image: NetworkImage(
-                                            controller.productList[index]
-                                                .image),
+                                            controller.productList[index].image),
                                         fit: BoxFit.cover
                                     ),
                                   ),

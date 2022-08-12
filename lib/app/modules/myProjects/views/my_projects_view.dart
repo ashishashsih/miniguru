@@ -365,234 +365,218 @@ class MyProjectsView extends GetView<MyProjectsController> {
                             ],
                           ),
                           SizedBox(height: size.width * 0.05,),
-                          //Drop Down Widget & Material Select
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  height: size.width * 0.1,
-                                  decoration: BoxDecoration(
-                                    color: primaryColor,
-                                    borderRadius: BorderRadius.circular(7),
+                          //Material Select
+                          Container(
+                            padding: EdgeInsets.symmetric(vertical: 13),
+                            width: size.width,
+                            decoration: BoxDecoration(
+                              color: primaryColor,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(child: InkWell(
+                              onTap: () {
+                                Get.bottomSheet(Container(
+                                  height: size.height / 1,
+                                  width: size.width,
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        topRight: Radius.circular(20),
+                                      )
                                   ),
-                                  child: Center(
-                                    child: Obx(() {
-                                      return DropdownButtonHideUnderline(
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          child: DropdownButton2(
-                                            dropdownDecoration: BoxDecoration(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 10),
+                                    child: Column(children: [
+                                      Row(
+                                        children: [
+                                          const Text('Search Material\'s',
+                                            style: titleStyle,),
+                                          Spacer(),
+                                          Container(
+                                            height: size.width * 0.1,
+                                            width: 100,
+                                            decoration: BoxDecoration(
+                                              color: primaryColor,
                                               borderRadius: BorderRadius
                                                   .circular(10),
-                                              border: Border.all(
-                                                  color: Colors.grey.shade400),
                                             ),
-                                            isExpanded: true,
-                                            isDense: true,
-                                            hint: const Text(
-                                                'Select Age Group',
-                                                style: blueButtonSubTitle
-                                            ),
-                                            icon: const Icon(
-                                              Icons.arrow_drop_down,
-                                              color: Colors.white,
-                                            ),
-                                            onChanged: (data) {
-                                              controller.selectedAgeGroup
-                                                  .value =
-                                                  int.parse(data.toString());
-                                              print(controller.selectedAgeGroup
-                                                  .value);
-                                            },
-                                            items: controller.ageList.map<
-                                                DropdownMenuItem<String>>((
-                                                NameIdModel value) {
-                                              return DropdownMenuItem<String>(
-                                                value: value.id.toString(),
-                                                child: Text(
-                                                  value.name,
-                                                  style: headline1,),
-                                              );
-                                            }).toList(),
+                                            child: Center(child: InkWell(
+                                              onTap: () {
+                                                controller
+                                                    .calculateItemDetail();
+                                              }
+                                              ,
+                                              child: const Text(
+                                                'Done',
+                                                style: blueButtonSubTitle,),
+                                            ),),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: size.width * 0.03),
+                                      //Search TxtField
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 20),
+                                        width: size.width,
+                                        height: size.width * 0.13,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey.shade200,
+                                            borderRadius: BorderRadius
+                                                .circular(150)),
+                                        child: CupertinoTextField(
+                                          controller: controller
+                                              .searchController,
+                                          onChanged: (value) {
+                                            controller.filterNow(value);
+                                          },
+                                          placeholder: 'Search',
+                                          placeholderStyle: subTitle,
+                                          suffix: const Icon(Icons
+                                              .search),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius
+                                                .circular(15),
                                           ),
                                         ),
-                                      );
-                                    }),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: size.width * 0.03,),
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  height: size.width * 0.1,
-                                  decoration: BoxDecoration(
-                                    color: primaryColor,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Center(child: InkWell(
-                                    onTap: () {
-                                      Get.bottomSheet(Container(
-                                        height: size.height / 1,
-                                        width: size.width,
-                                        decoration: const BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20),
-                                              topRight: Radius.circular(20),
-                                            )
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 15, vertical: 10),
-                                          child: Column(children: [
-                                            Row(
-                                              children: [
-                                                const Text('Search Material\'s',
-                                                  style: titleStyle,),
-                                                Spacer(),
-                                                Container(
-                                                  height: size.width * 0.1,
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    color: primaryColor,
-                                                    borderRadius: BorderRadius
-                                                        .circular(10),
-                                                  ),
-                                                  child: Center(child: InkWell(
-                                                    onTap: () {
-                                                      controller
-                                                          .calculateItemDetail();
-                                                    }
-                                                    ,
-                                                    child: const Text(
-                                                      'Done',
-                                                      style: blueButtonSubTitle,),
-                                                  ),),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(height: size.width * 0.03),
-                                            //Search TxtField
-                                            Container(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10, right: 20),
-                                              width: size.width,
-                                              height: size.width * 0.13,
-                                              decoration: BoxDecoration(
-                                                  color: Colors.grey.shade200,
-                                                  borderRadius: BorderRadius
-                                                      .circular(150)),
-                                              child: CupertinoTextField(
-                                                controller: controller
-                                                    .searchController,
-                                                onChanged: (value) {
-                                                  controller.filterNow(value);
-                                                },
-                                                placeholder: 'Search',
-                                                placeholderStyle: subTitle,
-                                                suffix: const Icon(Icons
-                                                    .search),
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .circular(15),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(height: size.width * 0.03),
-                                            //Material List
-                                            Obx(() {
-                                              return Expanded(
-                                                child: ListView.builder(
-                                                  itemCount: controller
-                                                      .filteredProductList
-                                                      .length,
-                                                  itemBuilder: (_, int index) {
-                                                    return Column(
+                                      ),
+                                      SizedBox(height: size.width * 0.03),
+                                      //Material List
+                                      Obx(() {
+                                        return Expanded(
+                                          child: ListView.builder(
+                                            itemCount: controller
+                                                .filteredProductList
+                                                .length,
+                                            itemBuilder: (_, int index) {
+                                              return Column(
+                                                children: [
+                                                  ListTile(
+                                                    leading: Container(
+                                                      height: size.width *
+                                                          0.15,
+                                                      width: size.width *
+                                                          0.15,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius
+                                                            .circular(5),
+                                                        image: const DecorationImage(
+                                                            image: NetworkImage(
+                                                                demoImage),
+                                                            fit: BoxFit
+                                                                .cover
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    //Item Name
+                                                    title: Row(
                                                       children: [
-                                                        ListTile(
-                                                          leading: Container(
-                                                            height: size.width *
-                                                                0.15,
-                                                            width: size.width *
-                                                                0.15,
-                                                            decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius
-                                                                  .circular(5),
-                                                              image: const DecorationImage(
-                                                                  image: NetworkImage(
-                                                                      demoImage),
-                                                                  fit: BoxFit
-                                                                      .cover
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          //Item Name
-                                                          title: Text(
-                                                            controller
-                                                                .filteredProductList[index]
-                                                                .productName,
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: Text(
+                                                            controller.filteredProductList[index].productName,
                                                             style: headline1,
                                                             overflow: TextOverflow
                                                                 .ellipsis,
                                                           ),
-                                                          //Item Price
-                                                          subtitle: Text(
-                                                              '${controller
-                                                                  .filteredProductList[index]
-                                                                  .point
-                                                                  .toString()}',
-                                                              style: buttonTitleStyle),
-                                                          //Counter Button
-                                                          trailing: Checkbox(
-                                                            onChanged: (
-                                                                bool? value) {
-                                                              controller
-                                                                  .filteredProductList[index]
-                                                                  .selected =
-                                                              value!;
-                                                              controller
-                                                                  .filteredProductList
-                                                                  .refresh();
-                                                            },
-                                                            value: controller
-                                                                .filteredProductList[index]
-                                                                .selected,)
-                                                          ,
                                                         ),
-                                                        const Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                              horizontal: 20),
-                                                          child: Divider(),
+                                                        SizedBox(width: size.width * 0.02,),
+                                                        Expanded(
+                                                          flex: 0,
+                                                          child: Text(
+                                                            '₹${controller.filteredProductList[index].point.toString()}',
+                                                            style: headline1,
+                                                            overflow: TextOverflow
+                                                                .ellipsis,
+                                                          ),
                                                         ),
                                                       ],
+                                                    ),
+                                                    //Item Price
+                                                    subtitle: Row(
+                                                      children: [
+                                                        InkWell(
+                                                          onTap: () =>
+                                                          controller.price.value--,
+                                                          child: Icon(
+                                                            CupertinoIcons
+                                                                .minus_circle,
+                                                            color: Colors
+                                                                .black,
+                                                            size: 20,),
+                                                        ),
+                                                        SizedBox(
+                                                          width: size
+                                                              .width *
+                                                              0.02,),
+                                                        Obx(() {
+                                                          return Text(
+                                                              '${controller.price.value.toString()}',
+                                                              style: headline1);
+                                                        }),
+                                                        SizedBox(
+                                                          width: size
+                                                              .width *
+                                                              0.02,),
+                                                        InkWell(
+                                                            onTap: () => controller.price.value++,
+                                                            // controller
+                                                            //     .filteredProductList[index]
+                                                            //     .point++,
+                                                            child: const Icon(
+                                                                CupertinoIcons
+                                                                    .add_circled,
+                                                                color: Colors
+                                                                    .black,
+                                                                size: 20)),
+                                                      ],
+                                                    ),
+                                                    //Counter Button
+                                                    trailing: Checkbox(
+                                                      onChanged: (
+                                                          bool? value) {
+                                                        controller
+                                                            .filteredProductList[index]
+                                                            .selected =
+                                                        value!;
+                                                        controller
+                                                            .filteredProductList
+                                                            .refresh();
+                                                      },
+                                                      value: controller
+                                                          .filteredProductList[index]
+                                                          .selected,)
+                                                    ,
+                                                  ),
+                                                  const Padding(
+                                                    padding: EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 20),
+                                                    child: Divider(),
+                                                  ),
+                                                ],
 
-                                                    );
-                                                  },
-                                                ),);
-                                            }),
-                                          ],),
-                                        ),
-                                      )
-                                      );
-                                    }
-                                    ,
-                                    child: const Text(
-                                      'Select Material',
-                                      style: blueButtonSubTitle,),
-                                  ),),
-                                ),
-                              ),
-                            ],
+                                              );
+                                            },
+                                          ),);
+                                      }),
+                                    ],),
+                                  ),
+                                ));
+                              },
+                              child: const Text(
+                                'Select Material',
+                                style: blueButtonSubTitle,),
+                            ),),
                           ),
                           SizedBox(height: size.width * 0.05,),
                           Obx(() {
                             return Row(children: List.generate(
                                 controller.selectedItems.length, (index) =>
-                                Text("${controller.selectedItems[index]} | ",style: TextStyle(color: controller.generateRandomColor()),)),);
+                                Text("${controller.selectedItems[index]} | ",
+                                  style: TextStyle(color: controller.generateRandomColor()))));
                           }),
                           SizedBox(height: size.width * 0.05,),
                           //Cancel & Upload Button

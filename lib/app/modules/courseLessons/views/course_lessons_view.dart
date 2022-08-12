@@ -13,8 +13,7 @@ class CourseLessonsView extends GetView<CourseLessonsController>
   Widget build(BuildContext context) {
     CourseLessonsController courseController = Get.put(CourseLessonsController());
     courseController.onInit();
-    const String demoImage =
-        'https://t3.ftcdn.net/jpg/02/22/85/16/360_F_222851624_jfoMGbJxwRi5AWGdPgXKSABMnzCQo9RN.jpg';
+    const String demoImage = 'https://t3.ftcdn.net/jpg/02/22/85/16/360_F_222851624_jfoMGbJxwRi5AWGdPgXKSABMnzCQo9RN.jpg';
     final size = MediaQuery
         .of(context)
         .size;
@@ -48,8 +47,7 @@ class CourseLessonsView extends GetView<CourseLessonsController>
       ),
     );
     //A,U,M,S,T Buttons
-    Widget likeButtons({required int id,required String label, required String likes})
-    {
+    Widget likeButtons({required int id,required String label, required String likes}){
       return Badge(
         badgeColor: Colors.white70,
         badgeContent: Text(likes),
@@ -192,16 +190,12 @@ class CourseLessonsView extends GetView<CourseLessonsController>
                                 likes: controller.creative.value.toString()),
                             likeButtons(
                                 id:4,
-                                label: 'Useful',
+                                label: 'Study',
                                 likes: controller.useful.value.toString()),
                             likeButtons(
                                 id:5,
                                 label: 'Interactive',
                                 likes: controller.interactive.value.toString()),
-                            likeButtons(
-                                id:6,
-                                label: 'Gaming',
-                                likes: controller.gaming.value.toString()),
                           ],
                         ),
                         SizedBox(

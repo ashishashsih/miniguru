@@ -60,7 +60,7 @@ class ShopController extends GetxController {
 
   filterNow(String value)
   {
-    print("SearchinString is here:${value}");
+    print("Search String is here:${value}");
     if(searchController.text.isEmpty)
       {
         filteredProductList.value=productList;
@@ -70,7 +70,7 @@ class ShopController extends GetxController {
           filteredProductList.value=productList;
           filteredProductList.value=productList.where((element) => element.name.toLowerCase().contains(cnvVal)).toList();
         }
-      print("SearchinString is here:${filteredProductList.length}");
+      print("Search String is here:${filteredProductList.length}");
   }
 
   @override

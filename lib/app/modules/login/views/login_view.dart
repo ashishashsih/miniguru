@@ -171,6 +171,7 @@ class LoginView extends GetView<LoginController> {
             ),
           ),
           SizedBox(height: size.width / 20),
+          //OTP TextField
           PinCodeTextField(
             controller: loginController.codeController,
             appContext: context,

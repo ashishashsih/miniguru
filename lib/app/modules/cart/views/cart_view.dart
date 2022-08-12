@@ -1,7 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:mini_guru/constants.dart';
@@ -183,7 +182,7 @@ class CartView extends GetView<CartController>
                                 child: InkWell(
                                   child: Badge(
                                     shape: BadgeShape.circle,
-                                    badgeContent: Icon(Icons.delete,color: Colors.white,size: 16,),
+                                    badgeContent: const Icon(Icons.delete,color: Colors.white,size: 16,),
                                     position: BadgePosition.topEnd(),
                                     child: Card(
                                       elevation: 5.0,

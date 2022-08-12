@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:mini_guru/app/modules/bottomBar/views/bottom_bar_view.dart';
@@ -13,13 +14,13 @@ void main() async{
   await Firebase.initializeApp();
   final prefs = await SharedPreferences.getInstance();
   isLogin = prefs.getBool('isLogin');
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -31,7 +32,6 @@ class MyApp extends StatelessWidget {
           title: "MiniGuru",
           home: isLogin == true ? BottomBarView() : const OnBoardingView(),
           getPages: AppPages.routes,
-
         );
       },
     );
