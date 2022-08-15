@@ -92,7 +92,8 @@ class LoginController extends GetxController {
   }
 
   //OTP Verification
-  myCredentials(String verId, String userId) async{
+  myCredentials(String verId, String userId) async
+  {
     final prefs = await SharedPreferences.getInstance();
     AuthCredential authCredential = PhoneAuthProvider.credential(verificationId: verId, smsCode: userId);
     firebaseAuth.signInWithCredential(authCredential).then((UserCredential){

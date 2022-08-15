@@ -17,6 +17,9 @@ class ProjectListController extends GetxController
   var isLoading=false.obs;
   var video=''.obs;
   var myProjectList = <MyProductListModel>[].obs;
+  var onGoingProjectList = <MyProductListModel>[].obs;
+  var completedProjectList = <MyProductListModel>[].obs;
+  var futureProjectList = <MyProductListModel>[].obs;
   late TextEditingController textEditingControllerProgress;
 
   getProjectList()async
@@ -27,6 +30,10 @@ class ProjectListController extends GetxController
       var addressList = await ApiService().getProjectList();
       print(addressList.toString());
       myProjectList.value = myProductListModelFromJson(jsonEncode(addressList));
+      onGoingProjectList.value=myProjectList.where((element) => element.status==1).toList();
+      completedProjectList.value=myProjectList.where((element) => element.status==2).toList();
+      futureProjectList.value=myProjectList.where((element) => element.status==3).toList();
+
       isLoading(false);
     } finally {
       isLoading(false);

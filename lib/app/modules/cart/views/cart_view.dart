@@ -175,107 +175,122 @@ class CartView extends GetView<CartController>
                           itemBuilder: (BuildContext ctx, int index) {
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 10),
-                              child: InkWell(
-                                onTap: ()=>{
-                                  controller.showConfirmDialog(context, index)
-                                },
-                                child: InkWell(
-                                  child: Badge(
-                                    shape: BadgeShape.circle,
-                                    badgeContent: const Icon(Icons.delete,color: Colors.white,size: 16,),
-                                    position: BadgePosition.topEnd(),
-                                    child: Card(
-                                      elevation: 5.0,
-                                      shadowColor: Colors.grey.shade400,
-                                      child: ListTile(
-                                        leading: Container(
-                                          height: size.width * 0.15,
-                                          width: size.width * 0.15,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(5),
-                                            image: DecorationImage(
-                                                image: NetworkImage(
-                                                    controller.productList[index]
-                                                        .image),
-                                                fit: BoxFit.cover
-                                            ),
-                                          ),
+                              child:
+                              Badge(
+                                borderSide: BorderSide(
+                                    color: Colors.red,
+                                    width: 2
+                                ),
+                                badgeColor: Colors.red,
+                                toAnimate: false,
+                                shape: BadgeShape.square,
+                                elevation: 2.0,
+                                position: BadgePosition.topEnd(top: 1,end: 5),
+                                borderRadius: BorderRadius.circular(10),
+                                badgeContent: InkWell(
+                                  onTap: ()=>controller.showConfirmDialog(context, index),
+                                  child: Text("Delete", style: TextStyle(
+                                      color: Colors.white,
+                                      letterSpacing: 1,
+                                      fontSize: 8,
+                                      fontWeight: FontWeight.bold)),
+                                ),
+                                // shape: BadgeShape.square,
+                                // badgeContent: InkWell(onTap: ()=>controller.showConfirmDialog(context, index),
+                                //     //child: const Icon(Icons.delete,color: Colors.white,size: 16,)),
+                                //     child: const Text("Delete",style: TextStyle(color: Colors.white),)),
+                                // position: BadgePosition.topEnd(),
+                                // borderRadius: BorderRadiusGeometry(),
+                                child: Card(
+                                  elevation: 5.0,
+                                  shadowColor: Colors.grey.shade400,
+                                  child: ListTile(
+                                    leading: Container(
+                                      height: size.width * 0.15,
+                                      width: size.width * 0.15,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                controller.productList[index]
+                                                    .image),
+                                            fit: BoxFit.cover
                                         ),
-                                        //Item Name
-                                        title: Text(
-                                          controller.productList[index].name,
-                                          style: headline1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        //Item Price
-                                        subtitle: Text(
-                                            '₹ ${controller.productList[index]
-                                                .price}/-',
-                                            style: buttonTitleStyle),
-                                        //Counter Button
-                                        trailing: Container(
-                                          height: size.width * 0.1,
-                                          width: size.width * 0.2,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.grey.shade400),
-                                            borderRadius: BorderRadius.circular(7),
-                                            // color: primaryColor,
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 5),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .spaceBetween,
-                                              children: [
-                                                InkWell(
-                                                    onTap: () {
-                                                      if (cartController
-                                                          .productList[index]
-                                                          .quantity == 1) {
-
-                                                      } else {
-                                                        cartController
-                                                            .productList[index]
-                                                            .quantity--;
-
-                                                        cartController.productList
-                                                            .refresh();
-                                                        cartController
-                                                            .setCartValue();
-                                                      }
-                                                    },
-                                                    child: const Icon(
-                                                      CupertinoIcons.minus_circle,
-                                                      color: Colors.black,
-                                                      size: 20,)),
-                                                Obx(() {
-                                                  return Text(
-                                                    cartController
-                                                        .productList[index]
-                                                        .quantity.toString(),
-                                                    style: headline,);
-                                                }),
-                                                InkWell(
-                                                    onTap: () {
-                                                      cartController
-                                                          .productList[index]
-                                                          .quantity++;
-                                                      cartController.productList
-                                                          .refresh();
-                                                      cartController.setCartValue();
-                                                    },
-                                                    child: const Icon(
-                                                      CupertinoIcons.plus_circle,
-                                                      color: Colors.black,
-                                                      size: 20,))
-                                              ],),
-                                          ),
-                                        )
-                                        ,
                                       ),
                                     ),
+                                    //Item Name
+                                    title: Text(
+                                      controller.productList[index].name,
+                                      style: headline1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    //Item Price
+                                    subtitle: Text(
+                                        '₹ ${controller.productList[index]
+                                            .price}/-',
+                                        style: buttonTitleStyle),
+                                    //Counter Button
+                                    trailing: Container(
+                                      height: size.width * 0.1,
+                                      width: size.width * 0.2,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.grey.shade400),
+                                        borderRadius: BorderRadius.circular(7),
+                                        // color: primaryColor,
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 5),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .spaceBetween,
+                                          children: [
+                                            InkWell(
+                                                onTap: () {
+                                                  if (cartController
+                                                      .productList[index]
+                                                      .quantity == 1) {
+
+                                                  } else {
+                                                    cartController
+                                                        .productList[index]
+                                                        .quantity--;
+
+                                                    cartController.productList
+                                                        .refresh();
+                                                    cartController
+                                                        .setCartValue();
+                                                  }
+                                                },
+                                                child: const Icon(
+                                                  CupertinoIcons.minus_circle,
+                                                  color: Colors.black,
+                                                  size: 20,)),
+                                            Obx(() {
+                                              return Text(
+                                                cartController
+                                                    .productList[index]
+                                                    .quantity.toString(),
+                                                style: headline,);
+                                            }),
+                                            InkWell(
+                                                onTap: () {
+                                                  cartController
+                                                      .productList[index]
+                                                      .quantity++;
+                                                  cartController.productList
+                                                      .refresh();
+                                                  cartController.setCartValue();
+                                                },
+                                                child: const Icon(
+                                                  CupertinoIcons.plus_circle,
+                                                  color: Colors.black,
+                                                  size: 20,))
+                                          ],),
+                                      ),
+                                    )
+                                    ,
                                   ),
                                 ),
                               ),

@@ -125,15 +125,15 @@ class ProgressReportView extends GetView<ProgressReportController> {
                               children: [
                                 const Text(
                                   'Material Used', style: headline1,),
-                                LinearPercentIndicator(
-                                  barRadius: const Radius.circular(30),
-                                  width: size.width * 0.3,
-                                  lineHeight: size.width * 0.02,
-                                  percent: 0.7,
-                                  backgroundColor: Colors.grey.shade300,
-                                  progressColor: secondaryColor,
-                                  trailing: const Text('70%', style: subTitle,),
-                                ),
+                                // LinearPercentIndicator(
+                                //   barRadius: const Radius.circular(30),
+                                //   width: size.width * 0.3,
+                                //   lineHeight: size.width * 0.02,
+                                //   percent: 0.7,
+                                //   backgroundColor: Colors.grey.shade300,
+                                //   progressColor: secondaryColor,
+                                //   trailing: const Text('70%', style: subTitle,),
+                                // ),
                               ],),
                           ),
                           SizedBox(height: size.width * 0.01),
@@ -186,15 +186,15 @@ class ProgressReportView extends GetView<ProgressReportController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Text('Comment\'s', style: headline1,),
-                                LinearPercentIndicator(
-                                  barRadius: const Radius.circular(30),
-                                  width: size.width * 0.3,
-                                  lineHeight: size.width * 0.02,
-                                  percent: 0.5,
-                                  backgroundColor: Colors.grey.shade300,
-                                  progressColor: primaryColor,
-                                  trailing: const Text('50%', style: subTitle,),
-                                ),
+                                // LinearPercentIndicator(
+                                //   barRadius: const Radius.circular(30),
+                                //   width: size.width * 0.3,
+                                //   lineHeight: size.width * 0.02,
+                                //   percent: 0.5,
+                                //   backgroundColor: Colors.grey.shade300,
+                                //   progressColor: primaryColor,
+                                //   trailing: const Text('50%', style: subTitle,),
+                                // ),
                               ],),
                           ),
                           SizedBox(height: size.width * 0.01),
@@ -210,7 +210,7 @@ class ProgressReportView extends GetView<ProgressReportController> {
                                     {
                                       'id': 'Bar',
                                       'data':
-                                      controller.chartData.map((element) {
+                                      controller.commentChartData.map((element) {
                                         return {
                                           'domain': element['domain'],
                                           'measure': element['measure']

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../../../constants.dart';
 import '../controllers/project_list_controller.dart';
 
@@ -91,11 +93,11 @@ class ProjectListView extends GetView<ProjectListController> {
                     children: [
                       //OnGoing Projects
                       ListView.builder(
-                          itemCount: projectListController.myProjectList.length,
+                          itemCount: projectListController.onGoingProjectList.length,
                           itemBuilder: (BuildContext ctx, int index) {
                             return InkWell(
                               onTap:(){
-                                if(projectListController.myProjectList[index].progress==100)
+                                if(projectListController.onGoingProjectList[index].progress==100)
                                   {
                                      Fluttertoast.showToast(msg: "Project Already Completed");
                                   }else
@@ -113,7 +115,7 @@ class ProjectListView extends GetView<ProjectListController> {
                                         ),
                                         child: SingleChildScrollView(
                                           child: Column(children: [
-                                            Text(projectListController.myProjectList[index].title,
+                                            Text(projectListController.onGoingProjectList[index].title,
                                               overflow: TextOverflow.ellipsis,
                                               style: titleStyle,
                                               maxLines: 2,),
@@ -235,11 +237,11 @@ class ProjectListView extends GetView<ProjectListController> {
                                                   crossAxisAlignment: CrossAxisAlignment
                                                       .start,
                                                   children: [
-                                                    Text(projectListController.myProjectList[index].title,
+                                                    Text(projectListController.onGoingProjectList[index].title,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: titleStyle,
                                                       maxLines: 2,),
-                                                    Text(projectListController.myProjectList[index].description,
+                                                    Text(projectListController.onGoingProjectList[index].description,
                                                       style: subTitle,
                                                       maxLines: 3,
                                                       overflow: TextOverflow.ellipsis,),
@@ -255,7 +257,7 @@ class ProjectListView extends GetView<ProjectListController> {
                                                         Text('Start Date',
                                                           style: buttonSubTitleStyle,),
                                                         Text(
-                                                          projectListController.myProjectList[index].startDate, style: subTitle,),
+                                                          projectListController.onGoingProjectList[index].startDate, style: subTitle,),
                                                       ],),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment
@@ -263,9 +265,8 @@ class ProjectListView extends GetView<ProjectListController> {
                                                       children: [
                                                         Text('End Date',
                                                           style: buttonSubTitleStyle,),
-                                                        Text(
-                                                          projectListController.myProjectList[index].endDate, style: subTitle,),
-                                                      ],),
+                                                        //Text(projectListController.myProjectList[index].endDate, style: TextStyle(color: getColor(projectListController.myProjectList[index].endDate)),),
+                                                        getEndDate(projectListController.onGoingProjectList[index].endDate)],),
                                                   ],
                                                 ),
                                               ],)),
@@ -278,10 +279,10 @@ class ProjectListView extends GetView<ProjectListController> {
                                       child: LinearPercentIndicator(
                                         barRadius: const Radius.circular(30),
                                         lineHeight: size.width * 0.02,
-                                        percent: setPercent(double.parse(projectListController.myProjectList[index].progress.toString())),
+                                        percent: setPercent(double.parse(projectListController.onGoingProjectList[index].progress.toString())),
                                         backgroundColor: Colors.grey.shade300,
-                                        progressColor: setColor(projectListController.myProjectList[index].progress),
-                                        trailing: Text('${projectListController.myProjectList[index].progress}%', style: subTitle,),
+                                        progressColor: setColor(projectListController.onGoingProjectList[index].progress),
+                                        trailing: Text('${projectListController.onGoingProjectList[index].progress}%', style: subTitle,),
                                       ),
                                     ),
                                   ],
@@ -291,11 +292,11 @@ class ProjectListView extends GetView<ProjectListController> {
                           }),
                       //Completed Projects
                       ListView.builder(
-                          itemCount: projectListController.myProjectList.length,
+                          itemCount: projectListController.completedProjectList.length,
                           itemBuilder: (BuildContext ctx, int index) {
                             return InkWell(
                               onTap:(){
-                                if(projectListController.myProjectList[index].progress==100)
+                                if(projectListController.completedProjectList[index].progress==100)
                                 {
                                   Fluttertoast.showToast(msg: "Project Already Complted");
                                 }else
@@ -313,7 +314,7 @@ class ProjectListView extends GetView<ProjectListController> {
                                     ),
                                     child: SingleChildScrollView(
                                       child: Column(children: [
-                                        Text(projectListController.myProjectList[index].title,
+                                        Text(projectListController.completedProjectList[index].title,
                                           overflow: TextOverflow.ellipsis,
                                           style: titleStyle,
                                           maxLines: 2,),
@@ -435,11 +436,11 @@ class ProjectListView extends GetView<ProjectListController> {
                                                   crossAxisAlignment: CrossAxisAlignment
                                                       .start,
                                                   children: [
-                                                    Text(projectListController.myProjectList[index].title,
+                                                    Text(projectListController.completedProjectList[index].title,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: titleStyle,
                                                       maxLines: 2,),
-                                                    Text(projectListController.myProjectList[index].description,
+                                                    Text(projectListController.completedProjectList[index].description,
                                                       style: subTitle,
                                                       maxLines: 3,
                                                       overflow: TextOverflow.ellipsis,),
@@ -455,7 +456,7 @@ class ProjectListView extends GetView<ProjectListController> {
                                                         Text('Start Date',
                                                           style: buttonSubTitleStyle,),
                                                         Text(
-                                                          projectListController.myProjectList[index].startDate, style: subTitle,),
+                                                          projectListController.completedProjectList[index].startDate, style: subTitle,),
                                                       ],),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment
@@ -464,7 +465,7 @@ class ProjectListView extends GetView<ProjectListController> {
                                                         Text('End Date',
                                                           style: buttonSubTitleStyle,),
                                                         Text(
-                                                          projectListController.myProjectList[index].endDate, style: subTitle,),
+                                                          projectListController.completedProjectList[index].endDate, style: subTitle,),
                                                       ],),
                                                   ],
                                                 ),
@@ -478,10 +479,10 @@ class ProjectListView extends GetView<ProjectListController> {
                                       child: LinearPercentIndicator(
                                         barRadius: const Radius.circular(30),
                                         lineHeight: size.width * 0.02,
-                                        percent: setPercent(double.parse(projectListController.myProjectList[index].progress.toString())),
+                                        percent: setPercent(double.parse(projectListController.completedProjectList[index].progress.toString())),
                                         backgroundColor: Colors.grey.shade300,
-                                        progressColor: setColor(projectListController.myProjectList[index].progress),
-                                        trailing: Text('${projectListController.myProjectList[index].progress}%', style: subTitle,),
+                                        progressColor: setColor(projectListController.completedProjectList[index].progress),
+                                        trailing: Text('${projectListController.completedProjectList[index].progress}%', style: subTitle,),
                                       ),
                                     ),
                                   ],
@@ -491,11 +492,11 @@ class ProjectListView extends GetView<ProjectListController> {
                           }),
                       //In Future Project's
                       ListView.builder(
-                          itemCount: projectListController.myProjectList.length,
+                          itemCount: projectListController.futureProjectList.length,
                           itemBuilder: (BuildContext ctx, int index) {
                             return InkWell(
                               onTap:(){
-                                if(projectListController.myProjectList[index].progress==100)
+                                if(projectListController.futureProjectList[index].progress==100)
                                 {
                                   Fluttertoast.showToast(msg: "Project Already Complted");
                                 }else
@@ -513,7 +514,7 @@ class ProjectListView extends GetView<ProjectListController> {
                                     ),
                                     child: SingleChildScrollView(
                                       child: Column(children: [
-                                        Text(projectListController.myProjectList[index].title,
+                                        Text(projectListController.futureProjectList[index].title,
                                           overflow: TextOverflow.ellipsis,
                                           style: titleStyle,
                                           maxLines: 2,),
@@ -635,11 +636,11 @@ class ProjectListView extends GetView<ProjectListController> {
                                                   crossAxisAlignment: CrossAxisAlignment
                                                       .start,
                                                   children: [
-                                                    Text(projectListController.myProjectList[index].title,
+                                                    Text(projectListController.futureProjectList[index].title,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: titleStyle,
                                                       maxLines: 2,),
-                                                    Text(projectListController.myProjectList[index].description,
+                                                    Text(projectListController.futureProjectList[index].description,
                                                       style: subTitle,
                                                       maxLines: 3,
                                                       overflow: TextOverflow.ellipsis,),
@@ -655,7 +656,7 @@ class ProjectListView extends GetView<ProjectListController> {
                                                         Text('Start Date',
                                                           style: buttonSubTitleStyle,),
                                                         Text(
-                                                          projectListController.myProjectList[index].startDate, style: subTitle,),
+                                                          projectListController.futureProjectList[index].startDate, style: subTitle,),
                                                       ],),
                                                     Column(
                                                       crossAxisAlignment: CrossAxisAlignment
@@ -664,7 +665,7 @@ class ProjectListView extends GetView<ProjectListController> {
                                                         Text('End Date',
                                                           style: buttonSubTitleStyle,),
                                                         Text(
-                                                          projectListController.myProjectList[index].endDate, style: subTitle,),
+                                                          projectListController.futureProjectList[index].endDate, style: subTitle,),
                                                       ],),
                                                   ],
                                                 ),
@@ -678,10 +679,10 @@ class ProjectListView extends GetView<ProjectListController> {
                                       child: LinearPercentIndicator(
                                         barRadius: const Radius.circular(30),
                                         lineHeight: size.width * 0.02,
-                                        percent: setPercent(double.parse(projectListController.myProjectList[index].progress.toString())),
+                                        percent: setPercent(double.parse(projectListController.futureProjectList[index].progress.toString())),
                                         backgroundColor: Colors.grey.shade300,
-                                        progressColor: setColor(projectListController.myProjectList[index].progress),
-                                        trailing: Text('${projectListController.myProjectList[index].progress}%', style: subTitle,),
+                                        progressColor: Colors.grey,//setColor(projectListController.futureProjectList[index].progress),
+                                        trailing: Text('${projectListController.futureProjectList[index].progress}%', style: subTitle,),
                                       ),
                                     ),
                                   ],
@@ -717,4 +718,21 @@ class ProjectListView extends GetView<ProjectListController> {
        return Colors.green;
       }
   }
+
+  Widget getEndDate(String ddate)
+  {
+    print("dDateHere.${ddate}.");
+    DateTime tempDate = new DateFormat("dd/MM/yyyy").parse(ddate);
+    DateTime dob = DateTime.parse("2022-10-10");
+    Duration dur =  tempDate.difference(DateTime.now());
+    String differenceInYears = (dur.inDays).floor().toString();
+    print(ddate+"#${differenceInYears}");
+
+    if(int.parse(differenceInYears)<3)
+    {
+      return Shimmer.fromColors(child: Text(ddate, style: TextStyle(color: Colors.black),), baseColor: Colors.grey, highlightColor: Colors.red);
+    }else
+      return Text(ddate, style: TextStyle(color: Colors.green),);
+  }
+
 }

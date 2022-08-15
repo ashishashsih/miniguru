@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -7,6 +8,7 @@ import 'package:mini_guru/app/modules/login/controllers/login_controller.dart';
 import 'package:mini_guru/constants.dart';
 import 'package:mini_guru/others/api_service.dart';
 import 'package:intl/intl.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class ProfilePageController extends GetxController {
   final geoLocator = Geolocator.getCurrentPosition(forceAndroidLocationManager: true);
@@ -34,9 +36,19 @@ class ProfilePageController extends GetxController {
   var isLoading=false.obs;
   var dateOfBirth = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
   final count = 0.obs;
+  late TextEditingController rechargeAmountController;
+
+  Razorpay ?razorpay;
+  var transactionId="".obs;
   @override
-  void onInit() async
+  void onInit()async
   {
+    rechargeAmountController=TextEditingController();
+    razorpay = new Razorpay();
+    razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlerPaymentSuccess);
+    razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, handlerErrorFailure);
+    razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, handlerExternalWallet);
+
     studentNameController=TextEditingController();
     parentNameController=TextEditingController();
     schoolNameController=TextEditingController();
@@ -45,6 +57,74 @@ class ProfilePageController extends GetxController {
     await Geolocator.requestPermission();
     super.onInit();
     getProfile();
+  }
+
+  void handlerPaymentSuccess(PaymentSuccessResponse response)
+  {
+    transactionId.value=response.paymentId.toString();
+    print("response id is here:$transactionId");
+    //getData();
+    orderNow();
+    // Fluttertoast.showToast(
+    //     msg: "Success",
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.BOTTOM,
+    //     timeInSecForIosWeb: 1,
+    //     backgroundColor: successColor,
+    //     textColor: Colors.white,
+    //     fontSize: 16.0
+    // );
+  }
+
+  void orderNow() {
+
+  }
+
+  void handlerErrorFailure(){
+    print("Pament error");
+    Fluttertoast.showToast(
+        msg: "error",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+  }
+
+  void handlerExternalWallet(){
+    Fluttertoast.showToast(
+        msg: "Wallet",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.lightGreen,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+  }
+
+  void openCheckout()
+  {
+    var options = {
+      'key': 'rzp_live_sop6uxg5y055jc',
+      'amount': int.parse(rechargeAmountController.text)*100,
+      'name': "Mini Guru",
+      'description': 'Recharge Wallet',
+      'prefill': {
+        'contact': mobile.value, 'email':email.value
+      },
+      'external': {
+        'wallets': ['paytm']
+      }
+    };
+
+    try{
+      razorpay!.open(options);
+    }catch(e){
+      print(e.toString());
+    }
   }
 
   void setGender(var type)

@@ -11,6 +11,7 @@ import 'package:mini_guru/constants.dart';
 import 'package:mini_guru/others/NameIdModel.dart';
 import 'package:mini_guru/others/api_service.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyProjectsController extends GetxController
 {
@@ -18,6 +19,7 @@ class MyProjectsController extends GetxController
   final GlobalKey<FormState>profileFormKey=GlobalKey<FormState>();
   final price = 0.obs;
   var isLoading=false.obs;
+  var dateOfBirth="07/05/1999".obs;
   var startDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
   var endDate = DateFormat('dd-MM-yyyy').format(DateTime.now()).obs;
   var ageGroup=0.obs;
@@ -166,6 +168,7 @@ class MyProjectsController extends GetxController
   //    getProjectData();
     super.onInit();
     getProductData();
+    getAge();
     searchController=TextEditingController();
     editingControllerTitle=TextEditingController();
     editingControllerDescription=TextEditingController();
@@ -231,5 +234,23 @@ class MyProjectsController extends GetxController
         colorText: Colors.white,
       );
     }
+  }
+
+  getAge()async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    dateOfBirth.value=prefs.getString('dateOfBirth')!;
+    Fluttertoast.showToast(msg: "Age is:${dateOfBirth.value}");
+    DateTime tempDate = new DateFormat("dd/MM/yyyy").parse(dateOfBirth.value);
+    DateTime today = DateTime.parse("2022-10-10");
+
+    var age = today.year-tempDate.year;//today.getFullYear() - tempDate.getFullYear();
+    Fluttertoast.showToast(msg: "Age is:${age}");
+    // var m = today.getMonth() - birthDate.getMonth();
+    // if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate()))
+    // {
+    // age--;
+    // }
+    //return age;
   }
 }

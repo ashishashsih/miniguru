@@ -10,7 +10,9 @@ class ProgressReportController extends GetxController {
   final count = 0.obs;
   var isLoading=false.obs;
   var chartData=<Map<String,dynamic>>[].obs;
+  var commentChartData=<Map<String,dynamic>>[].obs;
   var cData=<MaterialChartData>[].obs;
+  var commentData=<MaterialChartData>[].obs;
   //List<Map<String,dynamic>> cData=[];
   var total_project=0.obs;
   var complete_project=0.obs;
@@ -40,10 +42,16 @@ class ProgressReportController extends GetxController {
     complete_project.value=response['complete_project'];
     print(response['progressList']);
     cData.value =materialChartDataFromJson(jsonEncode(response['progressList']));
+    commentData.value =materialChartDataFromJson(jsonEncode(response['commentList']));
     print("${total_project}:done:${complete_project}#fine:${cData.value.length}");
     for (var i = 0; i < cData.length; i++)
     {
       chartData.add({"domain":cData[i].domain,"measure":cData[i].measure});
+    }
+
+    for (var i = 0; i < commentData.length; i++)
+    {
+      commentChartData.add({"domain":commentData[i].domain,"measure":commentData[i].measure});
     }
   }
 

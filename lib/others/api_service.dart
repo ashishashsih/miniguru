@@ -109,7 +109,7 @@ class ApiService
     }
   }
 
-    Future getProjectList() async
+  Future getProjectList() async
   {
     final prefs = await SharedPreferences.getInstance();
     var userId=prefs.getString("userId");
@@ -123,11 +123,36 @@ class ApiService
     // print(json.encode({"userId": userId}));
     // print(response.body);
     //var convertDataToJson =response.body;
-    var convertDataToJson = '{"status":true,"orderList":[{"id":7,"title":"project title","sub_title":"sub title","description":"it is description","start_date":"12/12/2021","end_date":"12/02/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":100},{"id":9,"title":"Elect Van","sub_title":"electric motorl used","description":"it is description","start_date":"01/07/2022","end_date":"05/93/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":2,"progress":49},{"id":6,"title":"Motor Pump","sub_title":"sub title","description":"it is description","start_date":"22/05/2022","end_date":"19/07/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":35}]}';//response.body;
+    var convertDataToJson = '{"status":true,"orderList":[{"id":7,"title":"project title","sub_title":"sub title","description":"it is description","start_date":"12/12/2021","end_date":"12/8/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":3,"progress":10},{"id":9,"title":"Elect Van","sub_title":"electric motorl used","description":"it is description","start_date":"01/07/2022","end_date":"14/08/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":2,"progress":100},{"id":6,"title":"Motor Pump","sub_title":"sub title","description":"it is description","start_date":"22/08/2022","end_date":"15/08/2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":35}]}';//response.body;
+    //var convertDataToJson = '{"status":true,"orderList":[{"id":7,"title":"project title","sub_title":"sub title","description":"it is description","start_date":"12-12-2021","end_date":"12-02-2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":100},{"id":9,"title":"Elect Van","sub_title":"electric motorl used","description":"it is description","start_date":"01-07-2022","end_date":"14-08-2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":2,"progress":49},{"id":6,"title":"Motor Pump","sub_title":"sub title","description":"it is description","start_date":"22-08-2022","end_date":"19-08-2022","thumbnil":"asdfjsadl;fjso;adifjasfjk","status":1,"progress":35}]}';//response.body;
     var status = json.decode(convertDataToJson)['status'];
     if (status)
     {
       var tag = json.decode(convertDataToJson)['orderList']; //['data'];
+      return tag;
+    }
+  }
+
+  Future getNotificationList() async
+  {
+    final prefs = await SharedPreferences.getInstance();
+    var userId=prefs.getString("userId");
+    //print(GET_ADDRESS_LIST);
+    // final response = await http.post(Uri.parse(GET_ADDRESS_LIST),
+    //     // headers: {HttpHeaders.acceptHeader: "application/json"},
+    //     headers: <String, String>{
+    //       'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: json.encode({"userId": userId}));
+    // print(json.encode({"userId": userId}));
+    // print(response.body);
+    //var convertDataToJson =response.body;
+    var convertDataToJson = '{"status":true,"notificationList":[{"id":1,"title":"Glue un","message":"it is first notification","status":1,"date":"07/08/2021"},{"id":2,"title":"title two","message":"it is second notification","status":1,"date":"07/08/2021"},{"id":3,"title":"title three","message":"it is third notification","status":1,"date":"08/08/2021"},{"id":4,"title":"title four","message":"it is message four","status":1,"date":"08/08/2021"}]}';//response.body;
+    var status = json.decode(convertDataToJson)['status'];
+    if (status)
+    {
+      var tag = json.decode(convertDataToJson)['notificationList']; //['data'];
+      print(tag);
       return tag;
     }
   }
@@ -802,7 +827,8 @@ class ApiService
     //     headers: {HttpHeaders.acceptHeader: "application/json"},
     //     body: json.encode({"userId": '$userId'}));
     // print(response.body);
-    var convertDataToJson = '{"status":true,"progressList":[{"domain":"Paint","measure":23},{"domain":"Board","measure":10},{"domain":"Pin","measure":35},{"domain":"Glue","measure":2},{"domain":"Pencil","measure":7}],"total_project":3,"complete_project":1}';//response.body;
+    //var convertDataToJson = '{"status":true,"progressList":[{"domain":"Paint","measure":23},{"domain":"Board","measure":10},{"domain":"Pin","measure":35},{"domain":"Glue","measure":2},{"domain":"Pencil","measure":7}],"total_project":3,"complete_project":1}';//response.body;
+    var convertDataToJson = '{"status":true,"progressList":[{"domain":"Paint","measure":23},{"domain":"Board","measure":10},{"domain":"Pin","measure":35},{"domain":"Glue","measure":2},{"domain":"Pencil","measure":7}],"commentList":[{"domain":"Aesthetic","measure":107},{"domain":"Unique","measure":39},{"domain":"Creative","measure":10},{"domain":"Study","measure":5},{"domain":"interactive","measure":7}],"total_project":3,"complete_project":1}';//response.body;
     var status = json.decode(convertDataToJson)['status'];
     if (status)
     {
