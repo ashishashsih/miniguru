@@ -1,4 +1,5 @@
 import 'package:confetti/confetti.dart';
+import 'package:custom_pin_screen/custom_pin_screen.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +49,53 @@ class HomeView extends GetView<HomeController> {
           child: Row(
             children: [
               InkWell(
-                onTap: () => Get.to(() => const AppProfileView(),
-                    transition: Transition.downToUp),
+                // onTap: () => Get.to(()=> const AppProfileView(),transition: Transition.downToUp),
+                onTap: () {
+                  Get.to(EnterAnimation(PinAuthentication(
+                    pinTheme: PinTheme(
+                        backgroundColor: secondaryColor,
+                        textColor: Colors.black,
+                        keysColor: Colors.black,
+                        activeColor: Colors.black,
+                        inactiveFillColor: Colors.black,
+                        selectedFillColor: Colors.black,
+                        activeFillColor: Colors.black,
+                        borderRadius: BorderRadius.circular(10)
+                    ),
+                    onSpecialKeyTap: ()=> print('Get Finger Print'),
+                    useFingerprint: true,
+                    action: 'Parental Control',
+                    actionDescription: 'Provide us with the your Pin to continue',
+                    onChanged: (val){
+                      homeController.parentalPin.value = int.parse(val);
+                    },
+                    onbuttonClick: (){},
+                    submitLabel: FloatingActionButton.extended(
+                        backgroundColor: Colors.black,
+                        onPressed: (){
+                          if(homeController.parentalPin.value == 1111){
+                            Get.back();
+                            Get.to(()=> const AppProfileView(),transition: Transition.downToUp);
+                          }else {
+                            Get.snackbar(
+                              'Incorrect Pin',
+                              'Pin You Entered Was Incorrect',
+                              colorText: Colors.white,
+                              margin: const EdgeInsets.all(20),
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.black.withOpacity(0.6),
+                            );
+                          }
+                        },
+                        label: Text('SUBMIT',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,letterSpacing: 1),)),
+                  ),
+                  ));
+                },
                 child: const Center(
-                  child: Icon(CupertinoIcons.person_alt_circle, size: 30,),
+                  child: Icon(
+                    CupertinoIcons.person_alt_circle,
+                    size: 30,
+                  ),
                 ),
               ),
               SizedBox(width: size.width * 0.02),
@@ -59,7 +103,10 @@ class HomeView extends GetView<HomeController> {
                 onTap: () => Get.to(() => NotificationView(),
                     transition: Transition.rightToLeftWithFade),
                 child: const Center(
-                  child: Icon(CupertinoIcons.bell, size: 30,),
+                  child: Icon(
+                    CupertinoIcons.bell,
+                    size: 30,
+                  ),
                 ),
               ),
             ],

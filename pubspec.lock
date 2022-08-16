@@ -169,6 +169,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  custom_pin_screen:
+    dependency: "direct main"
+    description:
+      name: custom_pin_screen
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   d_chart:
     dependency: "direct main"
     description:

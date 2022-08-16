@@ -10,6 +10,7 @@ class HomeController extends GetxController {
 
   late ConfettiController coinAnimationController;
   var isAnimate = false;
+  var parentalPin = 1111.obs;
   var isAgeSwitcher = false.obs;
   var isTopicSwitcher = false.obs;
   var isCitySwitcher = false.obs;
