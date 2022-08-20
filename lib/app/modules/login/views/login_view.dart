@@ -14,7 +14,6 @@ class LoginView extends GetView<LoginController> {
   Widget build(BuildContext context) {
     LoginController loginController = Get.put(LoginController());
     final size = MediaQuery.of(context).size;
-
     Widget loginScreen() {
       return Obx(() {
         return loginController.isLoading.value == true
@@ -69,36 +68,6 @@ class LoginView extends GetView<LoginController> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 140),
-                //   child: Row(
-                //     children: const[
-                //       Expanded(child: Divider(thickness: 1,)),
-                //       Text(
-                //         '  OR  ', style: TextStyle(color: Colors.grey),),
-                //       Expanded(child: Divider(thickness: 1,)),
-                //     ],
-                //   ),
-                // ),
-                // SizedBox(height: size.width / 30),
-                // //Facebook & Google SignIn Button
-                // InkWell(
-                //   onTap: () => loginController.googleLogin(),
-                //   child: Column(
-                //     children: [
-                //       Image.asset(
-                //         'images/google.png',
-                //         height: size.width / 7,
-                //         width: size.width / 7,
-                //         fit: BoxFit.cover,
-                //       ),
-                //       const Text(
-                //         'Google', textAlign: TextAlign.center,
-                //         style: TextStyle(fontSize: 10),),
-                //     ],
-                //   ),
-                // ),
-                // SizedBox(height: size.width * 0.1),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: InkWell(
@@ -269,7 +238,6 @@ class LoginView extends GetView<LoginController> {
         ],),
       );
     }
-
     return Scaffold(
       body: Obx(() {
         return SafeArea(
@@ -313,9 +281,7 @@ class AnimatedImage extends StatefulWidget {
   @override
   _AnimatedImageState createState() => _AnimatedImageState();
 }
-
-class _AnimatedImageState extends State<AnimatedImage>
-    with SingleTickerProviderStateMixin {
+class _AnimatedImageState extends State<AnimatedImage> with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 1500),

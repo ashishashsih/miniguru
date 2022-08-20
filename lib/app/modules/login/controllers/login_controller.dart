@@ -41,20 +41,7 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  void googleLogin() async{
-    isLoading.value=true;
-    GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
-     AuthCredential credential = GoogleAuthProvider.credential(
-      idToken: googleAuth.idToken,
-      accessToken: googleAuth.accessToken,
-    );
-    await firebaseAuth.signInWithCredential(credential);
-    Get.toNamed('/profile-page', arguments: firebaseAuth.currentUser);
-    isLoading.value=false;
-  }
-
-  //Phone Number Login
+  //region Phone Number Login
   signInPhoneNumber({required String myPhoneNumber}) async {
     if(myPhoneNumber.length != 10){
       Get.snackbar(
@@ -90,10 +77,10 @@ class LoginController extends GetxController {
     }
 
   }
+  //endregion
 
-  //OTP Verification
-  myCredentials(String verId, String userId) async
-  {
+  //region OTP Verification
+  myCredentials(String verId, String userId) async{
     final prefs = await SharedPreferences.getInstance();
     AuthCredential authCredential = PhoneAuthProvider.credential(verificationId: verId, smsCode: userId);
     firebaseAuth.signInWithCredential(authCredential).then((UserCredential){
@@ -107,4 +94,5 @@ class LoginController extends GetxController {
     });
 
   }
+  //endregion
 }
